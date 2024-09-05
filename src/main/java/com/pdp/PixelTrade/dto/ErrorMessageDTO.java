@@ -16,8 +16,9 @@ public record ErrorMessageDTO(
         LocalDateTime timestamp)
         implements DTO {
 
-    public static ErrorMessageDTO of(String code, String message, String path, String details) {
-        return new ErrorMessageDTO(code, message, path, details, LocalDateTime.now(ZoneId.of("Asia/Tashkent")));
+    public static ErrorMessageDTO of(String code, String message, String path) {
+        return new ErrorMessageDTO(code, message, path, "Contact support for more details.",
+                LocalDateTime.now(ZoneId.of("Asia/Tashkent")));
     }
 
     public String getTimestamp() {

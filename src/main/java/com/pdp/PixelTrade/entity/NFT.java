@@ -2,7 +2,6 @@ package com.pdp.PixelTrade.entity;
 
 import com.pdp.PixelTrade.enums.Category;
 import com.pdp.PixelTrade.enums.CryptoType;
-import com.pdp.PixelTrade.enums.MediaType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
@@ -37,10 +36,6 @@ public class NFT extends Auditable {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "image_id", referencedColumnName = "id")
     private Upload image;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private MediaType mediaType;
 
     @Column(name = "token_id", unique = true)
     private String tokenId;

@@ -2,7 +2,6 @@ package com.pdp.PixelTrade.config.handler;
 
 import com.pdp.PixelTrade.dto.ErrorMessageDTO;
 import com.pdp.PixelTrade.exception.ResourceNotFoundException;
-import com.pdp.PixelTrade.utils.ExceptionUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,21 +22,17 @@ public class GlobalExceptionHandler {
     @Value("${app.log}")
     private boolean LOG_MODE;
 
-    @Value("${app.debug}")
-    private boolean DEBUG_MODE;
-
     @ExceptionHandler(ResourceNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<ErrorMessageDTO> handleResourceNotFoundException(ResourceNotFoundException ex, HttpServletRequest request) {
-        log(ex, request);
-        ErrorMessageDTO errorMessage = ErrorMessageDTO.of("RESOURCE_NOT_FOUND", ex.getMessage(), request.getRequestURI(),
-                ExceptionUtils.getExceptionDetails(ex, DEBUG_MODE));
+        logException(ex, request);
+        ErrorMessageDTO errorMessage = ErrorMessageDTO.of("RESOURCE_NOT_FOUND", ex.getMessage(), request.getRequestURI());
         return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
     }
 
-    private void log(Exception ex, HttpServletRequest request) {
+    private void logException(Exception ex, HttpServletRequest request) {
         if (LOG_MODE) {
-            log.error("Exception occurred at URI: [{}] MESSAGE: {}, DETAILS: {}", request.getRequestURI(), ex.getMessage(), ex.getLocalizedMessage(), ex);
+            log.error("Exception occurred at URI: [{}] MESSAGE: {}", request.getRequestURI(), ex.getMessage());
         }
     }
 }
