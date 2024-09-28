@@ -32,9 +32,6 @@ public class User extends Auditable {
     @Column(name = "wallet_address")
     private String walletAddress;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "profile_picture_id", referencedColumnName = "id")
-    private Upload profilePicture;
 
     @Builder.Default
     @Column(name = "is_active")
@@ -47,6 +44,10 @@ public class User extends Auditable {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "profile_picture_id", referencedColumnName = "id")
+    private Upload profilePicture;
 
     @OneToMany(mappedBy = "buyer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Transaction> transactions;
