@@ -1,6 +1,5 @@
 package com.pdp.PixelTrade.repository;
 
-import com.pdp.PixelTrade.entity.Card;
 import com.pdp.PixelTrade.enums.CardType;
 import org.springframework.data.jpa.repository.JpaRepository;
 

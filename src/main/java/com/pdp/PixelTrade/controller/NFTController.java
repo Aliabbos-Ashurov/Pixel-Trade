@@ -1,6 +1,5 @@
 package com.pdp.PixelTrade.controller;
 
-import com.pdp.PixelTrade.entity.NFT;
 import com.pdp.PixelTrade.exception.ResourceNotFoundException;
 import com.pdp.PixelTrade.repository.NFTRepository;
 import lombok.AllArgsConstructor;

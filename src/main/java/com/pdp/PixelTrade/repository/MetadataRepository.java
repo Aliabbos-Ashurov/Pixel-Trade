@@ -1,6 +1,5 @@
 package com.pdp.PixelTrade.repository;
 
-import com.pdp.PixelTrade.entity.Metadata;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
