@@ -2,7 +2,11 @@ package com.pdp.PixelTrade.entity.transactions;
 
 import com.pdp.CryptoType;
 import com.pdp.PixelTrade.entity.Auditable;
+import com.pdp.PixelTrade.entity.User;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,17 +27,25 @@ import java.math.BigDecimal;
 @Entity
 public class P2PMarket extends Auditable {
 
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
+    @NotNull
+    @DecimalMin("0.0")
     private BigDecimal amount;
 
+    @NotNull
+    @Enumerated(EnumType.STRING)
     @Column(name = "crypto_type")
     private CryptoType cryptoType;
 
+    @NotNull
+    @DecimalMin("0.0")
     private BigDecimal perPrice;
 
+    @Size(max = 500)
     @Column(name = "description")
     private String description;
 }
