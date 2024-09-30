@@ -7,6 +7,6 @@ package com.pdp.PixelTrade.enums;
 public enum CardType {
     VISA,
     MASTERCARD,
-    AMERICAN_EXPRESS,
-    DISCOVER
+    UZCARD,
+    HUMO;
 }

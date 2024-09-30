@@ -37,9 +37,6 @@ public class User extends Auditable {
     @Column(nullable = false)
     private String password;
 
-    @Column(name = "wallet_address")
-    private String walletAddress;
-
     @Builder.Default
     @Column(name = "is_active")
     private boolean isActive = false;
