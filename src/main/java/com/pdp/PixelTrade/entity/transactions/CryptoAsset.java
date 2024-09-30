@@ -1,15 +1,12 @@
 package com.pdp.PixelTrade.entity.transactions;
 
-import com.pdp.CryptoType;
 import com.pdp.PixelTrade.entity.Auditable;
+import com.pdp.PixelTrade.enums.CryptoType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
@@ -36,15 +33,16 @@ public class CryptoAsset extends Auditable {
     @Column(name = "crypto_type")
     private CryptoType cryptoType;
 
-    @NotNull
     @DecimalMin("0.0")
+    @Column(nullable = false, precision = 38, scale = 10)
     private BigDecimal amount;
 
     @Size(max = 100)
     private String address;
 
+    @Builder.Default
     @Column(name = "is_locked")
-    private boolean isLocked;
+    private boolean isLocked = false;
 
     @Size(max = 255)
     @Column(name = "locked_reason")

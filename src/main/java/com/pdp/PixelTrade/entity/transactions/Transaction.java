@@ -5,7 +5,6 @@ import com.pdp.PixelTrade.enums.TransactionStatus;
 import com.pdp.PixelTrade.enums.TransactionType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -40,13 +39,14 @@ public class Transaction extends BaseEntity {
     @Column(name = "transaction_type", nullable = false)
     private TransactionType transactionType;
 
-    @NotNull
     @PositiveOrZero
     @DecimalMin("0.0")
+    @Column(nullable = false, precision = 38, scale = 10)
     private BigDecimal amount;
 
     @PositiveOrZero
     @DecimalMin("0.0")
+    @Column(nullable = false, precision = 38, scale = 10)
     private BigDecimal fee = BigDecimal.ZERO;
 
     @Enumerated(EnumType.STRING)

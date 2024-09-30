@@ -4,7 +4,6 @@ import com.pdp.PixelTrade.entity.BaseEntity;
 import com.pdp.PixelTrade.enums.TransactionType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +11,6 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 /**
  * @author Aliabbos Ashurov
@@ -34,10 +32,12 @@ public class WalletHistory extends BaseEntity {
     @Column(name = "transaction_type", nullable = false)
     private TransactionType transactionType;
 
-    @NotNull
     @DecimalMin("0.0")
+    @Column(nullable = false, precision = 38, scale = 10)
     private BigDecimal amount;
 
+    @DecimalMin("0.0")
+    @Column(nullable = false, precision = 38, scale = 10)
     private BigDecimal balanceAfterTransaction;
 
     @Column(name = "description")

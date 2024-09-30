@@ -1,6 +1,5 @@
 package com.pdp.PixelTrade.enums;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

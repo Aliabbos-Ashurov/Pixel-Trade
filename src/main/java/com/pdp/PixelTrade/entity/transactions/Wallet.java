@@ -4,6 +4,7 @@ import com.pdp.PixelTrade.entity.Auditable;
 import com.pdp.PixelTrade.entity.User;
 import com.pdp.PixelTrade.enums.CurrencyType;
 import com.pdp.PixelTrade.enums.IdentificationLevel;
+import com.pdp.PixelTrade.util.WalletAddressGenerator;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
@@ -28,7 +29,7 @@ import java.util.List;
 public class Wallet extends Auditable {
 
     @DecimalMin(value = "0.0", inclusive = false, message = "Balance must be positive")
-    @Column(nullable = false)
+    @Column(nullable = false, precision = 38, scale = 10)
     private BigDecimal balance;
 
     @Enumerated(EnumType.STRING)
@@ -37,8 +38,8 @@ public class Wallet extends Auditable {
 
     @NotBlank
     @Size(max = 100, message = "Address must not exceed 100 characters")
-    @Column(nullable = false, unique = true)
-    private String address;
+    @Column(nullable = false, unique = true, updatable = false)
+    private String address = WalletAddressGenerator.generate();
 
     @Pattern(regexp = "\\d{4}|\\d{6}", message = "Password must be 4 or 6 digits")
     @Column(nullable = false)

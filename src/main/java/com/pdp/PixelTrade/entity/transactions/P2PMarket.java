@@ -1,8 +1,8 @@
 package com.pdp.PixelTrade.entity.transactions;
 
-import com.pdp.CryptoType;
 import com.pdp.PixelTrade.entity.Auditable;
 import com.pdp.PixelTrade.entity.User;
+import com.pdp.PixelTrade.enums.CryptoType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
@@ -34,6 +34,7 @@ public class P2PMarket extends Auditable {
 
     @NotNull
     @DecimalMin("0.0")
+    @Column(nullable = false, precision = 38, scale = 10)
     private BigDecimal amount;
 
     @NotNull
@@ -43,6 +44,7 @@ public class P2PMarket extends Auditable {
 
     @NotNull
     @DecimalMin("0.0")
+    @Column(nullable = false, precision = 38, scale = 10)
     private BigDecimal perPrice;
 
     @Size(max = 500)
