@@ -1,4 +1,4 @@
-package com.pdp.PixelTrade.exception;
+package com.pdp.PixelTrade.handler.exception;
 
 import lombok.Getter;
 
