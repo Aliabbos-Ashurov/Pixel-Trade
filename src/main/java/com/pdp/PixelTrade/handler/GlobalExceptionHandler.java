@@ -1,7 +1,24 @@
 package com.pdp.PixelTrade.handler;
 
 import com.pdp.PixelTrade.dto.ErrorMessageDTO;
-import com.pdp.PixelTrade.handler.exception.ResourceNotFoundException;
+import com.pdp.PixelTrade.handler.exceptions.ResourceNotFoundException;
+import com.pdp.PixelTrade.handler.exceptions.UserAlreadyExistsException;
+import com.pdp.PixelTrade.handler.exceptions.UserNotFoundException;
+import com.pdp.PixelTrade.handler.exceptions.crypto.CryptoOperationException;
+import com.pdp.PixelTrade.handler.exceptions.crypto.DecryptionException;
+import com.pdp.PixelTrade.handler.exceptions.crypto.EncryptionException;
+import com.pdp.PixelTrade.handler.exceptions.network.ApiCallFailedException;
+import com.pdp.PixelTrade.handler.exceptions.network.ConnectionTimeoutException;
+import com.pdp.PixelTrade.handler.exceptions.notification.NotificationException;
+import com.pdp.PixelTrade.handler.exceptions.p2p.P2PMarketNotFoundException;
+import com.pdp.PixelTrade.handler.exceptions.payment.InvalidPaymentDetailsException;
+import com.pdp.PixelTrade.handler.exceptions.payment.PaymentMethodNotSupportedException;
+import com.pdp.PixelTrade.handler.exceptions.security.SessionExpiredException;
+import com.pdp.PixelTrade.handler.exceptions.security.TokenExpiredException;
+import com.pdp.PixelTrade.handler.exceptions.security.UnauthorizedAccessException;
+import com.pdp.PixelTrade.handler.exceptions.transaction.*;
+import com.pdp.PixelTrade.handler.exceptions.validation.InvalidDataException;
+import com.pdp.PixelTrade.handler.exceptions.validation.InvalidInputFormatException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,6 +40,7 @@ public class GlobalExceptionHandler {
     @Value("${app.log}")
     private boolean LOG_MODE;
 
+    // NOTE: Package: main
     @ExceptionHandler(ResourceNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<ErrorMessageDTO> handleResourceNotFoundException(ResourceNotFoundException ex, HttpServletRequest request) {
@@ -31,6 +49,181 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(UserAlreadyExistsException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ResponseEntity<ErrorMessageDTO> handleUserAlreadyExistsException(UserAlreadyExistsException ex, HttpServletRequest request) {
+        logException(ex, request);
+        ErrorMessageDTO errorMessage = ErrorMessageDTO.of("USER_ALREADY_EXISTS", ex.getMessage(), request.getRequestURI());
+        return new ResponseEntity<>(errorMessage, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<ErrorMessageDTO> handleUserNotFoundException(UserNotFoundException ex, HttpServletRequest request) {
+        logException(ex, request);
+        ErrorMessageDTO errorMessage = ErrorMessageDTO.of("USER_NOT_FOUND", ex.getMessage(), request.getRequestURI());
+        return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
+    }
+
+
+    // NOTE: Package: crypto
+    @ExceptionHandler(CryptoOperationException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ResponseEntity<ErrorMessageDTO> handleCryptoOperationException(CryptoOperationException ex, HttpServletRequest request) {
+        logException(ex, request);
+        ErrorMessageDTO errorMessage = ErrorMessageDTO.of("CRYPTO_OPERATION_ERROR", ex.getMessage(), request.getRequestURI());
+        return new ResponseEntity<>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(DecryptionException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ResponseEntity<ErrorMessageDTO> handleDecryptionException(DecryptionException ex, HttpServletRequest request) {
+        logException(ex, request);
+        ErrorMessageDTO errorMessage = ErrorMessageDTO.of("DECRYPTION_ERROR", ex.getMessage(), request.getRequestURI());
+        return new ResponseEntity<>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(EncryptionException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ResponseEntity<ErrorMessageDTO> handleEncryptionException(EncryptionException ex, HttpServletRequest request) {
+        logException(ex, request);
+        ErrorMessageDTO errorMessage = ErrorMessageDTO.of("ENCRYPTION_ERROR", ex.getMessage(), request.getRequestURI());
+        return new ResponseEntity<>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    // NOTE: Package: p2p
+    @ExceptionHandler(P2PMarketNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<ErrorMessageDTO> handleP2PMarketNotFoundException(P2PMarketNotFoundException ex, HttpServletRequest request) {
+        logException(ex, request);
+        ErrorMessageDTO errorMessage = ErrorMessageDTO.of("P2P_MARKET_NOT_FOUND", ex.getMessage(), request.getRequestURI());
+        return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
+    }
+
+
+    // NOTE: Package: network
+    @ExceptionHandler(ApiCallFailedException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ResponseEntity<ErrorMessageDTO> handleApiCallFailedException(ApiCallFailedException ex, HttpServletRequest request) {
+        logException(ex, request);
+        ErrorMessageDTO errorMessage = ErrorMessageDTO.of("API_CALL_FAILED", ex.getMessage(), request.getRequestURI());
+        return new ResponseEntity<>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(ConnectionTimeoutException.class)
+    @ResponseStatus(HttpStatus.REQUEST_TIMEOUT)
+    public ResponseEntity<ErrorMessageDTO> handleConnectionTimeoutException(ConnectionTimeoutException ex, HttpServletRequest request) {
+        logException(ex, request);
+        ErrorMessageDTO errorMessage = ErrorMessageDTO.of("CONNECTION_TIMEOUT", ex.getMessage(), request.getRequestURI());
+        return new ResponseEntity<>(errorMessage, HttpStatus.REQUEST_TIMEOUT);
+    }
+
+
+    // NOTE: Package: notification
+    @ExceptionHandler(NotificationException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ResponseEntity<ErrorMessageDTO> handleNotificationException(NotificationException ex, HttpServletRequest request) {
+        logException(ex, request);
+        ErrorMessageDTO errorMessage = ErrorMessageDTO.of("NOTIFICATION_ERROR", ex.getMessage(), request.getRequestURI());
+        return new ResponseEntity<>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+
+    // NOTE: Package: payment
+    @ExceptionHandler(InvalidPaymentDetailsException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ErrorMessageDTO> handleInvalidPaymentDetailsException(InvalidPaymentDetailsException ex, HttpServletRequest request) {
+        logException(ex, request);
+        ErrorMessageDTO errorMessage = ErrorMessageDTO.of("INVALID_PAYMENT_DETAILS", ex.getMessage(), request.getRequestURI());
+        return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(PaymentMethodNotSupportedException.class)
+    @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
+    public ResponseEntity<ErrorMessageDTO> handlePaymentMethodNotSupportedException(PaymentMethodNotSupportedException ex, HttpServletRequest request) {
+        logException(ex, request);
+        ErrorMessageDTO errorMessage = ErrorMessageDTO.of("PAYMENT_METHOD_NOT_SUPPORTED", ex.getMessage(), request.getRequestURI());
+        return new ResponseEntity<>(errorMessage, HttpStatus.NOT_IMPLEMENTED);
+    }
+
+
+    // NOTE: Package: security
+    @ExceptionHandler(SessionExpiredException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ResponseEntity<ErrorMessageDTO> handleSessionExpiredException(SessionExpiredException ex, HttpServletRequest request) {
+        logException(ex, request);
+        ErrorMessageDTO errorMessage = ErrorMessageDTO.of("SESSION_EXPIRED", ex.getMessage(), request.getRequestURI());
+        return new ResponseEntity<>(errorMessage, HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(TokenExpiredException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ResponseEntity<ErrorMessageDTO> handleTokenExpiredException(TokenExpiredException ex, HttpServletRequest request) {
+        logException(ex, request);
+        ErrorMessageDTO errorMessage = ErrorMessageDTO.of("TOKEN_EXPIRED", ex.getMessage(), request.getRequestURI());
+        return new ResponseEntity<>(errorMessage, HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(UnauthorizedAccessException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ResponseEntity<ErrorMessageDTO> handleUnauthorizedAccessException(UnauthorizedAccessException ex, HttpServletRequest request) {
+        logException(ex, request);
+        ErrorMessageDTO errorMessage = ErrorMessageDTO.of("UNAUTHORIZED_ACCESS", ex.getMessage(), request.getRequestURI());
+        return new ResponseEntity<>(errorMessage, HttpStatus.FORBIDDEN);
+    }
+
+
+    // NOTE: Package: transaction
+    @ExceptionHandler(CryptoTransactionException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ResponseEntity<ErrorMessageDTO> handleCryptoTransactionException(CryptoTransactionException ex, HttpServletRequest request) {
+        logException(ex, request);
+        ErrorMessageDTO errorMessage = ErrorMessageDTO.of("CRYPTO_TRANSACTION_ERROR", ex.getMessage(), request.getRequestURI());
+        return new ResponseEntity<>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(InsufficientBalanceException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ErrorMessageDTO> handleInsufficientBalanceException(InsufficientBalanceException ex, HttpServletRequest request) {
+        logException(ex, request);
+        ErrorMessageDTO errorMessage = ErrorMessageDTO.of("INSUFFICIENT_BALANCE", ex.getMessage(), request.getRequestURI());
+        return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(TransactionAlreadyProcessedException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ResponseEntity<ErrorMessageDTO> handleTransactionAlreadyProcessedException(TransactionAlreadyProcessedException ex, HttpServletRequest request) {
+        logException(ex, request);
+        ErrorMessageDTO errorMessage = ErrorMessageDTO.of("TRANSACTION_ALREADY_PROCESSED", ex.getMessage(), request.getRequestURI());
+        return new ResponseEntity<>(errorMessage, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(TransactionFailedException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ResponseEntity<ErrorMessageDTO> handleTransactionFailedException(TransactionFailedException ex, HttpServletRequest request) {
+        logException(ex, request);
+        ErrorMessageDTO errorMessage = ErrorMessageDTO.of("TRANSACTION_FAILED", ex.getMessage(), request.getRequestURI());
+        return new ResponseEntity<>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(TransactionLimitExceededException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ErrorMessageDTO> handleTransactionLimitExceededException(TransactionLimitExceededException ex, HttpServletRequest request) {
+        logException(ex, request);
+        ErrorMessageDTO errorMessage = ErrorMessageDTO.of("TRANSACTION_LIMIT_EXCEEDED", ex.getMessage(), request.getRequestURI());
+        return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+    }
+
+
+    @ExceptionHandler(WalletNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<ErrorMessageDTO> handleWalletNotFoundException(WalletNotFoundException ex, HttpServletRequest request) {
+        logException(ex, request);
+        ErrorMessageDTO errorMessage = ErrorMessageDTO.of("WALLET_NOT_FOUND", ex.getMessage(), request.getRequestURI());
+        return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
+    }
+
+    // NOTE: Package: validation
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<ErrorMessageDTO> handleValidationExceptions(MethodArgumentNotValidException ex, HttpServletRequest request) {
@@ -38,6 +231,23 @@ public class GlobalExceptionHandler {
         ErrorMessageDTO errorMessage = ErrorMessageDTO.of("VALIDATION_EXCEPTION", ex.getMessage(), request.getRequestURI());
         return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(InvalidDataException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ErrorMessageDTO> handleInvalidDataException(InvalidDataException ex, HttpServletRequest request) {
+        logException(ex, request);
+        ErrorMessageDTO errorMessage = ErrorMessageDTO.of("INVALID_DATA", ex.getMessage(), request.getRequestURI());
+        return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(InvalidInputFormatException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ErrorMessageDTO> handleInvalidInputFormatException(InvalidInputFormatException ex, HttpServletRequest request) {
+        logException(ex, request);
+        ErrorMessageDTO errorMessage = ErrorMessageDTO.of("INVALID_INPUT_FORMAT", ex.getMessage(), request.getRequestURI());
+        return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+    }
+
 
     private void logException(Exception ex, HttpServletRequest request) {
         if (LOG_MODE) {
