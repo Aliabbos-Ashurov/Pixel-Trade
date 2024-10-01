@@ -2,7 +2,6 @@ package com.pdp.PixelTrade.annotation;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import org.hibernate.mapping.Constraint;
 
 /**
  * @author Aliabbos Ashurov
