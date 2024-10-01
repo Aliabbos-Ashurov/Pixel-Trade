@@ -36,7 +36,7 @@ public class WalletHistory extends BaseEntity {
     @Column(nullable = false, precision = 38, scale = 10, updatable = false)
     private BigDecimal amount;
 
-    @Column(name = "description", updatable = false)
+    @Column(updatable = false)
     private String description;
 
     @ManyToOne(fetch = FetchType.LAZY)
