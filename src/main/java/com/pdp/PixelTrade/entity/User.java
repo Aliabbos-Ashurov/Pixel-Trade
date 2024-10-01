@@ -6,7 +6,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -29,13 +28,16 @@ public class User extends Auditable {
 
     @Email
     @NotBlank
-    @Size(max = 100)
-    @Column(nullable = false, unique = true)
+    @Column(unique = true)
     private String email;
 
     @NotBlank
     @Column(nullable = false)
     private String password;
+
+    @NotBlank
+    @Column(name = "phone_number", nullable = false, unique = true)
+    private String phoneNumber;
 
     @Builder.Default
     @Column(name = "is_active")

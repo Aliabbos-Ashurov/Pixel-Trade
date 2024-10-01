@@ -25,25 +25,21 @@ import java.math.BigDecimal;
 public class WalletHistory extends BaseEntity {
 
     @ManyToOne
-    @JoinColumn(name = "wallet_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "wallet_id", referencedColumnName = "id", nullable = false, updatable = false)
     private Wallet wallet;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "transaction_type", nullable = false)
+    @Column(name = "transaction_type", nullable = false, updatable = false)
     private TransactionType transactionType;
 
     @DecimalMin("0.0")
-    @Column(nullable = false, precision = 38, scale = 10)
+    @Column(nullable = false, precision = 38, scale = 10, updatable = false)
     private BigDecimal amount;
 
-    @DecimalMin("0.0")
-    @Column(nullable = false, precision = 38, scale = 10)
-    private BigDecimal balanceAfterTransaction;
-
-    @Column(name = "description")
+    @Column(name = "description", updatable = false)
     private String description;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "transaction_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "transaction_id", referencedColumnName = "id", nullable = false, updatable = false)
     private Transaction transaction;
 }

@@ -2,11 +2,11 @@ package com.pdp.PixelTrade.entity.transactions;
 
 import com.pdp.PixelTrade.entity.Auditable;
 import com.pdp.PixelTrade.entity.User;
+import com.pdp.PixelTrade.enums.CardType;
 import com.pdp.PixelTrade.enums.CryptoType;
+import com.pdp.PixelTrade.enums.CurrencyType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,27 +27,31 @@ import java.math.BigDecimal;
 @Entity
 public class P2PMarket extends Auditable {
 
-    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private User user;
 
-    @NotNull
     @DecimalMin("0.0")
     @Column(nullable = false, precision = 38, scale = 10)
-    private BigDecimal amount;
+    private BigDecimal perPrice;                               // 74.000
 
-    @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "crypto_type")
-    private CryptoType cryptoType;
+    @Column(name = "currency_type", nullable = false)
+    private CurrencyType currencyType;                        // UZS
 
-    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "crypto_type", nullable = false)
+    private CryptoType cryptoType;                            // TON
+
     @DecimalMin("0.0")
     @Column(nullable = false, precision = 38, scale = 10)
-    private BigDecimal perPrice;
+    private BigDecimal amount;                                // available balance   100 TON
 
-    @Size(max = 500)
-    @Column(name = "description")
+
+    @Enumerated(EnumType.STRING)
+    private CardType cardType;                               // HUMO ,  WALLET
+
+
+    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 }

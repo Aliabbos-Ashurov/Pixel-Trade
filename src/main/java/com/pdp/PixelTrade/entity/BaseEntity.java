@@ -28,7 +28,11 @@ public class BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT NOW()")
+    @Column(name = "created_at", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT NOW()")
     @CreatedDate
     private LocalDateTime createdAt;
+
+    @Column(name = "deleted", nullable = false)
+    // @Convert(converter = org.hibernate.type.NumericBooleanConverter.class)
+    private boolean deleted = false;
 }

@@ -1,5 +1,6 @@
 package com.pdp.PixelTrade.entity.transactions;
 
+import com.pdp.PixelTrade.annotation.ValidWallet;
 import com.pdp.PixelTrade.entity.Auditable;
 import com.pdp.PixelTrade.entity.User;
 import com.pdp.PixelTrade.enums.CurrencyType;
@@ -9,7 +10,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -32,12 +32,13 @@ public class Wallet extends Auditable {
     @Column(nullable = false, precision = 38, scale = 10)
     private BigDecimal balance;
 
+    @Builder.Default
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private CurrencyType currency;
+    private CurrencyType currency = CurrencyType.USD;
 
+    @ValidWallet
     @NotBlank
-    @Size(max = 100, message = "Address must not exceed 100 characters")
     @Column(nullable = false, unique = true, updatable = false)
     private String address = WalletAddressGenerator.generate();
 
@@ -58,11 +59,11 @@ public class Wallet extends Auditable {
     private boolean notificationsEnabled = true;
 
     @DecimalMin(value = "0.0", message = "Max withdrawal limit must be non-negative")
-    @Column(name = "max_withdrawal_limit", nullable = false)
+    @Column(name = "max_withdrawal_limit")
     private BigDecimal maxWithdrawalLimit = BigDecimal.ZERO;
 
     @DecimalMin(value = "0.0", message = "Min withdrawal limit must be non-negative")
-    @Column(name = "min_withdrawal_limit", nullable = false)
+    @Column(name = "min_withdrawal_limit")
     private BigDecimal minWithdrawalLimit = BigDecimal.ZERO;
 
     @OneToMany(mappedBy = "wallet", cascade = CascadeType.ALL)

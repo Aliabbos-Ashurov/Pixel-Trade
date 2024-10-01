@@ -28,18 +28,17 @@ import java.math.BigDecimal;
 public class Transaction extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "from_wallet_id", nullable = false, referencedColumnName = "id")
+    @JoinColumn(name = "from_wallet_id", nullable = false, updatable = false, referencedColumnName = "id")
     private Wallet fromWallet;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "to_wallet_id", nullable = false, referencedColumnName = "id")
+    @JoinColumn(name = "to_wallet_id", nullable = false, updatable = false, referencedColumnName = "id")
     private Wallet toWallet;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "transaction_type", nullable = false)
+    @Column(name = "transaction_type", nullable = false, updatable = false)
     private TransactionType transactionType;
 
-    @PositiveOrZero
     @DecimalMin("0.0")
     @Column(nullable = false, precision = 38, scale = 10)
     private BigDecimal amount;
@@ -52,6 +51,10 @@ public class Transaction extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "transaction_status", nullable = false)
     private TransactionStatus transactionStatus = TransactionStatus.PENDING;
+
+
+    @Column(name = "qrcode_url", updatable = false)
+    private String qrCodeURL;
 
     @Column(name = "error_message")
     private String errorMessage;
