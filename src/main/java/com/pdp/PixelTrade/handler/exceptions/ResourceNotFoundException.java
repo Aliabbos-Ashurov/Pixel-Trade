@@ -1,8 +1,9 @@
-package com.pdp.PixelTrade.handler.exception;
+package com.pdp.PixelTrade.handler.exceptions;
 
 import lombok.Getter;
 
 import java.io.Serial;
+import java.text.MessageFormat;
 
 /**
  * @author Aliabbos Ashurov
@@ -10,10 +11,11 @@ import java.io.Serial;
  **/
 @Getter
 public class ResourceNotFoundException extends RuntimeException {
+
     @Serial
     private static final long serialVersionUID = 1L;
 
-    public ResourceNotFoundException(String message) {
-        super(message);
+    public ResourceNotFoundException(String message, Object... args) {
+        super(MessageFormat.format(message, args));
     }
 }
