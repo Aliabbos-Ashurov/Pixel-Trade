@@ -2,8 +2,11 @@ package com.pdp.PixelTrade.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static com.pdp.PixelTrade.enums.Permission.*;
 
@@ -45,5 +48,14 @@ public enum Role {
     ));
 
     private final Set<Permission> permissions;
+
+    public List<SimpleGrantedAuthority> getAuthorities() {
+        var authorities = getPermissions()
+                .stream()
+                .map(permission -> new SimpleGrantedAuthority(permission.getAccess()))
+                .collect(Collectors.toList());
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + this.name()));
+        return authorities;
+    }
 }
 
