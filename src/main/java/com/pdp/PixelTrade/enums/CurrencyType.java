@@ -11,11 +11,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum CurrencyType {
 
-    USD("US Dollar"),
-    EUR("Euro"),
-    JPY("Japanese Yen"),
-    CNY("Chinese Yuan"),
-    UZS("Uzbekistan som");
+    USD("USD"),
+    EUR("EUR"),
+    JPY("JPY"),
+    CNY("CNY"),
+    UZS("UZS");
 
     private final String name;
 }

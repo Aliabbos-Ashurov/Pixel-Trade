@@ -8,5 +8,6 @@ public enum CardType {
     VISA,
     MASTERCARD,
     UZCARD,
-    HUMO;
+    HUMO,
+    WALLET
 }

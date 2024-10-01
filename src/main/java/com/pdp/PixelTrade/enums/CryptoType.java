@@ -1,5 +1,6 @@
 package com.pdp.PixelTrade.enums;
 
+import com.pdp.PixelTrade.util.CryptoUtils;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -11,17 +12,26 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum CryptoType {
 
-    ETH("Ethereum"),
-    BITCOIN("Bitcoin"),
-    TON("Ton"),
-    NOT("Notcoin"),
-    HMSTR("Hamster"),
-    DOGS("Dogs"),
-    SOLANA("Solana"),
-    ADA("Cardano"),
-    DOT("Polkadot"),
-    BNB("Binance Coin"),
-    DOGE("Dogecoin");
+    ETH("ETH", "Ethereum"),
+    BITCOIN("BITCOIN", "Bitcoin"),
+    TON("TON", "Ton"),
+    NOT("NOT", "Notcoin"),
+    HMSTR("HMSTR", "Hamster"),
+    DOGS("DOGS", "Dogs"),
+    SOLANA("SOLANA", "Solana"),
+    ADA("ADA", "Cardano"),
+    DOT("DOT", "Polkadot"),
+    BNB("BNB", "Binance Coin"),
+    DOGE("DOGE", "Dogecoin");
 
+    private final String code;
     private final String value;
+    private String encrypt;
+
+    public String getEncrypt() {
+        if (encrypt == null) {
+            encrypt = CryptoUtils.encrypt(code);
+        }
+        return encrypt;
+    }
 }
