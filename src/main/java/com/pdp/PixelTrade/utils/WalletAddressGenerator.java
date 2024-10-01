@@ -1,4 +1,4 @@
-package com.pdp.PixelTrade.util;
+package com.pdp.PixelTrade.utils;
 
 import lombok.experimental.UtilityClass;
 

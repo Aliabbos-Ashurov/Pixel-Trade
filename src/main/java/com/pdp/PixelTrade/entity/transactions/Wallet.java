@@ -5,7 +5,7 @@ import com.pdp.PixelTrade.entity.Auditable;
 import com.pdp.PixelTrade.entity.User;
 import com.pdp.PixelTrade.enums.CurrencyType;
 import com.pdp.PixelTrade.enums.IdentificationLevel;
-import com.pdp.PixelTrade.util.WalletAddressGenerator;
+import com.pdp.PixelTrade.utils.WalletAddressGenerator;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;

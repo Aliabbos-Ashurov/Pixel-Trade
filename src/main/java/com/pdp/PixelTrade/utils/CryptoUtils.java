@@ -1,4 +1,4 @@
-package com.pdp.PixelTrade.util;
+package com.pdp.PixelTrade.utils;
 
 import com.pdp.PixelTrade.dto.util.DecryptedDataDTO;
 import com.pdp.PixelTrade.enums.CryptoType;
