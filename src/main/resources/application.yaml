@@ -1,3 +1,4 @@
+# Common application configuration
 spring:
   application:
     name: PixelTrade
@@ -22,6 +23,11 @@ spring:
         starttls:
           enable: true
 
+logging:
+  level:
+    org.zalando.logbook: trace
+
+# Production-specific configuration
 ---
 spring:
   config:
@@ -34,7 +40,7 @@ spring:
         max-size: 100
         keep-alive: 60s
         queue-capacity: 500
-      thread-name-prefix: prod
+      thread-name-prefix: prod-
   datasource:
     url: jdbc:postgresql://localhost:5432/pixeltrade
     driver-class-name: org.postgresql.Driver
@@ -46,30 +52,5 @@ spring:
 server:
   port: 8080
 app:
-  log: true    # GLOBAL LOGGING
----
-spring:
-  config:
-    activate:
-      on-profile: test
-  task:
-    execution:
-      pool:
-        core-size: 5
-        max-size: 10
-        keep-alive: 10s
-        queue-capacity: 30
-      thread-name-prefix: test-
-  datasource:
-    url: jdbc:h2:mem:testdb
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
-server:
-  port: 9090
-app:
-  log: true    # GLOBAL LOGGING
+  log: true  # GLOBAL LOGGING
+
