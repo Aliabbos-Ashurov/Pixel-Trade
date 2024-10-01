@@ -12,20 +12,11 @@ spring:
       hibernate:
         format_sql: true
     open-in-view: false
-  mail:
-    host: sandbox.smtp.mailtrap.io
-    port: 587
-    username: 2c931fe2fc5a6a
-    password: b4b4f8dabf1183
-    properties:
-      smtp:
-        auth: true
-        starttls:
-          enable: true
-
-logging:
-  level:
-    org.zalando.logbook: trace
+token:
+  expiration:
+    access: 86400000    # 24 hours
+    refresh: 604800000  # 7 days
+  secret-key: vpwGiG8Hh659YkRNBnBZXW1a6pRWSfLBKyd4f4MigA8
 
 # Production-specific configuration
 ---
@@ -53,4 +44,17 @@ server:
   port: 8080
 app:
   log: true  # GLOBAL LOGGING
+
+
+
+#  mail:
+#    host: sandbox.smtp.mailtrap.io
+#    port: 587
+#    username: 2c931fe2fc5a6a
+#    password: b4b4f8dabf1183
+#    properties:
+#      smtp:
+#        auth: true
+#        starttls:
+#          enable: true
 
