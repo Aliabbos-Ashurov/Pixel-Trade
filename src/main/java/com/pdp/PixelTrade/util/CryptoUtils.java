@@ -2,9 +2,9 @@ package com.pdp.PixelTrade.util;
 
 import com.pdp.PixelTrade.dto.util.DecryptedDataDTO;
 import com.pdp.PixelTrade.enums.CryptoType;
-import com.pdp.PixelTrade.handler.exceptions.crypto.DecryptionException;
-import com.pdp.PixelTrade.handler.exceptions.crypto.EncryptionException;
-import com.pdp.PixelTrade.handler.exceptions.validation.InvalidDataException;
+import com.pdp.PixelTrade.exceptions.crypto.DecryptionException;
+import com.pdp.PixelTrade.exceptions.crypto.EncryptionException;
+import com.pdp.PixelTrade.exceptions.validation.InvalidDataException;
 import lombok.experimental.UtilityClass;
 
 import javax.crypto.Cipher;
