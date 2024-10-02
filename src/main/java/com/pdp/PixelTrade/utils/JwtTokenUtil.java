@@ -2,6 +2,7 @@ package com.pdp.PixelTrade.utils;
 
 import com.pdp.PixelTrade.config.security.CustomUserDetails;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -63,6 +64,20 @@ public class JwtTokenUtil {
 
     public Long extractId(String token) {
         return extractAllClaims(token).get("id", Long.class);
+    }
+
+    public boolean validateToken(String token, UserDetails userDetails) {
+        final String username = extractUsername(token);
+        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+    }
+
+    private boolean isTokenExpired(String token) {
+        try {
+            final Date expiration = extractClaim(token, Claims::getExpiration);
+            return expiration != null && expiration.before(new Date());
+        } catch (JwtException | IllegalArgumentException e) {
+            return true;
+        }
     }
 
     private <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
