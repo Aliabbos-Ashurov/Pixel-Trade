@@ -28,9 +28,9 @@ public enum CryptoType {
     private final String value;
     private String encrypt;
 
-    public String getEncrypt() {
+    public String getEncrypt(CryptoUtils cryptoUtils) {
         if (encrypt == null) {
-            encrypt = CryptoUtils.encrypt(code);
+            encrypt = cryptoUtils.encrypt(code);
         }
         return encrypt;
     }
