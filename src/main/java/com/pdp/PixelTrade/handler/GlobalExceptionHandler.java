@@ -1,6 +1,6 @@
 package com.pdp.PixelTrade.handler;
 
-import com.pdp.PixelTrade.dto.ErrorMessageDTO;
+import com.pdp.PixelTrade.dto.response.ErrorMessageDTO;
 import com.pdp.PixelTrade.exceptions.ResourceNotFoundException;
 import com.pdp.PixelTrade.exceptions.UserAlreadyExistsException;
 import com.pdp.PixelTrade.exceptions.UserNotFoundException;
@@ -24,6 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -65,10 +66,19 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(UsernameNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<ErrorMessageDTO> handleUsernameNotFoundException(UsernameNotFoundException ex, HttpServletRequest request) {
+        logException(ex, request);
+        ErrorMessageDTO errorMessage = ErrorMessageDTO.of("USERNAME_NOT_FOUND", ex.getMessage(), request.getRequestURI());
+        return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
+    }
+
 
     // NOTE: Package: crypto
     @ExceptionHandler(CryptoOperationException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+
     public ResponseEntity<ErrorMessageDTO> handleCryptoOperationException(CryptoOperationException ex, HttpServletRequest request) {
         logException(ex, request);
         ErrorMessageDTO errorMessage = ErrorMessageDTO.of("CRYPTO_OPERATION_ERROR", ex.getMessage(), request.getRequestURI());
