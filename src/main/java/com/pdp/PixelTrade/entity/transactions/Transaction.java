@@ -5,11 +5,7 @@ import com.pdp.PixelTrade.enums.TransactionStatus;
 import com.pdp.PixelTrade.enums.TransactionType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.PositiveOrZero;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
@@ -43,18 +39,22 @@ public class Transaction extends BaseEntity {
     @Column(nullable = false, precision = 38, scale = 10)
     private BigDecimal amount;
 
-    @PositiveOrZero
+    @Builder.Default
     @DecimalMin("0.0")
     @Column(nullable = false, precision = 38, scale = 10)
     private BigDecimal fee = BigDecimal.ZERO;
 
+    @Builder.Default
     @Enumerated(EnumType.STRING)
     @Column(name = "transaction_status", nullable = false)
     private TransactionStatus transactionStatus = TransactionStatus.PENDING;
 
+    @Column(name = "image_url", updatable = false)
+    private String imageURL;
 
     @Column(name = "qrcode_url", updatable = false)
     private String qrCodeURL;
+
 
     @Column(name = "error_message")
     private String errorMessage;
