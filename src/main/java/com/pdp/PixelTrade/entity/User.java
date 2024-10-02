@@ -23,6 +23,10 @@ import lombok.experimental.SuperBuilder;
 public class User extends Auditable {
 
     @NotBlank
+    @Column(nullable = false)
+    private String fullname;
+
+    @NotBlank
     @Column(nullable = false, unique = true)
     private String username;
 
