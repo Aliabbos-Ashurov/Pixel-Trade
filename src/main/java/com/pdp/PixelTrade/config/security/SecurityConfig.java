@@ -1,5 +1,7 @@
 package com.pdp.PixelTrade.config.security;
 
+import com.pdp.PixelTrade.config.security.filter.JwtTokenFilter;
+import com.pdp.PixelTrade.config.security.filter.PerformanceMonitoringFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,6 +33,7 @@ public class SecurityConfig {
     private final CustomHandlers handlers;
     private final CustomUserDetailsService userDetailsService;
     private final JwtTokenFilter jwtTokenFilter;
+    private final PerformanceMonitoringFilter performanceMonitoringFilter;
 
 
     private final String[] WHITE_URL = {
@@ -54,6 +57,7 @@ public class SecurityConfig {
                 .sessionManagement(sessionManagement ->
                         sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .formLogin(AbstractHttpConfigurer::disable)
+                .addFilterBefore(performanceMonitoringFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
