@@ -18,6 +18,14 @@ token:
     refresh: 604800000  # 7 days
   secret-key: vpwGiG8Hh659YkRNBnBZXW1a6pRWSfLBKyd4f4MigA8
 
+crypto:
+  encode-decode:
+    secret-key: SMepumdWh5EMv4gY
+    algorithm: AES
+
+project:
+  localhost: localhost
+
 # Production-specific configuration
 ---
 spring:
