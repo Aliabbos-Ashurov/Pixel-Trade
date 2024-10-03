@@ -1,9 +1,7 @@
 package com.pdp.PixelTrade.entity;
 
 import com.pdp.PixelTrade.enums.Role;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -52,6 +50,7 @@ public class User extends Auditable {
     private boolean isPremium = false;
 
     @Builder.Default
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role = Role.USER;
 }
