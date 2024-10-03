@@ -82,6 +82,8 @@ public class JwtTokenUtil {
         return !isTokenExpired(token);
     }
 
+
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public boolean isTokenExpired(String token) {
         try {
             final Date expiration = extractClaim(token, Claims::getExpiration);
