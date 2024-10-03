@@ -36,7 +36,6 @@ public class CustomHandlers {
 
     @SneakyThrows
     private void handleError(HttpServletResponse response, Exception exception, int errorCode, String errorPath) {
-        exception.printStackTrace();
         String errorMessage = exception.getMessage();
         ErrorMessageDTO errorMessageDTO = ErrorMessageDTO.of(String.valueOf(errorCode), errorMessage, errorPath);
         response.setStatus(errorCode);
