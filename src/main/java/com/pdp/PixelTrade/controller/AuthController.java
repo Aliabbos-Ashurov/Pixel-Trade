@@ -5,7 +5,6 @@ import com.pdp.PixelTrade.dto.request.TokenRequestDTO;
 import com.pdp.PixelTrade.dto.response.TokenResponseDTO;
 import com.pdp.PixelTrade.service.token.TokenService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

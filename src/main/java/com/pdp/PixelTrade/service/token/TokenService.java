@@ -1,6 +1,5 @@
 package com.pdp.PixelTrade.service.token;
 
-import com.pdp.PixelTrade.config.security.CustomUserDetails;
 import com.pdp.PixelTrade.controller.AuthController;
 import com.pdp.PixelTrade.dto.request.RefreshTokenRequestDTO;
 import com.pdp.PixelTrade.dto.request.TokenRequestDTO;
@@ -17,7 +16,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
