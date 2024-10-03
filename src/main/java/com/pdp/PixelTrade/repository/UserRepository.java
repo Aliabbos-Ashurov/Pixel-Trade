@@ -2,6 +2,10 @@ package com.pdp.PixelTrade.repository;
 
 import com.pdp.PixelTrade.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 public interface UserRepository extends JpaRepository<User, Long> {
+
+    @Query("FROM User u WHERE u.username = :username AND u.deleted = FALSE")
+    User findByUsername(String username);
 }
