@@ -1,5 +1,6 @@
-package com.pdp.PixelTrade.config.security;
+package com.pdp.PixelTrade.config.security.filter;
 
+import com.pdp.PixelTrade.config.security.CustomUserDetailsService;
 import com.pdp.PixelTrade.utils.JwtTokenUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -25,7 +26,6 @@ import java.io.IOException;
 public class JwtTokenFilter extends OncePerRequestFilter {
 
     private final CustomUserDetailsService userDetailsService;
-
     private final JwtTokenUtil jwtTokenUtil;
 
     @Override

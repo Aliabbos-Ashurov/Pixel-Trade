@@ -1,6 +1,7 @@
 package com.pdp.PixelTrade.utils;
 
 import com.pdp.PixelTrade.config.security.CustomUserDetails;
+import com.pdp.PixelTrade.dto.response.TokenDTO;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -12,6 +13,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.Map;
 import java.util.function.Function;
@@ -21,7 +24,6 @@ import java.util.function.Function;
  * @since 01/October/2024  16:04
  **/
 @Component
-@SuppressWarnings("unused")
 public class JwtTokenUtil {
 
     @Value("${token.secret-key}")
@@ -34,28 +36,33 @@ public class JwtTokenUtil {
     private long REFRESH_TOKEN_EXPIRATION;
 
 
-    public <T extends UserDetails> String generateAccessToken(@NonNull T userDetails) {
-        CustomUserDetails customUserDetails = (CustomUserDetails) userDetails;
+    public TokenDTO generateAccessToken(@NonNull CustomUserDetails customUserDetails) {
         Map<String, Object> map = Map.of(
                 "role", customUserDetails.role(),
                 "id", customUserDetails.id()
         );
-        return Jwts.builder()
+        LocalDateTime issuedAt = LocalDateTime.now();
+        LocalDateTime expiredAt = issuedAt.plusSeconds(ACCESS_TOKEN_EXPIRATION / 1000);
+        String token = Jwts.builder()
                 .subject(customUserDetails.username())
                 .claims(map)
-                .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + ACCESS_TOKEN_EXPIRATION))
+                .issuedAt(Date.from(issuedAt.atZone(ZoneId.systemDefault()).toInstant()))
+                .expiration(Date.from(expiredAt.atZone(ZoneId.systemDefault()).toInstant()))
                 .signWith(getSignKey())
                 .compact();
+        return new TokenDTO(token, issuedAt, expiredAt, ACCESS_TOKEN_EXPIRATION / 1000);
     }
 
-    public <T extends UserDetails> String generateRefreshToken(@NonNull T userDetails) {
-        return Jwts.builder()
+    public TokenDTO generateRefreshToken(@NonNull CustomUserDetails userDetails) {
+        LocalDateTime issuedAt = LocalDateTime.now();
+        LocalDateTime expiredAt = issuedAt.plusSeconds(REFRESH_TOKEN_EXPIRATION / 1000);
+        String token = Jwts.builder()
                 .subject(userDetails.getUsername())
-                .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + REFRESH_TOKEN_EXPIRATION))
+                .issuedAt(Date.from(issuedAt.atZone(ZoneId.systemDefault()).toInstant()))
+                .expiration(Date.from(expiredAt.atZone(ZoneId.systemDefault()).toInstant()))
                 .signWith(getSignKey())
                 .compact();
+        return new TokenDTO(token, issuedAt, expiredAt, REFRESH_TOKEN_EXPIRATION / 1000);
     }
 
     public String extractUsername(String token) {
@@ -71,7 +78,11 @@ public class JwtTokenUtil {
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 
-    private boolean isTokenExpired(String token) {
+    public boolean validateToken(String token) {
+        return !isTokenExpired(token);
+    }
+
+    public boolean isTokenExpired(String token) {
         try {
             final Date expiration = extractClaim(token, Claims::getExpiration);
             return expiration != null && expiration.before(new Date());
