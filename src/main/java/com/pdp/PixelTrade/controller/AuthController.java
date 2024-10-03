@@ -1,0 +1,32 @@
+package com.pdp.PixelTrade.controller;
+
+import com.pdp.PixelTrade.dto.request.RefreshTokenRequestDTO;
+import com.pdp.PixelTrade.dto.request.TokenRequestDTO;
+import com.pdp.PixelTrade.dto.response.TokenResponseDTO;
+import com.pdp.PixelTrade.service.token.TokenService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+/**
+ * @author Aliabbos Ashurov
+ * @since 02/October/2024  13:20
+ **/
+@RestController
+@RequestMapping("/api/v1/auth")
+@RequiredArgsConstructor
+public class AuthController {
+
+    private final TokenService tokenService;
+
+    @PostMapping("/token")
+    public ResponseEntity<EntityModel<TokenResponseDTO>> login(@RequestBody TokenRequestDTO dto) {
+        return ResponseEntity.ok(tokenService.generateToken(dto.username(), dto.password()));
+    }
+
+    @PostMapping("/refresh-token")
+    public ResponseEntity<EntityModel<TokenResponseDTO>> refreshToken(@RequestBody RefreshTokenRequestDTO dto) {
+        return ResponseEntity.ok(tokenService.refreshToken(dto.refreshToken()));
+    }
+}
