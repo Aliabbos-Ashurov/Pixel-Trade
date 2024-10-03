@@ -2,6 +2,7 @@ package com.pdp.PixelTrade.utils;
 
 import com.pdp.PixelTrade.config.security.CustomUserDetails;
 import com.pdp.PixelTrade.dto.response.TokenDTO;
+import com.pdp.PixelTrade.enums.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -36,15 +37,15 @@ public class JwtTokenUtil {
     private long REFRESH_TOKEN_EXPIRATION;
 
 
-    public TokenDTO generateAccessToken(@NonNull CustomUserDetails customUserDetails) {
+    public TokenDTO generateAccessToken(@NonNull Long id, String username, Role role) {
         Map<String, Object> map = Map.of(
-                "role", customUserDetails.role(),
-                "id", customUserDetails.id()
+                "role", role,
+                "id", id
         );
         LocalDateTime issuedAt = LocalDateTime.now();
         LocalDateTime expiredAt = issuedAt.plusSeconds(ACCESS_TOKEN_EXPIRATION / 1000);
         String token = Jwts.builder()
-                .subject(customUserDetails.username())
+                .subject(username)
                 .claims(map)
                 .issuedAt(Date.from(issuedAt.atZone(ZoneId.systemDefault()).toInstant()))
                 .expiration(Date.from(expiredAt.atZone(ZoneId.systemDefault()).toInstant()))
@@ -53,11 +54,11 @@ public class JwtTokenUtil {
         return new TokenDTO(token, issuedAt, expiredAt, ACCESS_TOKEN_EXPIRATION / 1000);
     }
 
-    public TokenDTO generateRefreshToken(@NonNull CustomUserDetails userDetails) {
+    public TokenDTO generateRefreshToken(@NonNull String username) {
         LocalDateTime issuedAt = LocalDateTime.now();
         LocalDateTime expiredAt = issuedAt.plusSeconds(REFRESH_TOKEN_EXPIRATION / 1000);
         String token = Jwts.builder()
-                .subject(userDetails.getUsername())
+                .subject(username)
                 .issuedAt(Date.from(issuedAt.atZone(ZoneId.systemDefault()).toInstant()))
                 .expiration(Date.from(expiredAt.atZone(ZoneId.systemDefault()).toInstant()))
                 .signWith(getSignKey())

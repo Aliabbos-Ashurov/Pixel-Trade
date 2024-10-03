@@ -24,12 +24,12 @@ public class AuthController {
     private final TokenService tokenService;
 
     @PostMapping("/token")
-    public ResponseEntity<EntityModel<TokenResponseDTO>> login(@RequestBody TokenRequestDTO dto) {
+    public ResponseEntity<TokenResponseDTO> login(@RequestBody TokenRequestDTO dto) {
         return ResponseEntity.ok(tokenService.generateToken(dto.username(), dto.password()));
     }
 
     @PostMapping("/refresh-token")
-    public ResponseEntity<EntityModel<TokenResponseDTO>> refreshToken(@RequestBody RefreshTokenRequestDTO dto) {
+    public ResponseEntity<TokenResponseDTO> refreshToken(@RequestBody RefreshTokenRequestDTO dto) {
         return ResponseEntity.ok(tokenService.refreshToken(dto.refreshToken()));
     }
 }

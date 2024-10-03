@@ -36,30 +36,33 @@ public class TokenService {
     private final AuthenticationManager authenticationManager;
     private final UserMapper userMapper;
 
-    public EntityModel<TokenResponseDTO> generateToken(@NotNull String username, @NotNull String password) {
-        Authentication authentication = authenticationManager.authenticate(
+    public TokenResponseDTO generateToken(@NotNull String username, @NotNull String password) {
+        authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(username, password)
         );
         User user = userRepository.findByUsername(username);
-        TokenDTO accessToken = jwtTokenUtil.generateAccessToken((CustomUserDetails) authentication.getPrincipal());
-        TokenDTO refreshToken = jwtTokenUtil.generateRefreshToken((CustomUserDetails) authentication.getPrincipal());
-        EntityModel<TokenResponseDTO> entityModel = EntityModel.of(TokenResponseDTO.of(user.getId(), accessToken, refreshToken));
-        entityModel.add(linkTo(methodOn(AuthController.class)
-                .login(new TokenRequestDTO(username, password))).withSelfRel());
-        return entityModel;
+        TokenDTO accessToken = jwtTokenUtil.generateAccessToken(user.getId(), user.getUsername(), user.getRole());
+        TokenDTO refreshToken = jwtTokenUtil.generateRefreshToken(user.getUsername());
+        return TokenResponseDTO.of(user.getId(), accessToken, refreshToken);
     }
 
-    public EntityModel<TokenResponseDTO> refreshToken(@NotNull String refreshToken) {
+    public TokenResponseDTO refreshToken(@NotNull String refreshToken) {
         if (!jwtTokenUtil.validateToken(refreshToken))
             throw new TokenExpiredException("Token has expired or invalid: {0}", refreshToken);
         String username = jwtTokenUtil.extractUsername(refreshToken);
         User user = userRepository.findByUsername(username);
         if (user == null)
             throw new UserNotFoundException("User not found: {0}", username);
-        CustomUserDetails userDetails = new CustomUserDetails(user.getId(), user.getUsername(), user.getPassword(), user.getRole());
-        TokenDTO newAccessToken = jwtTokenUtil.generateAccessToken(userDetails);
-        TokenDTO newRefreshToken = jwtTokenUtil.generateRefreshToken(userDetails);
-        EntityModel<TokenResponseDTO> entityModel = EntityModel.of(TokenResponseDTO.of(user.getId(), newAccessToken, newRefreshToken));
+        TokenDTO newAccessToken = jwtTokenUtil.generateAccessToken(user.getId(), user.getUsername(), user.getRole());
+        TokenDTO newRefreshToken = jwtTokenUtil.generateRefreshToken(user.getUsername());
+        return TokenResponseDTO.of(user.getId(), newAccessToken, newRefreshToken);
+    }
+
+    private EntityModel<TokenResponseDTO> addLinks(EntityModel<TokenResponseDTO> entityModel,
+                                                   String username, String password,
+                                                   String refreshToken) {
+        entityModel.add(linkTo(methodOn(AuthController.class)
+                .login(new TokenRequestDTO(username, password))).withSelfRel());
         entityModel.add(linkTo(methodOn(AuthController.class)
                 .refreshToken(new RefreshTokenRequestDTO(refreshToken))).withSelfRel());
         return entityModel;
