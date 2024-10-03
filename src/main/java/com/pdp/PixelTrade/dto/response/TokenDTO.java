@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.pdp.PixelTrade.dto.DTO;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDateTime;
 
@@ -14,7 +13,6 @@ import java.time.LocalDateTime;
  * @author Aliabbos Ashurov
  * @since 02/October/2024  13:22
  **/
-@Validated
 @JsonPropertyOrder({"token", "issuedAt", "expiredAt", "expiresIn"})
 public record TokenDTO(
         @NotBlank @NotNull String token,

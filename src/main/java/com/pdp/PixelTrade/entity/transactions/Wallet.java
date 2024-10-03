@@ -42,20 +42,11 @@ public class Wallet extends Auditable {
     private String address = WalletAddressGenerator.generate();
 
     @Pattern(regexp = "\\d{4}|\\d{6}", message = "Password must be 4 or 6 digits")
-    @Column(nullable = false)
     private String password;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private IdentificationLevel status;
-
-    @Builder.Default
-    @Column(name = "two_factor_enabled", nullable = false)
-    private boolean twoFactorEnabled = false;
-
-    @Builder.Default
-    @Column(name = "notifications_enabled", nullable = false)
-    private boolean notificationsEnabled = true;
 
     @Builder.Default
     @DecimalMin(value = "0.0", message = "Max withdrawal limit must be non-negative")
