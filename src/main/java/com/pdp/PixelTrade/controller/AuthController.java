@@ -2,7 +2,10 @@ package com.pdp.PixelTrade.controller;
 
 import com.pdp.PixelTrade.dto.request.RefreshTokenRequestDTO;
 import com.pdp.PixelTrade.dto.request.TokenRequestDTO;
+import com.pdp.PixelTrade.dto.request.UserRegisterDTO;
 import com.pdp.PixelTrade.dto.response.TokenResponseDTO;
+import com.pdp.PixelTrade.dto.response.UserResponseDTO;
+import com.pdp.PixelTrade.service.UserService;
 import com.pdp.PixelTrade.service.token.TokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
     private final TokenService tokenService;
+    private final UserService userService;
 
     @PostMapping("/token")
     public ResponseEntity<TokenResponseDTO> login(@RequestBody TokenRequestDTO dto) {
@@ -30,5 +34,10 @@ public class AuthController {
     @PostMapping("/refresh-token")
     public ResponseEntity<TokenResponseDTO> refreshToken(@RequestBody RefreshTokenRequestDTO dto) {
         return ResponseEntity.ok(tokenService.refreshToken(dto.refreshToken()));
+    }
+
+    @PostMapping("/register")
+    private ResponseEntity<UserResponseDTO> register(@RequestBody UserRegisterDTO userRegisterDTO) {
+        return ResponseEntity.ok(userService.register(userRegisterDTO));
     }
 }

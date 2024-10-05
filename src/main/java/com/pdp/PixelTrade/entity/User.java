@@ -29,7 +29,6 @@ public class User extends Auditable {
     private String username;
 
     @Email
-    @NotBlank
     @Column(unique = true)
     private String email;
 

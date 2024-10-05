@@ -36,12 +36,12 @@ public class CryptoAsset extends Auditable {
     @Column(nullable = false, precision = 38, scale = 10)
     private BigDecimal amount;
 
-    @Column(nullable = false, updatable = false, unique = true)
-    private String address;
+    /*@Column(nullable = false, updatable = false, unique = true)
+    private String address;*/
 
     @Builder.Default
     @Column(name = "is_locked")
-    private boolean isLocked = false;
+    private Boolean isLocked = false;
 
     @Column(name = "locked_reason", columnDefinition = "TEXT")
     private String lockedReason;

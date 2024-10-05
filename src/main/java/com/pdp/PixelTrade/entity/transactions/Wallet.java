@@ -34,7 +34,7 @@ public class Wallet extends Auditable {
     @Builder.Default
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private CurrencyType currency = CurrencyType.USD;
+    private CurrencyType currencyType = CurrencyType.USD;
 
     @ValidWallet
     @Builder.Default
@@ -46,7 +46,7 @@ public class Wallet extends Auditable {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private IdentificationLevel status;
+    private IdentificationLevel level;
 
     @Builder.Default
     @DecimalMin(value = "0.0", message = "Max withdrawal limit must be non-negative")

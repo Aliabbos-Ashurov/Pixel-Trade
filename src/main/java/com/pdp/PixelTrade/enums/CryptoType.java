@@ -12,15 +12,15 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum CryptoType {
 
+    USDT("USDT", "USD dollar"),
     ETH("ETH", "Ethereum"),
-    BITCOIN("BITCOIN", "Bitcoin"),
+    BITCOIN("BTC", "Bitcoin"),
     TON("TON", "Ton"),
     NOT("NOT", "Notcoin"),
     HMSTR("HMSTR", "Hamster"),
     DOGS("DOGS", "Dogs"),
     SOLANA("SOLANA", "Solana"),
     ADA("ADA", "Cardano"),
-    DOT("DOT", "Polkadot"),
     BNB("BNB", "Binance Coin"),
     DOGE("DOGE", "Dogecoin");
 

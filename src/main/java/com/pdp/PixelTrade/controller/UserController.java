@@ -19,9 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     private final UserService userService;
+    private final SessionUser sessionUser;
 
     @GetMapping("/profile/me")
     public ResponseEntity<UserResponseDTO> profile() {
-        return ResponseEntity.ok(userService.findById(new SessionUser().id()));
+        return ResponseEntity.ok(userService.findById(sessionUser.id()));
     }
 }

@@ -21,6 +21,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
+@Table(name = "wallet_history")
 @Entity
 public class WalletHistory extends BaseEntity {
 

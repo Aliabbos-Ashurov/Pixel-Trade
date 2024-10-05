@@ -1,13 +1,12 @@
 package com.pdp.PixelTrade.mapper;
 
 import com.pdp.PixelTrade.config.security.CustomUserDetails;
+import com.pdp.PixelTrade.dto.request.UserRegisterDTO;
 import com.pdp.PixelTrade.dto.response.UserDTO;
 import com.pdp.PixelTrade.dto.response.UserResponseDTO;
 import com.pdp.PixelTrade.entity.User;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
-import org.mapstruct.Mappings;
 
 /**
  * @author Aliabbos Ashurov
@@ -19,6 +18,8 @@ public interface UserMapper {
     UserDTO toUserDTO(User user);
 
     User toUser(UserDTO userDTO);
+
+    User toUser(UserRegisterDTO dto);
 
     UserResponseDTO toUserResponseDTO(User user);
 

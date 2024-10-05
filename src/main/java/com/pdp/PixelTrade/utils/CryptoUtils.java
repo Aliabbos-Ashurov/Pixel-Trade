@@ -5,6 +5,7 @@ import com.pdp.PixelTrade.enums.CryptoType;
 import com.pdp.PixelTrade.exceptions.crypto.DecryptionException;
 import com.pdp.PixelTrade.exceptions.crypto.EncryptionException;
 import com.pdp.PixelTrade.exceptions.validation.InvalidDataException;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +17,7 @@ import java.util.Base64;
  * @author Aliabbos Ashurov
  * @since 01/October/2024  11:13
  **/
+@Getter
 @Component
 public class CryptoUtils {
 

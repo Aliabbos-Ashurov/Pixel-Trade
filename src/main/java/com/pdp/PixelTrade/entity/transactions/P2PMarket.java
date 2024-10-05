@@ -33,7 +33,7 @@ public class P2PMarket extends Auditable {
 
     @DecimalMin("0.0")
     @Column(nullable = false, precision = 38, scale = 10)
-    private BigDecimal perPrice;                               // 74.000
+    private BigDecimal perPrice;                              // 74.000
 
     @Enumerated(EnumType.STRING)
     @Column(name = "currency_type", nullable = false)
@@ -49,7 +49,7 @@ public class P2PMarket extends Auditable {
 
 
     @Enumerated(EnumType.STRING)
-    private CardType cardType;                               // HUMO ,  WALLET
+    private CardType cardType;                                // UZCARD,  HUMO ,  WALLET
 
 
     @Column(name = "description", columnDefinition = "TEXT")
