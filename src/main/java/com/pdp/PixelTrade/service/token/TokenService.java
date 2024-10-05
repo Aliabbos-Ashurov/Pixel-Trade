@@ -8,7 +8,6 @@ import com.pdp.PixelTrade.dto.response.TokenResponseDTO;
 import com.pdp.PixelTrade.entity.User;
 import com.pdp.PixelTrade.exceptions.UserNotFoundException;
 import com.pdp.PixelTrade.exceptions.security.TokenExpiredException;
-import com.pdp.PixelTrade.mapper.UserMapper;
 import com.pdp.PixelTrade.repository.UserRepository;
 import com.pdp.PixelTrade.utils.JwtTokenUtil;
 import jakarta.validation.constraints.NotNull;
@@ -32,7 +31,6 @@ public class TokenService {
     private final UserRepository userRepository;
     private final JwtTokenUtil jwtTokenUtil;
     private final AuthenticationManager authenticationManager;
-    private final UserMapper userMapper;
 
     public TokenResponseDTO generateToken(@NotNull String username, @NotNull String password) {
         authenticationManager.authenticate(
