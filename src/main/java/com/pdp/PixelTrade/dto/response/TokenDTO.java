@@ -3,7 +3,6 @@ package com.pdp.PixelTrade.dto.response;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.pdp.PixelTrade.dto.DTO;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -26,5 +25,5 @@ public record TokenDTO(
 
         @JsonProperty("expires_in")
         @NotNull Long expiresIn
-) implements DTO {
+) implements Response {
 }

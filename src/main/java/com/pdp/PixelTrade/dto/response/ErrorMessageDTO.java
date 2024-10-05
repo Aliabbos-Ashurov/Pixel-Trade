@@ -1,7 +1,5 @@
 package com.pdp.PixelTrade.dto.response;
 
-import com.pdp.PixelTrade.dto.DTO;
-
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -16,7 +14,7 @@ public record ErrorMessageDTO(
         String path,
         String details,
         LocalDateTime timestamp)
-        implements DTO {
+        implements Response {
 
     public static ErrorMessageDTO of(String code, String message, String path) {
         return new ErrorMessageDTO(code, message, path, "Contact support for more details.",

@@ -2,7 +2,6 @@ package com.pdp.PixelTrade.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.pdp.PixelTrade.dto.DTO;
 import com.pdp.PixelTrade.enums.TokenType;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.validation.annotation.Validated;
@@ -21,7 +20,7 @@ public record TokenResponseDTO(
         @NotNull Long userId,
         @NotNull TokenDTO access,
         @NotNull TokenDTO refresh
-) implements DTO {
+) implements Response {
     public static TokenResponseDTO of(Long userId, TokenDTO access, TokenDTO refresh) {
         return new TokenResponseDTO(Boolean.TRUE, TokenType.BEARER, userId, access, refresh);
     }

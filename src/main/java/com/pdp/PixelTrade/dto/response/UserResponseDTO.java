@@ -24,5 +24,5 @@ public record UserResponseDTO(
         @NotNull boolean twoFactorEnabled,
         @JsonProperty("notifications_enabled")
         @NotNull boolean notificationsEnabled
-) {
+) implements Response {
 }

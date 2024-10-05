@@ -2,7 +2,6 @@ package com.pdp.PixelTrade.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.pdp.PixelTrade.dto.DTO;
 import com.pdp.PixelTrade.enums.CurrencyType;
 import com.pdp.PixelTrade.enums.IdentificationLevel;
 import jakarta.validation.constraints.NotNull;
@@ -26,5 +25,5 @@ public record WalletDTO(
 
         @JsonProperty("crypto_assets")
         List<CryptoAssetDTO> cryptoAssets
-) implements DTO {
+) implements Response {
 }

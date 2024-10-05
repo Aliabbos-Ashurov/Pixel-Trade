@@ -1,6 +1,5 @@
 package com.pdp.PixelTrade.dto.response;
 
-import com.pdp.PixelTrade.dto.DTO;
 import com.pdp.PixelTrade.enums.Role;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -18,7 +17,7 @@ public record UserDTO(
         @NotBlank @NotNull String phone,
         @NotBlank @NotNull Role role,
         boolean premium
-) implements DTO {
+) implements Response {
     public static UserDTO of(Long id, String fullname, String username, String password, String email, String phone, Role role) {
         return new UserDTO(id, fullname, username, password, email, phone, role, Boolean.FALSE);
     }

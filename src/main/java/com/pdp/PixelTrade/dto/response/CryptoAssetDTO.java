@@ -2,7 +2,6 @@ package com.pdp.PixelTrade.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.pdp.PixelTrade.dto.DTO;
 import com.pdp.PixelTrade.enums.CryptoType;
 import jakarta.validation.constraints.NotNull;
 
@@ -25,7 +24,7 @@ public record CryptoAssetDTO(
 
         @JsonProperty("locked_reason")
         String lockedReason
-) implements DTO {
+) implements Response {
 
     public CryptoAssetDTO of(Long id, CryptoType cryptoType, BigDecimal amount) {
         return new CryptoAssetDTO(id, amount, cryptoType, false, null);

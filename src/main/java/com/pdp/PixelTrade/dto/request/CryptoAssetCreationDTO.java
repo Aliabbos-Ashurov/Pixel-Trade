@@ -1,7 +1,6 @@
 package com.pdp.PixelTrade.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.pdp.PixelTrade.dto.DTO;
 import com.pdp.PixelTrade.enums.CryptoType;
 import jakarta.validation.constraints.NotNull;
 
@@ -20,5 +19,5 @@ public record CryptoAssetCreationDTO(
 
         @NotNull BigDecimal amount
 )
-        implements DTO {
+        implements Request {
 }

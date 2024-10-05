@@ -1,6 +1,5 @@
 package com.pdp.PixelTrade.dto.request;
 
-import com.pdp.PixelTrade.dto.DTO;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -13,5 +12,5 @@ public record UserRegisterDTO(
         @NotBlank @NotNull String username,
         @NotBlank @NotNull String password,
         @NotBlank @NotNull String phone
-) implements DTO {
+) implements Request {
 }
