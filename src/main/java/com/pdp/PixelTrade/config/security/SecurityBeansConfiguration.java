@@ -17,7 +17,7 @@ import org.springframework.security.web.access.AccessDeniedHandler;
  **/
 @Configuration
 @RequiredArgsConstructor
-public class CustomHandlers {
+public class SecurityBeansConfiguration {
 
     private final ObjectMapper objectMapper;
 

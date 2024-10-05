@@ -30,7 +30,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final CustomHandlers handlers;
+    private final SecurityBeansConfiguration beansConfiguration;
     private final CustomUserDetailsService userDetailsService;
     private final JwtTokenFilter jwtTokenFilter;
     private final PerformanceMonitoringFilter performanceMonitoringFilter;
@@ -51,8 +51,8 @@ public class SecurityConfig {
                                 .anyRequest().authenticated()
                 )
                 .exceptionHandling(exceptions -> {
-                    exceptions.accessDeniedHandler(handlers.accessDeniedHandler());
-                    exceptions.authenticationEntryPoint(handlers.authenticationEntryPoint());
+                    exceptions.accessDeniedHandler(beansConfiguration.accessDeniedHandler());
+                    exceptions.authenticationEntryPoint(beansConfiguration.authenticationEntryPoint());
                 })
                 .sessionManagement(sessionManagement ->
                         sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
