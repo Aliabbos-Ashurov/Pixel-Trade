@@ -27,7 +27,7 @@ public interface CryptoAssetRepository extends JpaRepository<CryptoAsset, Long> 
 
     @Modifying
     @Query("UPDATE CryptoAsset ca SET ca.isLocked = TRUE, ca.lockedReason = :reason WHERE ca.id = :assetId AND ca.deleted = FALSE")
-    void lockCryptoAsset(@Param("assetId") Long assetId, @Param("reason") String reason);
+    void lockCryptoAsset(@Param("reason") String reason, @Param("assetId") Long assetId);
 
     @Modifying
     @Query("UPDATE CryptoAsset ca SET ca.isLocked = FALSE, ca.lockedReason = NULL WHERE ca.id = :assetId AND ca.deleted = FALSE")

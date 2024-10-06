@@ -11,6 +11,7 @@ import com.pdp.PixelTrade.mapper.CryptoAssetMapper;
 import com.pdp.PixelTrade.repository.CryptoAssetRepository;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,6 +42,7 @@ public class CryptoAssetService {
                 .build());
     }
 
+    @Cacheable(value = "crypto-assets", key = "#walletId")
     public List<CryptoAssetDTO> findAllByWalletId(@NotNull Long walletId) {
         return cryptoAssetRepository.findAllByWalletId(walletId).stream()
                 .map(cryptoAssetMapper::toCryptoAssetDTO)
@@ -65,7 +67,7 @@ public class CryptoAssetService {
     }
 
     public void lockCryptoAsset(@NotNull Long assetId, @NotNull String reason) {
-        cryptoAssetRepository.lockCryptoAsset(assetId, reason);
+        cryptoAssetRepository.lockCryptoAsset(reason, assetId);
     }
 
     public void unlockCryptoAsset(@NotNull Long assetId) {
