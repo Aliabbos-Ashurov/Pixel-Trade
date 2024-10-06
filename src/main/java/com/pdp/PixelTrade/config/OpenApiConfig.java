@@ -1,4 +1,4 @@
-package com.pdp.PixelTrade.config.swagger;
+package com.pdp.PixelTrade.config;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.ExternalDocumentation;
@@ -81,6 +81,14 @@ public class OpenApiConfig {
         return GroupedOpenApi.builder()
                 .group("users")
                 .pathsToMatch("/api/v1/user/**")
+                .build();
+    }
+
+    @Bean
+    public GroupedOpenApi verificationOpenApi() {
+        return GroupedOpenApi.builder()
+                .group("verification")
+                .pathsToMatch("/api/v1/otp/**")
                 .build();
     }
 
