@@ -24,7 +24,7 @@ import java.util.function.Function;
  * @since 01/October/2024  16:04
  **/
 @Component
-public class JwtTokenUtil {
+public class JwtTokenUtil implements Util {
 
     @Value("${token.secret-key}")
     private String SECRET_KEY;

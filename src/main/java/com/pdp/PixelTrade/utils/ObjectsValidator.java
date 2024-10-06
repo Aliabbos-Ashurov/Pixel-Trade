@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
  * @since 05/October/2024  13:56
  **/
 @Component
-public class ObjectsValidator<T> {
+public class ObjectsValidator<T> implements Util {
 
     ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
     Validator validator = factory.getValidator();
