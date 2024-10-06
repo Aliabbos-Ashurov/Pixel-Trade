@@ -4,6 +4,13 @@ spring:
     name: PixelTrade
   profiles:
     active: prod
+  freemarker:
+    charset: UTF-8
+    template-loader-path: classpath:/templates/
+  cache:
+    redis:
+      time-to-live: 10m
+
   jpa:
     hibernate:
       ddl-auto: update
@@ -17,45 +24,12 @@ token:
     access: 86400000    # 24 hours
     refresh: 604800000  # 7 days
   secret-key: vpwGiG8Hh659YkRNBnBZXW1a6pRWSfLBKyd4f4MigA8
-
-crypto:
-  encode-decode:
-    secret-key: SMepumdWh5EMv4gY
-    algorithm: AES
-
 project:
   localhost: localhost
 
-# Production-specific configuration
----
-spring:
-  config:
-    activate:
-      on-profile: prod
-  task:
-    execution:
-      pool:
-        core-size: 20
-        max-size: 100
-        keep-alive: 60s
-        queue-capacity: 500
-      thread-name-prefix: prod-
-  datasource:
-    url: jdbc:postgresql://localhost:5432/pixeltrade
-    driver-class-name: org.postgresql.Driver
-    username: postgres
-    password: abbos2004postgres
-  h2:
-    console:
-      enabled: false
-server:
-  port: 8080
-app:
-  log: true  # GLOBAL LOGGING
 
-
-
-#  mail:
+#  spring:
+#     mail:
 #    host: sandbox.smtp.mailtrap.io
 #    port: 587
 #    username: 2c931fe2fc5a6a
