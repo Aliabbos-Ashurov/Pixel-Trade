@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import reactor.util.annotation.NonNullApi;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,7 +19,7 @@ public interface OtpRepository extends JpaRepository<Otp, Long> {
 
 
     @Query(""" 
-            SELECT COUNT(o) > 0 FROM Otp o WHERE o.recipient = :recipient AND o.expiresAt > CURRENT_TIMESTAMP 
+            SELECT COUNT(o) > 0 FROM Otp o WHERE o.recipient = :recipient AND o.expiresAt > CURRENT_TIMESTAMP
             AND o.used = FALSE AND o.deleted = FALSE
             """)
     boolean hasActiveOtp(@Param("recipient") String recipient);
