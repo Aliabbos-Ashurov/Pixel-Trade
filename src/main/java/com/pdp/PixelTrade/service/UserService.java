@@ -6,6 +6,7 @@ import com.pdp.PixelTrade.mapper.UserMapper;
 import com.pdp.PixelTrade.repository.UserRepository;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +21,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
+    @Cacheable(value = "users", key = "#id")
     public UserResponseDTO findById(@NotNull Long id) {
         return userMapper.toUserResponseDTO(userRepository.findByIdAndDeletedFalse(id));
     }
