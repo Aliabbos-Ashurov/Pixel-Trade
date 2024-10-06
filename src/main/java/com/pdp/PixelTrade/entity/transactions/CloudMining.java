@@ -44,6 +44,6 @@ public class CloudMining extends Auditable {
     @Builder.Default
     @DecimalMin("0.0")
     @PositiveOrZero(message = "Earned amount must be zero or positive")
-    @Column(name = "earned_amount", nullable = false, precision = 38, scale = 10)
+    @Column(name = "earned_amount", nullable = false, precision = 38, scale = 8)
     private BigDecimal earnedAmount = BigDecimal.ZERO;
 }

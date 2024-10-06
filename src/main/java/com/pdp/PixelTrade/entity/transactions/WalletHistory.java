@@ -34,7 +34,7 @@ public class WalletHistory extends BaseEntity {
     private TransactionType transactionType;
 
     @DecimalMin("0.0")
-    @Column(nullable = false, precision = 38, scale = 10, updatable = false)
+    @Column(nullable = false, precision = 38, scale = 8, updatable = false)
     private BigDecimal amount;
 
     @Column(updatable = false)

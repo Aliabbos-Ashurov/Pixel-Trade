@@ -32,7 +32,7 @@ public class P2PMarket extends Auditable {
     private User user;
 
     @DecimalMin("0.0")
-    @Column(nullable = false, precision = 38, scale = 10)
+    @Column(nullable = false, precision = 38, scale = 8)
     private BigDecimal perPrice;                              // 74.000
 
     @Enumerated(EnumType.STRING)
@@ -44,7 +44,7 @@ public class P2PMarket extends Auditable {
     private CryptoType cryptoType;                            // TON
 
     @DecimalMin("0.0")
-    @Column(nullable = false, precision = 38, scale = 10)
+    @Column(nullable = false, precision = 38, scale = 8)
     private BigDecimal amount;                                // available balance   100 TON
 
 

@@ -33,7 +33,7 @@ public class CryptoAsset extends Auditable {
     private CryptoType cryptoType;
 
     @DecimalMin("0.0")
-    @Column(nullable = false, precision = 38, scale = 10)
+    @Column(nullable = false, precision = 38, scale = 8)
     private BigDecimal amount;
 
     /*@Column(nullable = false, updatable = false, unique = true)

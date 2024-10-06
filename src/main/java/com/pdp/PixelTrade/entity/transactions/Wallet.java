@@ -27,8 +27,8 @@ import java.util.List;
 @Entity
 public class Wallet extends Auditable {
 
-    @DecimalMin(value = "0.0", inclusive = false, message = "Balance must be positive")
-    @Column(nullable = false, precision = 38, scale = 10)
+    @DecimalMin(value = "0.0", message = "Balance must be positive")
+    @Column(nullable = false, precision = 38, scale = 8)
     private BigDecimal balance;
 
     @Builder.Default
@@ -47,6 +47,14 @@ public class Wallet extends Auditable {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private IdentificationLevel level;
+
+    @DecimalMin(value = "0.0", message = "Daily transaction limit must be non-negative")
+    @Column(name = "daily_transaction_limit", nullable = false, precision = 38, scale = 8)
+    private BigDecimal dailyTransactionLimit = new BigDecimal("1000.00");
+
+    @Builder.Default
+    @Column(name = "transaction_count", nullable = false)
+    private int transactionCount = 0;
 
     @Builder.Default
     @DecimalMin(value = "0.0", message = "Max withdrawal limit must be non-negative")

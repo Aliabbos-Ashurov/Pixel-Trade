@@ -33,7 +33,7 @@ public class MiningEvent extends Auditable {
 
     @DecimalMin(value = "0.0", inclusive = false, message = "Amount must be greater than 0")
     @Digits(integer = 28, fraction = 10, message = "Amount precision must not exceed 38 digits and scale must be 10 or less")
-    @Column(nullable = false, precision = 38, scale = 10)
+    @Column(nullable = false, precision = 38, scale = 8)
     private BigDecimal amount;
 
     @NotNull(message = "Start time is required")
@@ -47,7 +47,7 @@ public class MiningEvent extends Auditable {
 
     @DecimalMin(value = "0.0", message = "Entry fee must be zero or positive")
     @Digits(integer = 28, fraction = 10, message = "Entry fee precision must not exceed 38 digits and scale must be 10 or less")
-    @Column(name = "entry_fee", nullable = false, precision = 38, scale = 10)
+    @Column(name = "entry_fee", nullable = false, precision = 38, scale = 8)
     private BigDecimal entryFee;
 
     @PositiveOrZero(message = "Max participants must be zero or positive")
