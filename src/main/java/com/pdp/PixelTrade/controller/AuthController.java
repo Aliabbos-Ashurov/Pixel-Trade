@@ -7,6 +7,7 @@ import com.pdp.PixelTrade.dto.response.TokenResponseDTO;
 import com.pdp.PixelTrade.dto.response.UserResponseDTO;
 import com.pdp.PixelTrade.service.UserService;
 import com.pdp.PixelTrade.service.token.TokenService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,17 +28,17 @@ public class AuthController {
     private final UserService userService;
 
     @PostMapping("/token")
-    public ResponseEntity<TokenResponseDTO> login(@RequestBody TokenRequestDTO dto) {
+    public ResponseEntity<TokenResponseDTO> login(@Valid @RequestBody TokenRequestDTO dto) {
         return ResponseEntity.ok(tokenService.generateToken(dto.username(), dto.password()));
     }
 
     @PostMapping("/refresh-token")
-    public ResponseEntity<TokenResponseDTO> refreshToken(@RequestBody RefreshTokenRequestDTO dto) {
+    public ResponseEntity<TokenResponseDTO> refreshToken(@Valid @RequestBody RefreshTokenRequestDTO dto) {
         return ResponseEntity.ok(tokenService.refreshToken(dto.refreshToken()));
     }
 
     @PostMapping("/register")
-    private ResponseEntity<UserResponseDTO> register(@RequestBody UserRegisterDTO userRegisterDTO) {
+    private ResponseEntity<UserResponseDTO> register(@Valid @RequestBody UserRegisterDTO userRegisterDTO) {
         return ResponseEntity.ok(userService.register(userRegisterDTO));
     }
 }
