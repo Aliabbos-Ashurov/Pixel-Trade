@@ -56,11 +56,11 @@ public class WalletService {
     }
 
     public void subtractBalance(@NotNull Long walletId, @NotNull BigDecimal amount) {
-        walletRepository.subtractBalance(walletId, amount);
+        walletRepository.subtractBalance(amount, walletId);
     }
 
     public void lockAllAssetsInWallet(@NotNull Long walletId, @NotNull String reason) {
-        walletRepository.lockAllAssetsInWallet(walletId, reason);
+        walletRepository.lockAllAssetsInWallet(reason, walletId);
     }
 
     public void unlockAllAssetsInWallet(@NotNull Long walletId) {

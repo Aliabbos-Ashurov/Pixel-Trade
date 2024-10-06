@@ -19,7 +19,7 @@ public enum TransactionType {
     EXCHANGE("EXCHANGE"),
     REFUND("REFUND"),
     STAKING("STAKING"),
-    UNSTAKING("UNSTAKING"),
+    UN_STAKING("UN_STAKING"),
     P2P_BUY("P2P_BUY"),
     P2P_SELL("P2P_SELL");
 

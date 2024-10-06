@@ -1,6 +1,5 @@
 package com.pdp.PixelTrade.enums;
 
-import com.pdp.PixelTrade.utils.CryptoUtils;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -26,12 +25,4 @@ public enum CryptoType {
 
     private final String code;
     private final String value;
-    private String encrypt;
-
-    public String getEncrypt(CryptoUtils cryptoUtils) {
-        if (encrypt == null) {
-            encrypt = cryptoUtils.encrypt(code);
-        }
-        return encrypt;
-    }
 }

@@ -43,11 +43,11 @@ public interface WalletRepository extends JpaRepository<Wallet, Long> {
 
     @Modifying
     @Query("UPDATE Wallet w SET w.balance = w.balance - :amount WHERE w.id = :walletId AND w.deleted = FALSE AND w.balance >= :amount")
-    void subtractBalance(@Param("walletId") Long walletId, @Param("amount") BigDecimal amount);
+    void subtractBalance(@Param("amount") BigDecimal amount, @Param("walletId") Long walletId);
 
     @Modifying
     @Query("UPDATE CryptoAsset ca SET ca.isLocked = TRUE, ca.lockedReason = :reason WHERE ca.wallet.id = :walletId")
-    void lockAllAssetsInWallet(@Param("walletId") Long walletId, @Param("reason") String reason);
+    void lockAllAssetsInWallet(@Param("reason") String reason, @Param("walletId") Long walletId);
 
     @Modifying
     @Query("UPDATE CryptoAsset ca SET ca.isLocked = FALSE, ca.lockedReason = NULL WHERE ca.wallet.id = :walletId")
