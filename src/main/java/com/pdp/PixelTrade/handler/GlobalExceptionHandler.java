@@ -10,6 +10,10 @@ import com.pdp.PixelTrade.exceptions.crypto.EncryptionException;
 import com.pdp.PixelTrade.exceptions.network.ApiCallFailedException;
 import com.pdp.PixelTrade.exceptions.network.ConnectionTimeoutException;
 import com.pdp.PixelTrade.exceptions.notification.NotificationException;
+import com.pdp.PixelTrade.exceptions.otp.InvalidOtpCodeException;
+import com.pdp.PixelTrade.exceptions.otp.OtpExpiredException;
+import com.pdp.PixelTrade.exceptions.otp.OtpNotFoundException;
+import com.pdp.PixelTrade.exceptions.otp.TooManyOtpRequestsException;
 import com.pdp.PixelTrade.exceptions.p2p.P2PMarketNotFoundException;
 import com.pdp.PixelTrade.exceptions.payment.InvalidPaymentDetailsException;
 import com.pdp.PixelTrade.exceptions.payment.PaymentMethodNotSupportedException;
@@ -19,6 +23,7 @@ import com.pdp.PixelTrade.exceptions.security.UnauthorizedAccessException;
 import com.pdp.PixelTrade.exceptions.transaction.*;
 import com.pdp.PixelTrade.exceptions.validation.InvalidDataException;
 import com.pdp.PixelTrade.exceptions.validation.InvalidInputFormatException;
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -136,6 +141,47 @@ public class GlobalExceptionHandler {
         logException(ex, request);
         ErrorMessageDTO errorMessage = ErrorMessageDTO.of("NOTIFICATION_ERROR", ex.getMessage(), request.getRequestURI());
         return new ResponseEntity<>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    // NOTE: Package: otp
+    @ExceptionHandler(MessagingException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ResponseEntity<ErrorMessageDTO> handleMessagingException(MessagingException ex, HttpServletRequest request) {
+        logException(ex, request);
+        ErrorMessageDTO errorMessage = ErrorMessageDTO.of("MESSAGING_ERROR", ex.getMessage(), request.getRequestURI());
+        return new ResponseEntity<>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(OtpNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<ErrorMessageDTO> handleOtpNotFoundException(OtpNotFoundException ex, HttpServletRequest request) {
+        logException(ex, request);
+        ErrorMessageDTO errorMessage = ErrorMessageDTO.of("OTP_NOT_FOUND", ex.getMessage(), request.getRequestURI());
+        return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(OtpExpiredException.class)
+    @ResponseStatus(HttpStatus.REQUEST_TIMEOUT)
+    public ResponseEntity<ErrorMessageDTO> handleOtpExpiredException(OtpExpiredException ex, HttpServletRequest request) {
+        logException(ex, request);
+        ErrorMessageDTO errorMessage = ErrorMessageDTO.of("OTP_EXPIRED", ex.getMessage(), request.getRequestURI());
+        return new ResponseEntity<>(errorMessage, HttpStatus.REQUEST_TIMEOUT);
+    }
+
+    @ExceptionHandler(InvalidOtpCodeException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ErrorMessageDTO> handleInvalidOtpCodeException(InvalidOtpCodeException ex, HttpServletRequest request) {
+        logException(ex, request);
+        ErrorMessageDTO errorMessage = ErrorMessageDTO.of("INVALID_OTP_CODE", ex.getMessage(), request.getRequestURI());
+        return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(TooManyOtpRequestsException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ResponseEntity<ErrorMessageDTO> handleTooManyOtpRequestsException(TooManyOtpRequestsException ex, HttpServletRequest request) {
+        logException(ex, request);
+        ErrorMessageDTO errorMessage = ErrorMessageDTO.of("TOO_MANY_REQUESTS", ex.getMessage(), request.getRequestURI());
+        return new ResponseEntity<>(errorMessage, HttpStatus.CONFLICT);
     }
 
 
