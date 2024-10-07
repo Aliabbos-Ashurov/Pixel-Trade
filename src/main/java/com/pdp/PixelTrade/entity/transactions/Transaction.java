@@ -70,14 +70,4 @@ public class Transaction extends BaseEntity {
 
     @Column(name = "error_message")
     private String errorMessage;
-
-    @PrePersist
-    @PreUpdate
-    private void calculateFee() {
-        if (feePercentage != null && amount != null) {
-            this.fee = amount.multiply(feePercentage);
-        } else {
-            this.fee = BigDecimal.ZERO;
-        }
-    }
 }
