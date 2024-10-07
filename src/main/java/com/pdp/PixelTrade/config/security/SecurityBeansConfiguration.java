@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
 
@@ -23,6 +25,12 @@ public class SecurityBeansConfiguration {
 
     private static final int ERROR_CODE_ACCESS_DENIED = 403;
     private static final int ERROR_CODE_UNAUTHORIZED = 401;
+
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     @Bean
     public AccessDeniedHandler accessDeniedHandler() {

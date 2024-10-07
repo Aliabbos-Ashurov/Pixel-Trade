@@ -1,15 +1,21 @@
 package com.pdp.PixelTrade.service;
 
 import com.pdp.PixelTrade.dto.request.UserRegisterDTO;
+import com.pdp.PixelTrade.dto.response.UserDTO;
 import com.pdp.PixelTrade.dto.response.UserResponseDTO;
 import com.pdp.PixelTrade.entity.User;
 import com.pdp.PixelTrade.mapper.UserMapper;
 import com.pdp.PixelTrade.repository.UserRepository;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 /**
  * @author Aliabbos Ashurov
@@ -27,7 +33,14 @@ public class UserService {
         return userMapper.toUserResponseDTO(userRepository.findByIdAndDeletedFalse(id));
     }
 
-    @Transactional
+    public UserDTO findByUsername(@NotNull String username) {
+        UserDTO dto = userMapper.toUserDTO(userRepository.findByUsername(username));
+        if (dto == null)
+            throw new UsernameNotFoundException("Username not found with: " + username);
+        return dto;
+    }
+
+
     public UserResponseDTO register(@NotNull UserRegisterDTO dto) {
         User user = userMapper.toUser(dto);
         user.setPassword(passwordEncoder.encode(user.getPassword()));

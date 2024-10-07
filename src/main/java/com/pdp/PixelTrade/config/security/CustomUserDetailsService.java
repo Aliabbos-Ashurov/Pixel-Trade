@@ -2,7 +2,7 @@ package com.pdp.PixelTrade.config.security;
 
 import com.pdp.PixelTrade.dto.response.UserDTO;
 import com.pdp.PixelTrade.mapper.UserMapper;
-import com.pdp.PixelTrade.service.AuthService;
+import com.pdp.PixelTrade.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,13 +17,12 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private final AuthService authService;
+    private final UserService userService;
     private final UserMapper userMapper;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserDTO dto = authService.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Username not found with: " + username));
+        UserDTO dto = userService.findByUsername(username);
         return userMapper.toCustomUserDetails(dto);
     }
 }
