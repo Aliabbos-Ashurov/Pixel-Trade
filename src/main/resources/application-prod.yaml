@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/pixeltrade
+    username: postgres
+    driver-class-name: org.postgresql.Driver
+    password: abbos2004postgresql
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    open-in-view: false
+
+project:
+  localhost: localhost
+  log-mode: true
+server:
+  port: 8080
