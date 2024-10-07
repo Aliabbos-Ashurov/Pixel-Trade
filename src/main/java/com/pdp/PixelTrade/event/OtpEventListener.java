@@ -22,5 +22,4 @@ public class OtpEventListener {
     public void onOtpSentEvent(OtpSentEvent event) {
         mailOtpService.send(new OtpSendRequestDTO(event.recipient()));
     }
-
 }

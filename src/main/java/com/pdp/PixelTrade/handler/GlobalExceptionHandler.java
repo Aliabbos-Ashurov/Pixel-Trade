@@ -43,7 +43,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @Value("${app.log}")
+    @Value("${project.log-mode}")
     private boolean LOG_MODE;
 
     // NOTE: Package: main

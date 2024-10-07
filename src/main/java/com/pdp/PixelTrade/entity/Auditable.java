@@ -3,7 +3,10 @@ package com.pdp.PixelTrade.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -36,9 +39,4 @@ public abstract class Auditable extends BaseEntity {
     @Column(name = "updated_by")
     @LastModifiedBy
     private Long updatedBy;
-
-    @Builder.Default
-    @Column(name = "deleted", nullable = false)
-    // @Convert(converter = org.hibernate.type.NumericBooleanConverter.class)
-    private boolean deleted = false;
 }

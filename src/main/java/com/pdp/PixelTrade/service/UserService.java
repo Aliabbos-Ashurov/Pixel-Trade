@@ -2,11 +2,12 @@ package com.pdp.PixelTrade.service;
 
 import com.pdp.PixelTrade.dto.request.UserRegisterDTO;
 import com.pdp.PixelTrade.dto.response.UserResponseDTO;
+import com.pdp.PixelTrade.entity.User;
 import com.pdp.PixelTrade.mapper.UserMapper;
 import com.pdp.PixelTrade.repository.UserRepository;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cache.annotation.Cacheable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,14 +21,16 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final PasswordEncoder passwordEncoder;
 
-    @Cacheable(value = "users", key = "#id")
     public UserResponseDTO findById(@NotNull Long id) {
         return userMapper.toUserResponseDTO(userRepository.findByIdAndDeletedFalse(id));
     }
 
     @Transactional
-    public UserResponseDTO register(@NotNull UserRegisterDTO userRegisterDTO) {
-        return userMapper.toUserResponseDTO(userRepository.save(userMapper.toUser(userRegisterDTO)));
+    public UserResponseDTO register(@NotNull UserRegisterDTO dto) {
+        User user = userMapper.toUser(dto);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userMapper.toUserResponseDTO(userRepository.save(user));
     }
 }
