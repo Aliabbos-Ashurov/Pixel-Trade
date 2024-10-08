@@ -1,5 +1,6 @@
 package com.pdp.PixelTrade.service.aws;
 
+import com.pdp.PixelTrade.enums.Package;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -31,18 +32,23 @@ public class S3Service {
         this.s3Client = s3Client;
     }
 
-    @SneakyThrows
-    public String uploadFile(MultipartFile file) {
+    //@SneakyThrows
+    public String uploadFile(MultipartFile file, Package path) {
         String uniqueFileName = generateFileName(file);
-        String fileKey = "public/" + uniqueFileName;
+        String fileKey = path.getPath() + uniqueFileName;
         PutObjectRequest putObjectRequest = PutObjectRequest.builder()
                 .bucket(bucketName)
                 .key(fileKey)
                 .contentType(file.getContentType())
                 .build();
 
-        s3Client.putObject(putObjectRequest, RequestBody.fromBytes(file.getBytes()));
-        return getFileUrl(uniqueFileName);
+        try {
+            s3Client.putObject(putObjectRequest, RequestBody.fromBytes(file.getBytes()));
+            return getFileUrl(fileKey);  // Return the file URL
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("File upload failed: " + e.getMessage());
+        }
     }
 
     public ResponseBytes<GetObjectResponse> downloadFile(String key) {
