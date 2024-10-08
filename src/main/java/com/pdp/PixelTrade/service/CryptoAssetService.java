@@ -1,9 +1,9 @@
 package com.pdp.PixelTrade.service;
 
-import com.pdp.PixelTrade.dto.request.CryptoAssetCreationDTO;
-import com.pdp.PixelTrade.dto.response.CryptoAssetDTO;
-import com.pdp.PixelTrade.entity.transactions.CryptoAsset;
-import com.pdp.PixelTrade.entity.transactions.Wallet;
+import com.pdp.PixelTrade.dto.request.transaction.CryptoAssetCreationDTO;
+import com.pdp.PixelTrade.dto.response.transaction.CryptoAssetDTO;
+import com.pdp.PixelTrade.entity.transaction.CryptoAsset;
+import com.pdp.PixelTrade.entity.transaction.Wallet;
 import com.pdp.PixelTrade.enums.CryptoType;
 import com.pdp.PixelTrade.exceptions.ResourceNotFoundException;
 import com.pdp.PixelTrade.exceptions.transaction.WalletNotFoundException;
@@ -12,6 +12,7 @@ import com.pdp.PixelTrade.repository.CryptoAssetRepository;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,7 +62,7 @@ public class CryptoAssetService {
 
     public CryptoAssetDTO findByWalletIdAndCryptoType(@NotNull Long walletId, @NotNull CryptoType cryptoType) {
         CryptoAsset cryptoAsset = cryptoAssetRepository.findByWalletIdAndCryptoType(walletId, cryptoType).orElseThrow(
-                () -> new ResourceNotFoundException("CryptoAsset not found by walletId {0} and type {1}", walletId, cryptoType)
+                () -> new ResourceNotFoundException(HttpStatus.NOT_FOUND, "NOT_FOUND", "CryptoAsset not found by walletId {0} and type {1}", walletId, cryptoType)
         );
         return cryptoAssetMapper.toCryptoAssetDTO(cryptoAsset);
     }

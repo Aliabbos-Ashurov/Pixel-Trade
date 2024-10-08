@@ -1,6 +1,7 @@
-package com.pdp.PixelTrade.dto.request;
+package com.pdp.PixelTrade.dto.request.transaction;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.pdp.PixelTrade.dto.request.Request;
 import com.pdp.PixelTrade.enums.CryptoType;
 import jakarta.validation.constraints.NotNull;
 

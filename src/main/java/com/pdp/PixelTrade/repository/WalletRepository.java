@@ -1,6 +1,6 @@
 package com.pdp.PixelTrade.repository;
 
-import com.pdp.PixelTrade.entity.transactions.Wallet;
+import com.pdp.PixelTrade.entity.transaction.Wallet;
 import com.pdp.PixelTrade.enums.IdentificationLevel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

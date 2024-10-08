@@ -1,7 +1,8 @@
-package com.pdp.PixelTrade.dto.response;
+package com.pdp.PixelTrade.dto.response.transaction;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.pdp.PixelTrade.dto.response.Response;
 import com.pdp.PixelTrade.enums.CurrencyType;
 import com.pdp.PixelTrade.enums.IdentificationLevel;
 import jakarta.validation.constraints.NotNull;

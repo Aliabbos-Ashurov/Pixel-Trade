@@ -1,6 +1,6 @@
 package com.pdp.PixelTrade.repository;
 
-import com.pdp.PixelTrade.entity.transactions.CryptoAsset;
+import com.pdp.PixelTrade.entity.transaction.CryptoAsset;
 import com.pdp.PixelTrade.enums.CryptoType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

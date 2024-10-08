@@ -1,17 +1,15 @@
 package com.pdp.PixelTrade.exceptions.otp;
 
-import java.io.Serial;
-import java.text.MessageFormat;
+import com.pdp.PixelTrade.exceptions.BaseException;
+import org.springframework.http.HttpStatus;
 
 /**
  * @author Aliabbos Ashurov
  * @since 06/October/2024  11:30
  **/
-public class OtpNotFoundException extends RuntimeException {
-    @Serial
-    private static final long serialVersionUID = 1L;
+public class OtpNotFoundException extends BaseException {
 
-    public OtpNotFoundException(String message, Object... params) {
-        super(MessageFormat.format(message, params));
+    public OtpNotFoundException(String message, Object... args) {
+        super(HttpStatus.NOT_FOUND, "OTP_NOT_FOUND", message, args);
     }
 }

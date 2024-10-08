@@ -1,17 +1,15 @@
 package com.pdp.PixelTrade.exceptions.security;
 
-import java.io.Serial;
-import java.text.MessageFormat;
+import com.pdp.PixelTrade.exceptions.BaseException;
+import org.springframework.http.HttpStatus;
 
 /**
  * @author Aliabbos Ashurov
  * @since 01/October/2024  12:50
  **/
-public class SessionExpiredException extends RuntimeException {
-    @Serial
-    private static final long serialVersionUID = 1L;
+public class SessionExpiredException extends BaseException {
 
     public SessionExpiredException(String message, Object... args) {
-        super(MessageFormat.format(message, args));
+        super(HttpStatus.UNAUTHORIZED, "SESSION_EXPIRED", message, args);
     }
 }

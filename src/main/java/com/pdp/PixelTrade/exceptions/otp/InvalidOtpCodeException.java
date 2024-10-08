@@ -1,18 +1,15 @@
 package com.pdp.PixelTrade.exceptions.otp;
 
-import java.io.Serial;
-import java.text.MessageFormat;
+import com.pdp.PixelTrade.exceptions.BaseException;
+import org.springframework.http.HttpStatus;
 
 /**
  * @author Aliabbos Ashurov
  * @since 06/October/2024  11:32
  **/
-public class InvalidOtpCodeException extends RuntimeException {
+public class InvalidOtpCodeException extends BaseException {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
-
-    public InvalidOtpCodeException(String message, Object... params) {
-        super(MessageFormat.format(message, params));
+    public InvalidOtpCodeException(String message, Object... args) {
+        super(HttpStatus.BAD_REQUEST, "INVALID_OTP_CODE", message, args);
     }
 }

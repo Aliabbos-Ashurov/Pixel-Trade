@@ -1,18 +1,15 @@
 package com.pdp.PixelTrade.exceptions.notification;
 
-import java.io.Serial;
-import java.text.MessageFormat;
+import com.pdp.PixelTrade.exceptions.BaseException;
+import org.springframework.http.HttpStatus;
 
 /**
  * @author Aliabbos Ashurov
  * @since 01/October/2024  13:00
  **/
-public class NotificationException extends RuntimeException {
-
-    @Serial
-    private static final long serialVersionUID = 1L;
+public class NotificationException extends BaseException {
 
     public NotificationException(String message, Object... args) {
-        super(MessageFormat.format(message, args));
+        super(HttpStatus.INTERNAL_SERVER_ERROR, "NOTIFICATION_ERROR", message, args);
     }
 }

@@ -1,4 +1,4 @@
-package com.pdp.PixelTrade.entity.transactions;
+package com.pdp.PixelTrade.entity.transaction;
 
 import com.pdp.PixelTrade.entity.BaseEntity;
 import com.pdp.PixelTrade.enums.TransactionStatus;

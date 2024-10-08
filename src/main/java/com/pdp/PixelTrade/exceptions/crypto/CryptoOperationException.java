@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus;
  **/
 public class CryptoOperationException extends BaseException {
 
-    public CryptoOperationException(HttpStatus status, String code, String message, Object... args) {
-        super(status, code, message, args);
+    public CryptoOperationException(String message, Object... args) {
+        super(HttpStatus.INTERNAL_SERVER_ERROR, "CRYPTO_OPERATION_ERROR", message, args);
     }
 }

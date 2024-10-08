@@ -1,18 +1,15 @@
 package com.pdp.PixelTrade.exceptions.payment;
 
-import java.io.Serial;
-import java.text.MessageFormat;
+import com.pdp.PixelTrade.exceptions.BaseException;
+import org.springframework.http.HttpStatus;
 
 /**
  * @author Aliabbos Ashurov
  * @since 01/October/2024  12:59
  **/
-public class PaymentMethodNotSupportedException extends RuntimeException {
-
-    @Serial
-    private static final long serialVersionUID = 1L;
+public class PaymentMethodNotSupportedException extends BaseException {
 
     public PaymentMethodNotSupportedException(String message, Object... args) {
-        super(MessageFormat.format(message, args));
+        super(HttpStatus.BAD_REQUEST, "PAYMENT_METHOD_NOT_SUPPORTED", message, args);
     }
 }

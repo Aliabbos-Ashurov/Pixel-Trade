@@ -1,18 +1,15 @@
 package com.pdp.PixelTrade.exceptions.validation;
 
-import java.io.Serial;
-import java.text.MessageFormat;
+import com.pdp.PixelTrade.exceptions.BaseException;
+import org.springframework.http.HttpStatus;
 
 /**
  * @author Aliabbos Ashurov
  * @since 01/October/2024  12:46
  **/
-public class InvalidDataException extends RuntimeException {
-
-    @Serial
-    private static final long serialVersionUID = 1L;
+public class InvalidDataException extends BaseException {
 
     public InvalidDataException(String message, Object... args) {
-        super(MessageFormat.format(message, args));
+        super(HttpStatus.BAD_REQUEST, "INVALID_DATA", message, args);
     }
 }

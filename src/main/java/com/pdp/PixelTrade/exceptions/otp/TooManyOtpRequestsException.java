@@ -1,18 +1,15 @@
 package com.pdp.PixelTrade.exceptions.otp;
 
-import java.io.Serial;
-import java.text.MessageFormat;
+import com.pdp.PixelTrade.exceptions.BaseException;
+import org.springframework.http.HttpStatus;
 
 /**
  * @author Aliabbos Ashurov
  * @since 06/October/2024  11:31
  **/
-public class TooManyOtpRequestsException extends RuntimeException {
+public class TooManyOtpRequestsException extends BaseException {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
-
-    public TooManyOtpRequestsException(String message, Object... params) {
-        super(MessageFormat.format(message, params));
+    public TooManyOtpRequestsException(String message, Object... args) {
+        super(HttpStatus.TOO_MANY_REQUESTS, "TOO_MANY_OTP_REQUESTS", message, args);
     }
 }

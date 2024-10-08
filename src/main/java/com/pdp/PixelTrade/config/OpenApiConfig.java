@@ -32,7 +32,7 @@ public class OpenApiConfig {
         return new OpenAPI()
                 .info(new Info()
                         .title("Pixel Trade")
-                        .description("This API provides endpoints for managing crypto transactions, wallets and nfts")
+                        .description("This API provides endpoints for managing crypto transaction, wallets and nfts")
                         .version("1.0")
                         .contact(new Contact()
                                 .name("Aliabbos Ashurov")

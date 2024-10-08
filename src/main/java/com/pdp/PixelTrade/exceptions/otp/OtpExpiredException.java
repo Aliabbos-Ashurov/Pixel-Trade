@@ -1,17 +1,15 @@
 package com.pdp.PixelTrade.exceptions.otp;
 
-import java.io.Serial;
-import java.text.MessageFormat;
+import com.pdp.PixelTrade.exceptions.BaseException;
+import org.springframework.http.HttpStatus;
 
 /**
  * @author Aliabbos Ashurov
  * @since 06/October/2024  11:32
  **/
-public class OtpExpiredException extends RuntimeException {
-    @Serial
-    private static final long serialVersionUID = 1L;
+public class OtpExpiredException extends BaseException {
 
-    public OtpExpiredException(String message, Object... params) {
-        super(MessageFormat.format(message, params));
+    public OtpExpiredException(String message, Object... args) {
+        super(HttpStatus.BAD_REQUEST, "OTP_EXPIRED", message, args);
     }
 }
