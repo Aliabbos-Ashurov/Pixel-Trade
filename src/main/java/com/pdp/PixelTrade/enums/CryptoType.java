@@ -13,7 +13,7 @@ public enum CryptoType {
 
     USDT("USDT", "USD dollar"),
     ETH("ETH", "Ethereum"),
-    BITCOIN("BTC", "Bitcoin"),
+    BTC("BTC", "Bitcoin"),
     TON("TON", "Ton"),
     NOT("NOT", "Notcoin"),
     HMSTR("HMSTR", "Hamster"),

@@ -1,4 +1,4 @@
-package com.pdp.PixelTrade.exceptions.network;
+package com.pdp.PixelTrade.exceptions.client;
 
 import com.pdp.PixelTrade.exceptions.BaseException;
 import org.springframework.http.HttpStatus;

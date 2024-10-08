@@ -1,7 +1,7 @@
 package com.pdp.PixelTrade.annotation;
 
 import com.pdp.PixelTrade.enums.ClientToken;
-import com.pdp.PixelTrade.exceptions.network.ClientTokenNotFoundException;
+import com.pdp.PixelTrade.exceptions.client.ClientTokenNotFoundException;
 import feign.RequestTemplate;
 import lombok.SneakyThrows;
 import org.aspectj.lang.ProceedingJoinPoint;
