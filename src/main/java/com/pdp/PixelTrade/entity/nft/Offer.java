@@ -3,6 +3,8 @@ package com.pdp.PixelTrade.entity.nft;
 import com.pdp.PixelTrade.entity.Auditable;
 import com.pdp.PixelTrade.entity.User;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,9 +28,11 @@ import java.time.LocalDateTime;
 public class Offer extends Auditable {
 
     @PositiveOrZero
+    @Digits(integer = 10, fraction = 2)  // Ensure valid amount format
     @Column(nullable = false)
     private Double amount;
 
+    @PastOrPresent(message = "Offer date must be in the present or past")
     @Column(name = "offer_date", nullable = false)
     private LocalDateTime offerDate;
 

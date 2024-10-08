@@ -5,13 +5,12 @@ import com.pdp.PixelTrade.entity.User;
 import com.pdp.PixelTrade.enums.Category;
 import com.pdp.PixelTrade.enums.CryptoType;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.FutureOrPresent;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,7 +27,8 @@ import java.util.List;
 public class NFT extends Auditable {
 
     @NotBlank
-    @Column(nullable = false)
+    @Size(max = 255)
+    @Column(nullable = false, length = 255)
     private String name;
 
     @NotBlank
@@ -39,35 +39,39 @@ public class NFT extends Auditable {
     @JoinColumn(name = "image_id", referencedColumnName = "id")
     private Upload image;
 
-    @Column(name = "token_id", unique = true)
+    @NotBlank
+    @Size(max = 255)
+    @Column(name = "token_id", unique = true, nullable = false, length = 255)
     private String tokenId;
 
     @PositiveOrZero
+    @Digits(integer = 10, fraction = 2)
     private Double price;
 
     @Builder.Default
-    @Column(name = "on_auction")
+    @Column(name = "on_auction", nullable = false)
     private boolean onAuction = false;
 
-    @FutureOrPresent
+    @FutureOrPresent(message = "Auction start date must be in the present or future")
     @Column(name = "auction_start_date")
     private LocalDateTime auctionStartDate;
 
     @PositiveOrZero
+    @Digits(integer = 10, fraction = 2)
     @Column(name = "auction_starting_price")
     private Double auctionStartingPrice;
 
-    @FutureOrPresent
+    @FutureOrPresent(message = "Auction end date must be in the present or future")
     @Column(name = "auction_end_date")
     private LocalDateTime auctionEndDate;
 
     @PositiveOrZero
-    @Column(name = "likes_count")
-    private Integer likesCount;
+    @Column(name = "likes_count", nullable = false)
+    private Integer likesCount = 0;
 
     @PositiveOrZero
-    @Column(name = "views_count")
-    private Integer viewsCount;
+    @Column(name = "views_count", nullable = false)
+    private Integer viewsCount = 0;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "owner_id", nullable = false)
@@ -82,13 +86,15 @@ public class NFT extends Auditable {
     private Metadata metadata;
 
     @Enumerated(EnumType.STRING)
+    @NotNull(message = "Category is required")
     @Column(nullable = false)
     private Category category;
 
     @Enumerated(EnumType.STRING)
+    @NotNull(message = "Crypto type is required")
     @Column(nullable = false)
     private CryptoType cryptoType;
 
     @OneToMany(mappedBy = "nft", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Offer> offers;
+    private List<Offer> offers = new ArrayList<>();
 }

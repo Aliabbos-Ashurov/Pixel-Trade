@@ -5,10 +5,15 @@ import com.pdp.PixelTrade.entity.User;
 import com.pdp.PixelTrade.enums.CryptoType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.validator.constraints.URL;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -26,49 +31,53 @@ import java.util.Set;
 public class Collection extends Auditable {
 
     @NotBlank
-    @Column(nullable = false)
+    @Size(max = 255)
+    @Column(nullable = false, length = 255)
     private String name;
 
     @Column(columnDefinition = "TEXT")
     private String description;
 
+    @URL
     @Column(name = "banner_image_url")
     private String bannerImageUrl;
 
+    @URL
     @Column(name = "banner_gif_url")
     private String bannerGifUrl;
 
     @Builder.Default
-    @Column(name = "is_verified")
+    @Column(name = "is_verified", nullable = false)
     private boolean isVerified = false;
 
     @Builder.Default
-    @Column(name = "is_premium")
+    @Column(name = "is_premium", nullable = false)
     private boolean isPremium = false;
 
     @PositiveOrZero
-    @Column(name = "nft_count")
-    private Integer nftCount;
+    @Column(name = "nft_count", nullable = false)
+    private Integer nftCount = 0;
 
     @PositiveOrZero
-    @Column(name = "total_likes")
-    private Integer totalLikes;
+    @Column(name = "total_likes", nullable = false)
+    private Integer totalLikes = 0;
 
     @PositiveOrZero
-    @Column(name = "total_views")
-    private Integer totalViews;
+    @Column(name = "total_views", nullable = false)
+    private Integer totalViews = 0;
 
     @ManyToOne
     @JoinColumn(name = "owner_id", nullable = false)
     private User owner;
 
     @OneToMany(mappedBy = "collection", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<NFT> nfts;
+    private List<NFT> nfts = new ArrayList<>();
 
-    @OneToMany(mappedBy = "collection")
-    private Set<ConnectedApp> connectedApps;
+    @OneToMany(mappedBy = "collection", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<ConnectedApp> connectedApps = new HashSet<>();
 
     @Enumerated(EnumType.STRING)
+    @NotNull(message = "Crypto type is required")
     @Column(nullable = false)
-    private CryptoType cryptoType; // ETH, BITCOIN
+    private CryptoType cryptoType;
 }

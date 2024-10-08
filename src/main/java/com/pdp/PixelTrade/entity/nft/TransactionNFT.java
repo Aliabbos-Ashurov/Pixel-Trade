@@ -4,6 +4,9 @@ import com.pdp.PixelTrade.entity.Auditable;
 import com.pdp.PixelTrade.entity.User;
 import com.pdp.PixelTrade.enums.CryptoType;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -24,9 +27,11 @@ import java.time.LocalDateTime;
 public class TransactionNFT extends Auditable {
 
     @PositiveOrZero
+    @Digits(integer = 10, fraction = 2)  // Ensure valid number format
     @Column(nullable = false)
     private Double price;
 
+    @PastOrPresent(message = "Transaction date must be in the present or past")
     @Column(name = "transaction_date", nullable = false)
     private LocalDateTime transactionDate;
 
@@ -39,10 +44,11 @@ public class TransactionNFT extends Auditable {
     private NFT nft;
 
     @Enumerated(EnumType.STRING)
+    @NotNull(message = "Crypto type is required")
     @Column(nullable = false)
     private CryptoType cryptoType;
 
     @Builder.Default
-    @Column(name = "is_auction_transaction")
+    @Column(name = "is_auction_transaction", nullable = false)
     private boolean isAuctionTransaction = false;
 }
