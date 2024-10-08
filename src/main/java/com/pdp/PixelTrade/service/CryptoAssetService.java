@@ -43,7 +43,6 @@ public class CryptoAssetService {
                 .build());
     }
 
-    @Cacheable(value = "crypto-assets", key = "#walletId")
     public List<CryptoAssetDTO> findAllByWalletId(@NotNull Long walletId) {
         return cryptoAssetRepository.findAllByWalletId(walletId).stream()
                 .map(cryptoAssetMapper::toCryptoAssetDTO)
@@ -62,7 +61,7 @@ public class CryptoAssetService {
 
     public CryptoAssetDTO findByWalletIdAndCryptoType(@NotNull Long walletId, @NotNull CryptoType cryptoType) {
         CryptoAsset cryptoAsset = cryptoAssetRepository.findByWalletIdAndCryptoType(walletId, cryptoType).orElseThrow(
-                () -> new ResourceNotFoundException(HttpStatus.NOT_FOUND, "NOT_FOUND", "CryptoAsset not found by walletId {0} and type {1}", walletId, cryptoType)
+                () -> new ResourceNotFoundException("CryptoAsset not found by walletId {0} and type {1}", walletId, cryptoType)
         );
         return cryptoAssetMapper.toCryptoAssetDTO(cryptoAsset);
     }
