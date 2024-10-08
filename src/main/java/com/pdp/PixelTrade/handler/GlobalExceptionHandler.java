@@ -1,10 +1,10 @@
 package com.pdp.PixelTrade.handler;
 
 import com.pdp.PixelTrade.dto.response.ErrorMessageDTO;
+import com.pdp.PixelTrade.exceptions.BaseException;
 import com.pdp.PixelTrade.exceptions.ResourceNotFoundException;
 import com.pdp.PixelTrade.exceptions.UserAlreadyExistsException;
 import com.pdp.PixelTrade.exceptions.UserNotFoundException;
-import com.pdp.PixelTrade.exceptions.crypto.CryptoOperationException;
 import com.pdp.PixelTrade.exceptions.crypto.DecryptionException;
 import com.pdp.PixelTrade.exceptions.crypto.EncryptionException;
 import com.pdp.PixelTrade.exceptions.network.ApiCallFailedException;
@@ -81,13 +81,11 @@ public class GlobalExceptionHandler {
 
 
     // NOTE: Package: crypto
-    @ExceptionHandler(CryptoOperationException.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-
-    public ResponseEntity<ErrorMessageDTO> handleCryptoOperationException(CryptoOperationException ex, HttpServletRequest request) {
+    @ExceptionHandler(BaseException.class)
+    public ResponseEntity<ErrorMessageDTO> handleCryptoOperationException(BaseException ex, HttpServletRequest request) {
         logException(ex, request);
-        ErrorMessageDTO errorMessage = ErrorMessageDTO.of("CRYPTO_OPERATION_ERROR", ex.getMessage(), request.getRequestURI());
-        return new ResponseEntity<>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
+        ErrorMessageDTO errorMessage = ErrorMessageDTO.of(ex.getCode(), ex.getMessage(), request.getRequestURI());
+        return new ResponseEntity<>(errorMessage, ex.getHttpStatus());
     }
 
     @ExceptionHandler(DecryptionException.class)
