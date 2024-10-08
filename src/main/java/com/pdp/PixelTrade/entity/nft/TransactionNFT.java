@@ -15,13 +15,13 @@ import java.time.LocalDateTime;
  * @since 02/September/2024  12:56
  **/
 @Entity
-@Table(name = "transaction")
+@Table(name = "transaction_nft")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder(toBuilder = true)
-public class Transaction extends Auditable {
+public class TransactionNFT extends Auditable {
 
     @PositiveOrZero
     @Column(nullable = false)
