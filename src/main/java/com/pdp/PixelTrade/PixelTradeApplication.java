@@ -1,10 +1,13 @@
 package com.pdp.PixelTrade;
 
 import com.pdp.PixelTrade.config.security.SessionUser;
+import com.pdp.PixelTrade.dto.client.MessageRequestDTO;
+import com.pdp.PixelTrade.service.client.EskizService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
@@ -18,6 +21,7 @@ import java.util.Optional;
 @EnableJpaAuditing
 @EnableCaching
 @EnableScheduling
+@EnableFeignClients
 @EnableJpaRepositories
 @SpringBootApplication
 public class PixelTradeApplication {
@@ -27,8 +31,13 @@ public class PixelTradeApplication {
     }
 
     @Bean
-    public CommandLineRunner run() {
+    public CommandLineRunner run(EskizService service) {
         return args -> {
+//            service.sendMessage(MessageRequestDTO.of(
+//                    "998906147150",
+//                    "Bu Eskiz dan test",
+//                    "4546"
+//            ));
         };
     }
 
