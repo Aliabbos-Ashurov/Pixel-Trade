@@ -1,17 +1,15 @@
 package com.pdp.PixelTrade.entity.nft;
 
 import com.pdp.PixelTrade.entity.Auditable;
+import com.pdp.PixelTrade.entity.Transactional;
 import com.pdp.PixelTrade.entity.User;
 import com.pdp.PixelTrade.enums.CryptoType;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Digits;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PastOrPresent;
-import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.DecimalMin;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-import java.time.LocalDateTime;
+import java.math.BigDecimal;
 
 /**
  * @author Aliabbos Ashurov
@@ -24,28 +22,22 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder(toBuilder = true)
-public class TransactionNFT extends Auditable {
+public class TransactionNFT extends Auditable implements Transactional {
 
-    @PositiveOrZero
-    @Digits(integer = 10, fraction = 2)  // Ensure valid number format
-    @Column(nullable = false)
-    private Double price;
-
-    @PastOrPresent(message = "Transaction date must be in the present or past")
-    @Column(name = "transaction_date", nullable = false)
-    private LocalDateTime transactionDate;
+    @DecimalMin("0.0")
+    @Column(nullable = false, precision = 38, scale = 8, updatable = false)
+    private BigDecimal price;
 
     @ManyToOne
     @JoinColumn(name = "buyer_id", nullable = false)
     private User buyer;
 
     @ManyToOne
-    @JoinColumn(name = "nft_id", nullable = false)
+    @JoinColumn(name = "nft_id", nullable = false, updatable = false)
     private NFT nft;
 
     @Enumerated(EnumType.STRING)
-    @NotNull(message = "Crypto type is required")
-    @Column(nullable = false)
+    @Column(nullable = false, updatable = false)
     private CryptoType cryptoType;
 
     @Builder.Default

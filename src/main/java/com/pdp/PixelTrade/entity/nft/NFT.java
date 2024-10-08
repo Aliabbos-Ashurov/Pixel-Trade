@@ -5,10 +5,14 @@ import com.pdp.PixelTrade.entity.User;
 import com.pdp.PixelTrade.enums.Category;
 import com.pdp.PixelTrade.enums.CryptoType;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,26 +31,20 @@ import java.util.List;
 public class NFT extends Auditable {
 
     @NotBlank
-    @Size(max = 255)
-    @Column(nullable = false, length = 255)
+    @Column(nullable = false)
     private String name;
 
     @NotBlank
     @Column(nullable = false, columnDefinition = "TEXT")
     private String description;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "image_id", referencedColumnName = "id")
-    private Upload image;
-
     @NotBlank
-    @Size(max = 255)
-    @Column(name = "token_id", unique = true, nullable = false, length = 255)
+    @Column(name = "token_id", unique = true, nullable = false, updatable = false)
     private String tokenId;
 
-    @PositiveOrZero
-    @Digits(integer = 10, fraction = 2)
-    private Double price;
+    @DecimalMin("0.0")
+    @Column(nullable = false, precision = 32, scale = 8)
+    private BigDecimal price;
 
     @Builder.Default
     @Column(name = "on_auction", nullable = false)
@@ -56,10 +54,10 @@ public class NFT extends Auditable {
     @Column(name = "auction_start_date")
     private LocalDateTime auctionStartDate;
 
-    @PositiveOrZero
-    @Digits(integer = 10, fraction = 2)
-    @Column(name = "auction_starting_price")
-    private Double auctionStartingPrice;
+
+    @DecimalMin("0.0")
+    @Column(name = "auction_starting_price", precision = 32, scale = 8)
+    private BigDecimal auctionStartingPrice;
 
     @FutureOrPresent(message = "Auction end date must be in the present or future")
     @Column(name = "auction_end_date")
@@ -78,23 +76,28 @@ public class NFT extends Auditable {
     private User owner;
 
     @ManyToOne
-    @JoinColumn(name = "collection_id")
+    @JoinColumn(name = "collection_id", nullable = false, updatable = false)
     private Collection collection;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "metadata_id", referencedColumnName = "id")
+    @JoinColumn(name = "metadata_id", referencedColumnName = "id", nullable = false)
     private Metadata metadata;
 
     @Enumerated(EnumType.STRING)
-    @NotNull(message = "Category is required")
     @Column(nullable = false)
     private Category category;
 
     @Enumerated(EnumType.STRING)
-    @NotNull(message = "Crypto type is required")
-    @Column(nullable = false)
+    @Column(nullable = false, updatable = false)
     private CryptoType cryptoType;
+
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "image_id", referencedColumnName = "id")
+    private Upload image;
+
 
     @OneToMany(mappedBy = "nft", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Offer> offers = new ArrayList<>();
+
 }

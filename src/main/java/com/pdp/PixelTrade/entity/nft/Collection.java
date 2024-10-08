@@ -22,7 +22,6 @@ import java.util.Set;
  * @since 02/September/2024  12:54
  **/
 @Entity
-@Table(name = "collection")
 @Getter
 @Setter
 @NoArgsConstructor

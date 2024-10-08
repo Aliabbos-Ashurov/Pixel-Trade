@@ -1,6 +1,7 @@
 package com.pdp.PixelTrade.entity.transaction;
 
 import com.pdp.PixelTrade.entity.BaseEntity;
+import com.pdp.PixelTrade.entity.Transactional;
 import com.pdp.PixelTrade.enums.TransactionStatus;
 import com.pdp.PixelTrade.enums.TransactionType;
 import jakarta.persistence.*;
@@ -23,7 +24,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder(toBuilder = true)
-public class Transaction extends BaseEntity {
+public class Transaction extends BaseEntity implements Transactional {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "from_wallet_id", nullable = false, updatable = false, referencedColumnName = "id")

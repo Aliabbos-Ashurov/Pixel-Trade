@@ -1,6 +1,6 @@
 package com.pdp.PixelTrade.service.aws;
 
-import com.pdp.PixelTrade.enums.Package;
+import com.pdp.PixelTrade.enums.AwsPackage;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -32,23 +32,17 @@ public class S3Service {
         this.s3Client = s3Client;
     }
 
-    //@SneakyThrows
-    public String uploadFile(MultipartFile file, Package path) {
-        String uniqueFileName = generateFileName(file);
-        String fileKey = path.getPath() + uniqueFileName;
+    @SneakyThrows
+    public String uploadFile(MultipartFile file, AwsPackage path) {
+        String uniqueFileName = generateFileName(file, path);
         PutObjectRequest putObjectRequest = PutObjectRequest.builder()
                 .bucket(bucketName)
-                .key(fileKey)
+                .key(uniqueFileName)
                 .contentType(file.getContentType())
                 .build();
 
-        try {
-            s3Client.putObject(putObjectRequest, RequestBody.fromBytes(file.getBytes()));
-            return getFileUrl(fileKey);  // Return the file URL
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException("File upload failed: " + e.getMessage());
-        }
+        s3Client.putObject(putObjectRequest, RequestBody.fromBytes(file.getBytes()));
+        return getFileUrl(uniqueFileName, path);
     }
 
     public ResponseBytes<GetObjectResponse> downloadFile(String key) {
@@ -68,17 +62,20 @@ public class S3Service {
         s3Client.deleteObject(deleteObjectRequest);
     }
 
-    private String generateFileName(MultipartFile file) {
-        return java.util.UUID.randomUUID().toString().substring(0, 5) + "-" + Objects.requireNonNull(file.getOriginalFilename()).replace(" ", "_");
+    private String generateFileName(MultipartFile file, AwsPackage directory) {
+        return directory.getDirectory() + "/" +
+                java.util.UUID.randomUUID().toString().substring(0, 5) + "-" +
+                Objects.requireNonNull(file.getOriginalFilename()).replace(" ", "_");
     }
 
     /*return String.format("https://%s.s3.%s.amazonaws.com/public/%s",
                bucketName,
                Region.US_EAST_1.id(),
                key);*/
-    private String getFileUrl(String key) {
-        return String.format("https://%s.s3.amazonaws.com/public/%s",
+    private String getFileUrl(String key, AwsPackage directory) {
+        return String.format("https://%s.s3.amazonaws.com/%s/%s",
                 bucketName,
+                directory.getDirectory(),
                 key);
     }
 }

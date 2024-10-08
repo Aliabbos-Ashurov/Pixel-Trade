@@ -14,7 +14,7 @@ public enum CurrencyType {
     USD("USD"),
     EUR("EUR"),
     JPY("JPY"),
-    CNY("CNY"),
+    AUD("AUD"),
     UZS("UZS");
 
     private final String name;

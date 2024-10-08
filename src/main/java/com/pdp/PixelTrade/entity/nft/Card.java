@@ -21,7 +21,6 @@ import java.time.LocalDate;
  * @since 02/September/2024  13:17
  **/
 @Entity
-@Table(name = "card")
 @Getter
 @Setter
 @NoArgsConstructor

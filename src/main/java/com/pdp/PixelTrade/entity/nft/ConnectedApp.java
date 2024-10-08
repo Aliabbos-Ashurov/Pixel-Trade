@@ -16,12 +16,12 @@ import org.hibernate.validator.constraints.URL;
  * @since 02/September/2024  13:02
  **/
 @Entity
-@Table(name = "connected_app")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder(toBuilder = true)
+@Table(name = "connected_app")
 public class ConnectedApp extends Auditable {
 
     @NotBlank

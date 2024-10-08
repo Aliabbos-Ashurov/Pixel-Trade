@@ -1,6 +1,8 @@
-package com.pdp.PixelTrade.entity.transaction;
+package com.pdp.PixelTrade.entity;
 
-import com.pdp.PixelTrade.entity.BaseEntity;
+import com.pdp.PixelTrade.entity.nft.TransactionNFT;
+import com.pdp.PixelTrade.entity.transaction.Transaction;
+import com.pdp.PixelTrade.entity.transaction.Wallet;
 import com.pdp.PixelTrade.enums.TransactionType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
@@ -40,7 +42,11 @@ public class WalletHistory extends BaseEntity {
     @Column(updatable = false)
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "transaction_id", referencedColumnName = "id", nullable = false, updatable = false)
+    @ManyToOne
+    @JoinColumn(name = "transaction_id", referencedColumnName = "id", updatable = false)
     private Transaction transaction;
+
+    @ManyToOne
+    @JoinColumn(name = "transaction_nft_id", referencedColumnName = "id", updatable = false)
+    private TransactionNFT transactionNFT;
 }

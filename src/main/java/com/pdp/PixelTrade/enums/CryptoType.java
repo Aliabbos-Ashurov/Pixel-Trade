@@ -18,7 +18,7 @@ public enum CryptoType {
     NOT("NOT", "Notcoin"),
     HMSTR("HMSTR", "Hamster"),
     DOGS("DOGS", "Dogs"),
-    SOLANA("SOLANA", "Solana"),
+    SOLANA("SOL", "Solana"),
     ADA("ADA", "Cardano"),
     BNB("BNB", "Binance Coin"),
     DOGE("DOGE", "Dogecoin");
