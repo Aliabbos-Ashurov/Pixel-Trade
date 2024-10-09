@@ -1,6 +1,7 @@
 package com.pdp.PixelTrade.entity.nft;
 
 import com.pdp.PixelTrade.entity.Auditable;
+import com.pdp.PixelTrade.entity.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotBlank;
@@ -21,9 +22,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder(toBuilder = true)
-public class Upload extends Auditable {
-
-
+public class Upload extends BaseEntity {
 
     @NotBlank
     @Column(name = "original_name", nullable = false, updatable = false)

@@ -1,15 +1,14 @@
 package com.pdp.PixelTrade.entity.nft;
 
 import com.pdp.PixelTrade.entity.Auditable;
+import com.pdp.PixelTrade.entity.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-import org.hibernate.validator.constraints.URL;
 
 /**
  * @author Aliabbos Ashurov
@@ -22,17 +21,14 @@ import org.hibernate.validator.constraints.URL;
 @AllArgsConstructor
 @SuperBuilder(toBuilder = true)
 @Table(name = "connected_app")
-public class ConnectedApp extends Auditable {
+public class ConnectedApp extends BaseEntity {
 
     @NotBlank
-    @Size(max = 255)  // Limit the name length
-    @Column(name = "app_name", nullable = false, length = 255)
+    @Column(name = "app_name", nullable = false)
     private String appName;
 
     @NotBlank
-    @URL
-    @Size(max = 255)
-    @Column(name = "app_url", nullable = false, length = 255)
+    @Column(name = "app_url", nullable = false)
     private String appUrl;
 
     @ManyToOne

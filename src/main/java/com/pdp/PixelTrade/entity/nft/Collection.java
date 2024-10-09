@@ -7,13 +7,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
-import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-import org.hibernate.validator.constraints.URL;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -30,18 +26,15 @@ import java.util.Set;
 public class Collection extends Auditable {
 
     @NotBlank
-    @Size(max = 255)
-    @Column(nullable = false, length = 255)
+    @Column(nullable = false, unique = true)
     private String name;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String description;
 
-    @URL
     @Column(name = "banner_image_url")
     private String bannerImageUrl;
 
-    @URL
     @Column(name = "banner_gif_url")
     private String bannerGifUrl;
 
@@ -70,10 +63,10 @@ public class Collection extends Auditable {
     private User owner;
 
     @OneToMany(mappedBy = "collection", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<NFT> nfts = new ArrayList<>();
+    private List<NFT> nfts;
 
     @OneToMany(mappedBy = "collection", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<ConnectedApp> connectedApps = new HashSet<>();
+    private Set<ConnectedApp> connectedApps;
 
     @Enumerated(EnumType.STRING)
     @NotNull(message = "Crypto type is required")

@@ -7,7 +7,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,9 +27,7 @@ import java.time.LocalDate;
 @SuperBuilder(toBuilder = true)
 public class Card extends Auditable {
 
-    @NotBlank
-    @Size(min = 13, max = 19)
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, length = 16)
     private String cardNumber;
 
     @FutureOrPresent(message = "Expiry date must be in the present or future")
@@ -38,8 +35,7 @@ public class Card extends Auditable {
     private LocalDate expiryDate;
 
     @NotBlank
-    @Size(max = 255)
-    @Column(nullable = false, length = 255)
+    @Column(nullable = false)
     private String cardHolderName;
 
     @ManyToOne

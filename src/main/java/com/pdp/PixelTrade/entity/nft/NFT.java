@@ -14,7 +14,6 @@ import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -71,17 +70,6 @@ public class NFT extends Auditable {
     @Column(name = "views_count", nullable = false)
     private Integer viewsCount = 0;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "owner_id", nullable = false)
-    private User owner;
-
-    @ManyToOne
-    @JoinColumn(name = "collection_id", nullable = false, updatable = false)
-    private Collection collection;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "metadata_id", referencedColumnName = "id", nullable = false)
-    private Metadata metadata;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -98,6 +86,19 @@ public class NFT extends Auditable {
 
 
     @OneToMany(mappedBy = "nft", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Offer> offers = new ArrayList<>();
+    private List<Offer> offers;
+
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "owner_id", nullable = false)
+    private User owner;
+
+    @ManyToOne
+    @JoinColumn(name = "collection_id", nullable = false, updatable = false)
+    private Collection collection;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "metadata_id", referencedColumnName = "id", nullable = false)
+    private Metadata metadata;
 
 }

@@ -1,6 +1,7 @@
 package com.pdp.PixelTrade.entity.nft;
 
 import com.pdp.PixelTrade.entity.Auditable;
+import com.pdp.PixelTrade.entity.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;
@@ -23,7 +24,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder(toBuilder = true)
-public class Metadata extends Auditable {
+public class Metadata extends BaseEntity {
 
     @OneToOne(mappedBy = "metadata")
     private NFT nft;
