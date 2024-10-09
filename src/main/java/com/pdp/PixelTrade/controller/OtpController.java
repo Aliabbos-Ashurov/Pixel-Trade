@@ -3,10 +3,11 @@ package com.pdp.PixelTrade.controller;
 import com.pdp.PixelTrade.dto.request.OtpSendRequestDTO;
 import com.pdp.PixelTrade.dto.request.OtpVerifyRequestDTO;
 import com.pdp.PixelTrade.dto.response.OtpResponseDTO;
-import com.pdp.PixelTrade.event.OtpSentEvent;
+import com.pdp.PixelTrade.event.EmailOtpSentEvent;
+import com.pdp.PixelTrade.event.PhoneOtpSentEvent;
 import com.pdp.PixelTrade.service.otp.OtpVerificationService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Qualifier;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,25 +18,24 @@ import org.springframework.web.bind.annotation.*;
  **/
 @RestController
 @RequestMapping("/api/v1/otp")
+@RequiredArgsConstructor
 public class OtpController {
 
     private final ApplicationEventPublisher publisher;
     private final OtpVerificationService mailOtpService;
+    private final OtpVerificationService smsOtpService;
 
-    public OtpController(ApplicationEventPublisher publisher, @Qualifier("mailOtpService") OtpVerificationService mailOtpService) {
-        this.publisher = publisher;
-        this.mailOtpService = mailOtpService;
-    }
 
     @PostMapping("/send-email")
     public ResponseEntity<Void> sendEmail(@Valid @RequestBody OtpSendRequestDTO dto) {
-        publisher.publishEvent(new OtpSentEvent(dto.recipient()));
+        publisher.publishEvent(new EmailOtpSentEvent(dto.recipient()));
         return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/send-phone")
     public ResponseEntity<OtpResponseDTO> sendPhone(@Valid @RequestBody OtpSendRequestDTO dto) {
-        return null;
+        publisher.publishEvent(new PhoneOtpSentEvent(dto.recipient()));
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/send-backup-mail")
@@ -48,9 +48,9 @@ public class OtpController {
         return ResponseEntity.ok(mailOtpService.verify(dto));
     }
 
-    @GetMapping("/verify-phone")
+    @PostMapping("/verify-phone")
     public ResponseEntity<OtpResponseDTO> verifyPhone(@Valid @RequestBody OtpVerifyRequestDTO dto) {
-        return null;
+        return ResponseEntity.ok(smsOtpService.verify(dto));
     }
 
     @GetMapping("/verify-backup-mail/{code}")

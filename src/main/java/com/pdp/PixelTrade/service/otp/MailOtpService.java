@@ -61,7 +61,7 @@ public class MailOtpService implements OtpVerificationService {
         if (activeOtp.getExpiresAt().isBefore(LocalDateTime.now())) {
             throw new OtpExpiredException("OTP expired with request code: {0}, recipient: {1}", request.code(), request.recipient());
         }
-        otpService.markOtpAsUsedAndSoftDelete(request.code());
+        otpService.markOtpAsUsed(request.recipient(), request.code());
         return new OtpResponseDTO(true, "OTP verified successfully");
     }
 }

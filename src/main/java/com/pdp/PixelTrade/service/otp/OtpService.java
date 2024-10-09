@@ -67,15 +67,15 @@ public class OtpService {
     }
 
     @Transactional
-    public void markOtpAsUsed(@NotNull String code) {
+    public void markOtpAsUsed(@NotNull String recipient, @NotNull String code) {
         validateCode(code);
-        otpRepository.markOtpAsUsed(code);
+        otpRepository.markOtpAsUsed(recipient, code);
     }
 
     @Transactional
-    public void markOtpAsUsedAndSoftDelete(@NotNull String code) {
+    public void markOtpAsUsedAndSoftDelete(@NotNull String recipient, @NotNull String code) {
         validateCode(code);
-        otpRepository.markOtpAsUsedAndSoftDelete(code);
+        otpRepository.markOtpAsUsedAndSoftDelete(recipient, code);
     }
 
     @Transactional

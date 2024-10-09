@@ -1,8 +1,6 @@
 package com.pdp.PixelTrade;
 
 import com.pdp.PixelTrade.config.security.SessionUser;
-import com.pdp.PixelTrade.dto.client.MessageRequestDTO;
-import com.pdp.PixelTrade.service.client.EskizService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -31,13 +29,8 @@ public class PixelTradeApplication {
     }
 
     @Bean
-    public CommandLineRunner run(EskizService service) {
+    public CommandLineRunner run() {
         return args -> {
-//            service.sendMessage(MessageRequestDTO.of(
-//                    "998906147150",
-//                    "Bu Eskiz dan test",
-//                    "4546"
-//            ));
         };
     }
 

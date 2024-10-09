@@ -16,10 +16,17 @@ import org.springframework.stereotype.Component;
 public class OtpEventListener {
 
     private final OtpVerificationService mailOtpService;
+    private final OtpVerificationService smsOtpService;
 
     @Async
-    @EventListener(classes = OtpSentEvent.class, condition = "#event.recipient() ne null")
-    public void onOtpSentEvent(OtpSentEvent event) {
+    @EventListener(classes = EmailOtpSentEvent.class, condition = "#event.recipient() ne null")
+    public void onOtpSentEvent(EmailOtpSentEvent event) {
         mailOtpService.send(new OtpSendRequestDTO(event.recipient()));
+    }
+
+    @Async
+    @EventListener(classes = PhoneOtpSentEvent.class, condition = "#event.recipient() ne null")
+    public void onPhoneOtpSentEvent(PhoneOtpSentEvent event) {
+        smsOtpService.send(new OtpSendRequestDTO(event.recipient()));
     }
 }
