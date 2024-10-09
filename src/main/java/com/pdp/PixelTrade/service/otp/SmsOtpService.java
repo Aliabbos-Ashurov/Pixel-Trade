@@ -8,6 +8,7 @@ import com.pdp.PixelTrade.entity.Otp;
 import com.pdp.PixelTrade.enums.OtpType;
 import com.pdp.PixelTrade.exceptions.otp.OtpExpiredException;
 import com.pdp.PixelTrade.exceptions.otp.TooManyOtpRequestsException;
+import com.pdp.PixelTrade.exceptions.validation.InvalidInputFormatException;
 import com.pdp.PixelTrade.service.client.EskizService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,9 +26,12 @@ public class SmsOtpService implements OtpVerificationService {
     private final EskizService eskizService;
     private final OtpService otpService;
     private final static String FROM = "4546";
+    private static final String PHONE_REGEX = "^998\\d{9}$";
 
     @Override
     public void send(OtpSendRequestDTO request) {
+        if (!request.recipient().matches(PHONE_REGEX))
+            throw new InvalidInputFormatException("Invalid phone number: {0} ",request.recipient());
         if (otpService.hasActiveOtp(request.recipient()))
             throw new TooManyOtpRequestsException("Too many active otp requests with recipient: {0}", request.recipient());
         String code = generateOtpCode();
