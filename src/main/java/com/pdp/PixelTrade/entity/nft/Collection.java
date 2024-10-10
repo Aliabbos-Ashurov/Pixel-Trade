@@ -6,7 +6,6 @@ import com.pdp.PixelTrade.enums.CryptoType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PositiveOrZero;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -41,18 +40,6 @@ public class Collection extends Auditable {
     @Builder.Default
     @Column(name = "is_verified", nullable = false)
     private boolean isVerified = false;
-
-    @PositiveOrZero
-    @Column(name = "nft_count", nullable = false)
-    private Integer nftCount = 0;
-
-    @PositiveOrZero
-    @Column(name = "total_likes", nullable = false)
-    private Integer totalLikes = 0;
-
-    @PositiveOrZero
-    @Column(name = "total_views", nullable = false)
-    private Integer totalViews = 0;
 
     @ManyToOne
     @JoinColumn(name = "owner_id", nullable = false)

@@ -10,8 +10,8 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 /**
- * @author Aliabbos Ashurov
- * @since 02/September/2024  13:02
+ * @author Doniyor Nishonov
+ * @since 09/October/2024  20:27
  **/
 @Entity
 @Getter
@@ -19,15 +19,13 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder(toBuilder = true)
-@Table(name = "connected_app")
-public class ConnectedApp extends BaseEntity {
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Apps app;
+@Table(name = "apps")
+public class Apps extends BaseEntity {
     @NotBlank
-    @Column(name = "app_url", nullable = false)
-    private String appUrl;
+    @Column(name = "app_name", nullable = false, unique = true)
+    private String appName;
 
-    @ManyToOne
-    @JoinColumn(name = "collection_id", nullable = false)
-    private Collection collection;
+    @JoinColumn(nullable = false, unique = true)
+    @OneToOne
+    private Upload upload;
 }
