@@ -46,18 +46,6 @@ public class Collection extends Auditable {
     @Column(name = "is_premium", nullable = false)
     private boolean isPremium = false;
 
-    @PositiveOrZero
-    @Column(name = "nft_count", nullable = false)
-    private Integer nftCount = 0;
-
-    @PositiveOrZero
-    @Column(name = "total_likes", nullable = false)
-    private Integer totalLikes = 0;
-
-    @PositiveOrZero
-    @Column(name = "total_views", nullable = false)
-    private Integer totalViews = 0;
-
     @ManyToOne
     @JoinColumn(name = "owner_id", nullable = false)
     private User owner;
@@ -72,4 +60,7 @@ public class Collection extends Auditable {
     @NotNull(message = "Crypto type is required")
     @Column(nullable = false)
     private CryptoType cryptoType;
+
+    @Embedded
+    private CollectionStatistics statistics;
 }
