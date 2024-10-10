@@ -21,7 +21,10 @@ public enum TransactionType {
     STAKING("STAKING"),
     UN_STAKING("UN_STAKING"),
     P2P_BUY("P2P_BUY"),
-    P2P_SELL("P2P_SELL");
+    P2P_SELL("P2P_SELL"),
+    NFT_BUY("NFT_BUY"),
+    NFT_SELL("NFT_SELL"),
+    NFT_OFFER("NFT_OFFER");
 
-    private final String displayName;
+    private final String name;
 }

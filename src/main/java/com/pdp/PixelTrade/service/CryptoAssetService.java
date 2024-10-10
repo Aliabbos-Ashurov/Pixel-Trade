@@ -2,8 +2,8 @@ package com.pdp.PixelTrade.service;
 
 import com.pdp.PixelTrade.dto.request.transaction.CryptoAssetCreationDTO;
 import com.pdp.PixelTrade.dto.response.transaction.CryptoAssetDTO;
-import com.pdp.PixelTrade.entity.transaction.CryptoAsset;
-import com.pdp.PixelTrade.entity.transaction.Wallet;
+import com.pdp.PixelTrade.entity.wallet.CryptoAsset;
+import com.pdp.PixelTrade.entity.wallet.Wallet;
 import com.pdp.PixelTrade.enums.CryptoType;
 import com.pdp.PixelTrade.exceptions.ResourceNotFoundException;
 import com.pdp.PixelTrade.exceptions.transaction.WalletNotFoundException;

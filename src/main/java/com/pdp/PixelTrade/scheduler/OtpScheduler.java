@@ -15,7 +15,7 @@ public class OtpScheduler {
 
     private final OtpService otpService;
 
-    @Scheduled(cron = "0 0 0 * * ?")
+    @Scheduled(cron = "0 0 * * * ?")
     public void softDeleteExpiredOtps() {
         otpService.softDeleteExpiredOtps();
     }

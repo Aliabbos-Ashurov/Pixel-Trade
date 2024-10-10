@@ -29,7 +29,7 @@ public class User extends Auditable {
     private String username;
 
     @Email
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String email;
 
     @NotBlank
@@ -37,7 +37,7 @@ public class User extends Auditable {
     private String password;
 
     @NotBlank
-    @Column(nullable = false, unique = true)
+    @Column(unique = true)
     private String phone;
 
     @Builder.Default

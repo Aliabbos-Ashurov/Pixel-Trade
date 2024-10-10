@@ -1,7 +1,7 @@
 package com.pdp.PixelTrade.mapper;
 
 import com.pdp.PixelTrade.dto.response.transaction.CryptoAssetDTO;
-import com.pdp.PixelTrade.entity.transaction.CryptoAsset;
+import com.pdp.PixelTrade.entity.wallet.CryptoAsset;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;

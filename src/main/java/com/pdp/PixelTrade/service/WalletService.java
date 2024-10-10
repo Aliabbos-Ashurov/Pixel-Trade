@@ -1,7 +1,7 @@
 package com.pdp.PixelTrade.service;
 
 import com.pdp.PixelTrade.dto.response.transaction.WalletDTO;
-import com.pdp.PixelTrade.entity.transaction.Wallet;
+import com.pdp.PixelTrade.entity.wallet.Wallet;
 import com.pdp.PixelTrade.enums.IdentificationLevel;
 import com.pdp.PixelTrade.exceptions.transaction.WalletNotFoundException;
 import com.pdp.PixelTrade.mapper.WalletMapper;

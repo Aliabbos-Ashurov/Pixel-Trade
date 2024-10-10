@@ -1,7 +1,5 @@
-package com.pdp.PixelTrade.entity.nft;
+package com.pdp.PixelTrade.entity;
 
-import com.pdp.PixelTrade.entity.Auditable;
-import com.pdp.PixelTrade.entity.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotBlank;

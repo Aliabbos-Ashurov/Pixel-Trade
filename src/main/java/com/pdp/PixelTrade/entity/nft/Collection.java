@@ -42,10 +42,6 @@ public class Collection extends Auditable {
     @Column(name = "is_verified", nullable = false)
     private boolean isVerified = false;
 
-    @Builder.Default
-    @Column(name = "is_premium", nullable = false)
-    private boolean isPremium = false;
-
     @PositiveOrZero
     @Column(name = "nft_count", nullable = false)
     private Integer nftCount = 0;

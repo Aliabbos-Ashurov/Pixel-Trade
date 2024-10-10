@@ -1,8 +1,8 @@
 package com.pdp.PixelTrade.entity;
 
 import com.pdp.PixelTrade.entity.nft.TransactionNFT;
-import com.pdp.PixelTrade.entity.transaction.Transaction;
-import com.pdp.PixelTrade.entity.transaction.Wallet;
+import com.pdp.PixelTrade.entity.wallet.Transaction;
+import com.pdp.PixelTrade.entity.wallet.Wallet;
 import com.pdp.PixelTrade.enums.TransactionType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;

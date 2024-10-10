@@ -36,7 +36,7 @@ public class SecurityConfig {
 
     private final String[] WHITE_URL = {
             "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html",
-            "/api/v1/auth/**", "/api/v1/otp/**"
+            "/api/v1/auth/**", "/api/v1/**"
 
     };
 

@@ -1,6 +1,7 @@
 package com.pdp.PixelTrade.entity.nft;
 
 import com.pdp.PixelTrade.entity.Auditable;
+import com.pdp.PixelTrade.entity.Upload;
 import com.pdp.PixelTrade.entity.User;
 import com.pdp.PixelTrade.enums.Category;
 import com.pdp.PixelTrade.enums.CryptoType;

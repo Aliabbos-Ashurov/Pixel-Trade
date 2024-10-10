@@ -1,4 +1,4 @@
-package com.pdp.PixelTrade.entity.transaction;
+package com.pdp.PixelTrade.entity.wallet;
 
 import com.pdp.PixelTrade.entity.Auditable;
 import com.pdp.PixelTrade.entity.User;
@@ -24,6 +24,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)
+@Table(name = "p2p_market")
 @Entity
 public class P2PMarket extends Auditable {
 

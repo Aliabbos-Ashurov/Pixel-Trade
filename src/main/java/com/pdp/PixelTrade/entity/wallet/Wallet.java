@@ -1,4 +1,4 @@
-package com.pdp.PixelTrade.entity.transaction;
+package com.pdp.PixelTrade.entity.wallet;
 
 import com.pdp.PixelTrade.annotation.ValidWallet;
 import com.pdp.PixelTrade.entity.Auditable;

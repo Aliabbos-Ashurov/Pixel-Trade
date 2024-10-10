@@ -12,19 +12,20 @@ import java.util.Properties;
  * @since 05/October/2024  19:23
  **/
 @Configuration
-public class OtpBeansConfig {
+public class MailingBeansConfig {
 
     @Bean
     public JavaMailSender javaMailSender() {
         JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
-        javaMailSender.setHost("sandbox.smtp.mailtrap.io");
+        javaMailSender.setHost("smtp.gmail.com");
         javaMailSender.setPort(587);
-        javaMailSender.setUsername("6edca5902ec301");
-        javaMailSender.setPassword("ed4b404e6c94fc");
+        javaMailSender.setUsername("pixeltradeco@gmail.com");
+        javaMailSender.setPassword("zvex bnub xeky rprb");
 
         Properties props = javaMailSender.getJavaMailProperties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
         return javaMailSender;
     }
 }

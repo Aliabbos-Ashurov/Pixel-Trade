@@ -1,7 +1,9 @@
-package com.pdp.PixelTrade.entity.transaction;
+package com.pdp.PixelTrade.entity.wallet;
 
 import com.pdp.PixelTrade.entity.BaseEntity;
 import com.pdp.PixelTrade.entity.Transactional;
+import com.pdp.PixelTrade.entity.Upload;
+import com.pdp.PixelTrade.enums.CryptoType;
 import com.pdp.PixelTrade.enums.TransactionStatus;
 import com.pdp.PixelTrade.enums.TransactionType;
 import jakarta.persistence.*;
@@ -27,11 +29,11 @@ import java.time.LocalDateTime;
 public class Transaction extends BaseEntity implements Transactional {
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "from_wallet_id", nullable = false, updatable = false, referencedColumnName = "id")
+    @JoinColumn(name = "from_wallet", nullable = false, updatable = false, referencedColumnName = "id")
     private Wallet fromWallet;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "to_wallet_id", nullable = false, updatable = false, referencedColumnName = "id")
+    @JoinColumn(name = "to_wallet", nullable = false, updatable = false, referencedColumnName = "id")
     private Wallet toWallet;
 
     @Enumerated(EnumType.STRING)
@@ -42,25 +44,14 @@ public class Transaction extends BaseEntity implements Transactional {
     @Column(nullable = false, precision = 38, scale = 8)
     private BigDecimal amount;
 
-    @Builder.Default
-    @DecimalMin("0.0")
-    @Column(nullable = false, precision = 38, scale = 8)
-    private BigDecimal fee = BigDecimal.ZERO;                    //  fee = amount * feePercentage
-
-    @Builder.Default
-    @Column(name = "fee_percentage", nullable = false)
-    private BigDecimal feePercentage = BigDecimal.ZERO;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "crypto_type", nullable = false, updatable = false)
+    private CryptoType cryptoType;
 
     @Builder.Default
     @Enumerated(EnumType.STRING)
     @Column(name = "transaction_status", nullable = false)
     private TransactionStatus transactionStatus = TransactionStatus.PENDING;
-
-    @Column(name = "image_url", updatable = false)
-    private String imageURL;
-
-    @Column(name = "qrcode_url", updatable = false)
-    private String qrCodeURL;
 
     @FutureOrPresent
     @Column(name = "confirmed_at")
@@ -71,4 +62,12 @@ public class Transaction extends BaseEntity implements Transactional {
 
     @Column(name = "error_message")
     private String errorMessage;
+
+    @OneToOne
+    @JoinColumn(name = "qr_code", referencedColumnName = "id", updatable = false)
+    private Upload qrCode;
+
+    @OneToOne(mappedBy = "transaction", cascade = CascadeType.ALL)
+    private Fee fee;
+
 }
