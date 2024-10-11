@@ -41,25 +41,25 @@ public class CryptoAssetService {
                 .build());
     }
 
-    public List<CryptoAssetDTO> findAllByWalletId(@NotNull Long walletId) {
-        return cryptoAssetRepository.findAllByWalletId(walletId).stream()
+    public List<CryptoAssetDTO> findAllByWalletAddress(@NotNull String address) {
+        return cryptoAssetRepository.findAllByWalletAddress(address).stream()
                 .map(cryptoAssetMapper::toCryptoAssetDTO)
                 .toList();
     }
 
-    public List<CryptoAssetDTO> findLockedAssetsByWalletId(@NotNull Long walletId) {
-        return cryptoAssetRepository.findLockedAssetsByWalletId(walletId).stream()
+    public List<CryptoAssetDTO> findLockedAssetsByWalletAddress(@NotNull String address) {
+        return cryptoAssetRepository.findLockedAssetsByWalletAddress(address).stream()
                 .map(cryptoAssetMapper::toCryptoAssetDTO)
                 .toList();
     }
 
-    public BigDecimal getTotalCryptoById(@NotNull Long cryptoId) {
-        return cryptoAssetRepository.getTotalCryptoById(cryptoId);
+    public BigDecimal getTotalCryptoByAddress(@NotNull String address) {
+        return cryptoAssetRepository.getTotalCryptoByAddress(address);
     }
 
-    public CryptoAssetDTO findByWalletIdAndCryptoType(@NotNull Long walletId, @NotNull CryptoType cryptoType) {
-        CryptoAsset cryptoAsset = cryptoAssetRepository.findByWalletIdAndCryptoType(walletId, cryptoType).orElseThrow(
-                () -> new ResourceNotFoundException("CryptoAsset not found by walletId {0} and type {1}", walletId, cryptoType)
+    public CryptoAssetDTO findByWalletAddressAndCryptoType(@NotNull String address, @NotNull CryptoType cryptoType) {
+        CryptoAsset cryptoAsset = cryptoAssetRepository.findByWalletAddressAndCryptoType(address, cryptoType).orElseThrow(
+                () -> new ResourceNotFoundException("CryptoAsset not found by wallet address {0} and type {1}", address, cryptoType)
         );
         return cryptoAssetMapper.toCryptoAssetDTO(cryptoAsset);
     }

@@ -23,8 +23,8 @@ public class WalletService {
     private final WalletRepository walletRepository;
     private final WalletMapper walletMapper;
 
-    public BigDecimal getBalance(@NotNull Long walletId) {
-        return walletRepository.getBalance(walletId);
+    public BigDecimal getBalance(@NotNull String address) {
+        return walletRepository.getBalance(address);
     }
 
     public Wallet findByAddress(@NotNull String address) {
@@ -51,12 +51,12 @@ public class WalletService {
         return walletRepository.countWalletsByIdentificationLevel(level);
     }
 
-    public void addBalance(@NotNull Long walletId, @NotNull BigDecimal amount) {
-        walletRepository.addBalance(walletId, amount);
+    public void addBalance(@NotNull String address, @NotNull BigDecimal amount) {
+        walletRepository.addBalance(address, amount);
     }
 
-    public void subtractBalance(@NotNull Long walletId, @NotNull BigDecimal amount) {
-        walletRepository.subtractBalance(amount, walletId);
+    public void subtractBalance(@NotNull String address, @NotNull BigDecimal amount) {
+        walletRepository.subtractBalance(address, amount);
     }
 
     public void lockAllAssetsInWallet(@NotNull Long walletId, @NotNull String reason) {

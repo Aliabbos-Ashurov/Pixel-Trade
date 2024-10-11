@@ -49,8 +49,8 @@ public class Wallet extends Auditable {
     private IdentificationLevel level;
 
     @DecimalMin(value = "0.0", message = "Daily transaction limit must be non-negative")
-    @Column(name = "daily_transaction_limit", nullable = false, precision = 38, scale = 8)
-    private BigDecimal dailyTransactionLimit = new BigDecimal("1000.00");
+    @Column(name = "daily_transaction_limit", precision = 38, scale = 8)
+    private BigDecimal dailyTransactionLimit;
 
     @Builder.Default
     @Column(name = "transaction_count", nullable = false)
@@ -72,4 +72,8 @@ public class Wallet extends Auditable {
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private User user;
+
+    @Builder.Default
+    @Column(name = "active", nullable = false)
+    private boolean active = true;
 }

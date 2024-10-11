@@ -36,9 +36,6 @@ public class CryptoAsset extends Auditable {
     @Column(nullable = false, precision = 38, scale = 8)
     private BigDecimal amount;
 
-    /*@Column(nullable = false, updatable = false, unique = true)
-    private String address;*/
-
     @Builder.Default
     @Column(name = "is_locked")
     private Boolean isLocked = false;
