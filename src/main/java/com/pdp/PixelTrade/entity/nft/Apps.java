@@ -1,6 +1,7 @@
 package com.pdp.PixelTrade.entity.nft;
 
 import com.pdp.PixelTrade.entity.BaseEntity;
+import com.pdp.PixelTrade.entity.Upload;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;

@@ -61,7 +61,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
             WHERE t.transactionType = :type
             AND t.deleted = FALSE
             """)
-    List<Transaction> findByTransactionType(@NotNull @Param("transactionType") TransactionType type);
+    List<Transaction> findByTransactionType(@NotNull @Param("type") TransactionType type);
 
     @Query("""
             FROM Transaction t WHERE t.transactionStatus = 'PENDING'
