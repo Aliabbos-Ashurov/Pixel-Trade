@@ -39,8 +39,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
             """)
     List<Transaction> findTransactionsBetweenDates(
             @NotNull @Param("startDate") LocalDateTime startDate,
-            @NotNull @Param("endDate") LocalDateTime endDate
-    );
+            @NotNull @Param("endDate") LocalDateTime endDate);
 
     @Query("""
             SELECT t FROM Transaction t

@@ -6,8 +6,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-import java.util.List;
-
 /**
  * @author Aliabbos Ashurov
  * @since 10/October/2024  10:27
@@ -36,6 +34,6 @@ public class Issue extends Auditable {
     @Column(name = "status", nullable = false)
     private IssueStatus status = IssueStatus.OPEN;
 
-    @OneToMany
-    private List<Upload> uploads;
+    @OneToOne
+    private Upload upload;
 }
