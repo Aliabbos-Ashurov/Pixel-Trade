@@ -59,8 +59,4 @@ public class MiningEvent extends Auditable {
 
     @Column(name = "additional_info")
     private String additionalInfo;
-
-    public boolean canUserCompete(int currentParticipants) {
-        return currentParticipants < maxParticipants;
-    }
 }

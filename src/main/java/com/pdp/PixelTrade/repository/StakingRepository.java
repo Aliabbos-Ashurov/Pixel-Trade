@@ -34,7 +34,7 @@ public interface StakingRepository extends JpaRepository<Staking, Long> {
     List<Staking> findByCryptoType(@Param("cryptoType") CryptoType cryptoType);
 
     @Query("""
-            FROM Staking s 
+            FROM Staking s
             WHERE s.stakeEnd IS NOT NULL
             AND s.deleted = FALSE
             """)

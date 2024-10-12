@@ -29,8 +29,8 @@ import java.math.BigDecimal;
 public class P2PMarket extends Auditable {
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
-    private User user;
+    @JoinColumn(name = "owner_id", referencedColumnName = "id", nullable = false)
+    private User owner;
 
     @DecimalMin("0.0")
     @Column(nullable = false, precision = 38, scale = 8)
