@@ -2,6 +2,7 @@ package com.pdp.PixelTrade.config.security;
 
 import com.pdp.PixelTrade.config.security.filter.JwtTokenFilter;
 import com.pdp.PixelTrade.config.security.filter.PerformanceMonitoringFilter;
+import com.pdp.PixelTrade.utils.Constants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,19 +34,12 @@ public class SecurityConfig {
     private final JwtTokenFilter jwtTokenFilter;
     private final PerformanceMonitoringFilter performanceMonitoringFilter;
 
-
-    private final String[] WHITE_URL = {
-            "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html",
-            "/api/v1/auth/**", "/api/v1/**"
-
-    };
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .cors(httpSecurityCorsConfigurer -> httpSecurityCorsConfigurer.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(authorizeRequests ->
-                        authorizeRequests.requestMatchers(WHITE_URL).permitAll()
+                        authorizeRequests.requestMatchers(Constants.OPEN_PAGES).permitAll()
                                 .anyRequest().authenticated()
                 )
                 .exceptionHandling(exceptions -> {

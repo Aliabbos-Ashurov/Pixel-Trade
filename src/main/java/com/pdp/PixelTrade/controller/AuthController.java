@@ -7,6 +7,7 @@ import com.pdp.PixelTrade.dto.response.TokenResponseDTO;
 import com.pdp.PixelTrade.dto.response.UserResponseDTO;
 import com.pdp.PixelTrade.service.UserService;
 import com.pdp.PixelTrade.service.token.TokenService;
+import com.pdp.PixelTrade.utils.Constants;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 02/October/2024  13:20
  **/
 @RestController
-@RequestMapping("/api/v1/auth")
+@RequestMapping(Constants.BASE_PATH_V1 + "/auth")
 @RequiredArgsConstructor
 public class AuthController {
 

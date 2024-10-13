@@ -1,5 +1,6 @@
 package com.pdp.PixelTrade.controller;
 
+import com.pdp.PixelTrade.utils.Constants;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 10/October/2024  10:37
  **/
 @RestController
-@RequestMapping("/api/v1/notification")
+@RequestMapping(Constants.BASE_PATH_V1 + "/notification")
 @RequiredArgsConstructor
 public class NotificationController {
 

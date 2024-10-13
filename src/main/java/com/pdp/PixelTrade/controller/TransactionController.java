@@ -1,6 +1,7 @@
 package com.pdp.PixelTrade.controller;
 
 import com.pdp.PixelTrade.dto.request.transaction.TransactionDTO;
+import com.pdp.PixelTrade.utils.Constants;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 10/October/2024  12:18
  **/
 @RestController
-@RequestMapping("/api/v1/transaction")
+@RequestMapping(Constants.BASE_PATH_V1 + "/transaction")
 public class TransactionController {
 
     @PostMapping("/transfer")

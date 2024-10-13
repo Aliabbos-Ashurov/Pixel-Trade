@@ -6,6 +6,7 @@ import com.pdp.PixelTrade.dto.response.OtpResponseDTO;
 import com.pdp.PixelTrade.event.EmailOtpSentEvent;
 import com.pdp.PixelTrade.event.PhoneOtpSentEvent;
 import com.pdp.PixelTrade.service.otp.OtpVerificationService;
+import com.pdp.PixelTrade.utils.Constants;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
  * @since 06/October/2024  10:57
  **/
 @RestController
-@RequestMapping("/api/v1/otp")
+@RequestMapping(Constants.BASE_PATH_V1 + "/otp")
 @RequiredArgsConstructor
 public class OtpController {
 

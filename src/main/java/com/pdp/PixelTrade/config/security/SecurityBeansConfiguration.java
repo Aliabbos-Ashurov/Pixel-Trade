@@ -48,7 +48,6 @@ public class SecurityBeansConfiguration {
         ErrorMessageDTO errorMessageDTO = ErrorMessageDTO.of(String.valueOf(errorCode), errorMessage, errorPath);
         response.setStatus(errorCode);
         response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
         try (ServletOutputStream outputStream = response.getOutputStream()) {
             objectMapper.writeValue(outputStream, errorMessageDTO);
         }

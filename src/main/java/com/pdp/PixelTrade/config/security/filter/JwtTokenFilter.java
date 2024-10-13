@@ -1,6 +1,7 @@
 package com.pdp.PixelTrade.config.security.filter;
 
 import com.pdp.PixelTrade.config.security.CustomUserDetailsService;
+import com.pdp.PixelTrade.utils.Constants;
 import com.pdp.PixelTrade.utils.JwtTokenUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -32,12 +33,12 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     protected void doFilterInternal(@NonNull HttpServletRequest request,
                                     @NonNull HttpServletResponse response,
                                     @NonNull FilterChain filterChain) throws ServletException, IOException {
-        String authorization = request.getHeader("Authorization");
+        String authorization = request.getHeader(Constants.AUTH_HEADER);
         if (authorization == null || !authorization.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
-        String token = authorization.substring(7);
+        String token = authorization.substring(Constants.AUTH_TYPE.length());
         String username = jwtTokenUtil.extractUsername(token);
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
