@@ -1,5 +1,6 @@
 package com.pdp.PixelTrade.controller;
 
+import com.pdp.PixelTrade.dto.ApiResponse;
 import com.pdp.PixelTrade.dto.request.OtpSendRequestDTO;
 import com.pdp.PixelTrade.dto.request.OtpVerifyRequestDTO;
 import com.pdp.PixelTrade.dto.response.OtpResponseDTO;
@@ -34,28 +35,28 @@ public class OtpController {
     }
 
     @PostMapping("/send-phone")
-    public ResponseEntity<OtpResponseDTO> sendPhone(@Valid @RequestBody OtpSendRequestDTO dto) {
+    public ResponseEntity<Void> sendPhone(@Valid @RequestBody OtpSendRequestDTO dto) {
         publisher.publishEvent(new PhoneOtpSentEvent(dto.recipient()));
         return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/send-backup-mail")
-    public ResponseEntity<OtpResponseDTO> sendBackupMail(@Valid @RequestBody OtpSendRequestDTO dto) {
+    public ResponseEntity<Void> sendBackupMail(@Valid @RequestBody OtpSendRequestDTO dto) {
         return null;
     }
 
     @PostMapping("/verify-email")
-    public ResponseEntity<OtpResponseDTO> verifyEmail(@Valid @RequestBody OtpVerifyRequestDTO dto) {
+    public ResponseEntity<ApiResponse<OtpResponseDTO>> verifyEmail(@Valid @RequestBody OtpVerifyRequestDTO dto) {
         return ResponseEntity.ok(mailOtpService.verify(dto));
     }
 
     @PostMapping("/verify-phone")
-    public ResponseEntity<OtpResponseDTO> verifyPhone(@Valid @RequestBody OtpVerifyRequestDTO dto) {
+    public ResponseEntity<ApiResponse<OtpResponseDTO>> verifyPhone(@Valid @RequestBody OtpVerifyRequestDTO dto) {
         return ResponseEntity.ok(smsOtpService.verify(dto));
     }
 
     @GetMapping("/verify-backup-mail/{code}")
-    public ResponseEntity<OtpResponseDTO> verifyBackupMail(@PathVariable String code) {
+    public ResponseEntity<ApiResponse<OtpResponseDTO>> verifyBackupMail(@PathVariable String code) {
         return null;
     }
 }

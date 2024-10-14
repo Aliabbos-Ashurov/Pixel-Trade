@@ -1,6 +1,7 @@
 package com.pdp.PixelTrade.service.token;
 
 import com.pdp.PixelTrade.controller.AuthController;
+import com.pdp.PixelTrade.dto.ApiResponse;
 import com.pdp.PixelTrade.dto.request.RefreshTokenRequestDTO;
 import com.pdp.PixelTrade.dto.request.TokenRequestDTO;
 import com.pdp.PixelTrade.dto.response.TokenDTO;
@@ -32,17 +33,17 @@ public class TokenService {
     private final JwtTokenUtil jwtTokenUtil;
     private final AuthenticationManager authenticationManager;
 
-    public TokenResponseDTO generateToken(@NotNull String username, @NotNull String password) {
+    public ApiResponse<TokenResponseDTO> generateToken(@NotNull String username, @NotNull String password) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(username, password)
         );
         User user = userRepository.findByUsername(username);
         TokenDTO accessToken = jwtTokenUtil.generateAccessToken(user.getId(), user.getUsername(), user.getRole());
         TokenDTO refreshToken = jwtTokenUtil.generateRefreshToken(user.getUsername());
-        return TokenResponseDTO.of(user.getId(), accessToken, refreshToken);
+        return ApiResponse.ok(TokenResponseDTO.of(user.getId(), accessToken, refreshToken));
     }
 
-    public TokenResponseDTO refreshToken(@NotNull String refreshToken) {
+    public ApiResponse<TokenResponseDTO> refreshToken(@NotNull String refreshToken) {
         if (!jwtTokenUtil.validateToken(refreshToken))
             throw new TokenExpiredException("Token has expired or invalid: {0}", refreshToken);
         String username = jwtTokenUtil.extractUsername(refreshToken);
@@ -51,7 +52,7 @@ public class TokenService {
             throw new UserNotFoundException("User not found: {0}", username);
         TokenDTO newAccessToken = jwtTokenUtil.generateAccessToken(user.getId(), user.getUsername(), user.getRole());
         TokenDTO newRefreshToken = jwtTokenUtil.generateRefreshToken(user.getUsername());
-        return TokenResponseDTO.of(user.getId(), newAccessToken, newRefreshToken);
+        return ApiResponse.ok(TokenResponseDTO.of(user.getId(), newAccessToken, newRefreshToken));
     }
 
     private EntityModel<TokenResponseDTO> addLinks(EntityModel<TokenResponseDTO> entityModel,

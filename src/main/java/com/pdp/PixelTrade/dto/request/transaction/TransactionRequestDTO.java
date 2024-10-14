@@ -12,7 +12,7 @@ import java.math.BigDecimal;
  * @author Aliabbos Ashurov
  * @since 10/October/2024  12:15
  **/
-public record TransactionDTO(
+public record TransactionRequestDTO(
         @NotBlank @NotNull String fromAddress,
         @NotBlank @NotNull String toAddress,
         @NotNull BigDecimal amount,

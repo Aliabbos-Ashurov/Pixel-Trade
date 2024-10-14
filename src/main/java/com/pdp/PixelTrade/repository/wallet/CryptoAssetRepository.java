@@ -1,4 +1,4 @@
-package com.pdp.PixelTrade.repository;
+package com.pdp.PixelTrade.repository.wallet;
 
 import com.pdp.PixelTrade.entity.wallet.CryptoAsset;
 import com.pdp.PixelTrade.enums.CryptoType;

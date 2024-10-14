@@ -1,4 +1,4 @@
-package com.pdp.PixelTrade.repository;
+package com.pdp.PixelTrade.repository.wallet;
 
 import com.pdp.PixelTrade.entity.wallet.Fee;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -48,5 +48,4 @@ public interface FeeRepository extends JpaRepository<Fee, Long> {
             AND f.deleted = FALSE
             """)
     long countZeroPercentageFees();
-
 }

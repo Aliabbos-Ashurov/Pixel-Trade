@@ -1,5 +1,6 @@
 package com.pdp.PixelTrade.service;
 
+import com.pdp.PixelTrade.dto.ApiResponse;
 import com.pdp.PixelTrade.dto.request.UserRegisterDTO;
 import com.pdp.PixelTrade.dto.response.UserDTO;
 import com.pdp.PixelTrade.dto.response.UserResponseDTO;
@@ -24,8 +25,8 @@ public class UserService {
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
 
-    public UserResponseDTO findById(@NotNull Long id) {
-        return userMapper.toUserResponseDTO(userRepository.findByIdAndDeletedFalse(id));
+    public ApiResponse<UserResponseDTO> findById(@NotNull Long id) {
+        return ApiResponse.ok(userMapper.toUserResponseDTO(userRepository.findByIdAndDeletedFalse(id)));
     }
 
     public UserDTO findByUsername(@NotNull String username) {
@@ -36,9 +37,9 @@ public class UserService {
     }
 
 
-    public UserResponseDTO register(@NotNull UserRegisterDTO dto) {
+    public ApiResponse<UserResponseDTO> register(@NotNull UserRegisterDTO dto) {
         User user = userMapper.toUser(dto);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userMapper.toUserResponseDTO(userRepository.save(user));
+        return ApiResponse.ok(userMapper.toUserResponseDTO(userRepository.save(user)));
     }
 }

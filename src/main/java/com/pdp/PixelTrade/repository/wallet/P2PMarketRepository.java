@@ -1,7 +1,6 @@
-package com.pdp.PixelTrade.repository;
+package com.pdp.PixelTrade.repository.wallet;
 
 import com.pdp.PixelTrade.entity.wallet.P2PMarket;
-import com.pdp.PixelTrade.enums.CardType;
 import com.pdp.PixelTrade.enums.CryptoType;
 import com.pdp.PixelTrade.enums.CurrencyType;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -59,24 +58,6 @@ public interface P2PMarketRepository extends JpaRepository<P2PMarket, Long> {
             """)
     List<P2PMarket> findByPriceRange(@Param("minPrice") BigDecimal minPrice,
                                      @Param("maxPrice") BigDecimal maxPrice);
-
-    @Query("""
-            FROM P2PMarket pm
-            WHERE pm.amount >= :minAmount
-            AND pm.deleted = FALSE
-            """)
-    List<P2PMarket> findByMinAmount(@Param("minAmount") BigDecimal minAmount);
-
-    @Query("""
-            FROM P2PMarket pm
-            WHERE pm.cryptoType = :cryptoType
-            AND pm.cardType = :cardType
-            AND pm.amount >= :amount
-            AND pm.deleted = FALSE
-            """)
-    List<P2PMarket> findByCryptoCardTypeAndMinAmount(@Param("cryptoType") CryptoType cryptoType,
-                                                     @Param("cardType") CardType cardType,
-                                                     @Param("amount") BigDecimal amount);
 
     @Query("""
             SELECT COUNT(pm)

@@ -1,5 +1,6 @@
 package com.pdp.PixelTrade.controller;
 
+import com.pdp.PixelTrade.dto.ApiResponse;
 import com.pdp.PixelTrade.dto.request.RefreshTokenRequestDTO;
 import com.pdp.PixelTrade.dto.request.TokenRequestDTO;
 import com.pdp.PixelTrade.dto.request.UserRegisterDTO;
@@ -29,17 +30,17 @@ public class AuthController {
     private final UserService userService;
 
     @PostMapping("/token")
-    public ResponseEntity<TokenResponseDTO> login(@Valid @RequestBody TokenRequestDTO dto) {
+    public ResponseEntity<ApiResponse<TokenResponseDTO>> login(@Valid @RequestBody TokenRequestDTO dto) {
         return ResponseEntity.ok(tokenService.generateToken(dto.username(), dto.password()));
     }
 
     @PostMapping("/refresh-token")
-    public ResponseEntity<TokenResponseDTO> refreshToken(@Valid @RequestBody RefreshTokenRequestDTO dto) {
+    public ResponseEntity<ApiResponse<TokenResponseDTO>> refreshToken(@Valid @RequestBody RefreshTokenRequestDTO dto) {
         return ResponseEntity.ok(tokenService.refreshToken(dto.refreshToken()));
     }
 
     @PostMapping("/register")
-    private ResponseEntity<UserResponseDTO> register(@Valid @RequestBody UserRegisterDTO userRegisterDTO) {
+    private ResponseEntity<ApiResponse<UserResponseDTO>> register(@Valid @RequestBody UserRegisterDTO userRegisterDTO) {
         return ResponseEntity.ok(userService.register(userRegisterDTO));
     }
 }

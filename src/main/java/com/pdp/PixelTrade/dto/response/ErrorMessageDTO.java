@@ -17,8 +17,13 @@ public record ErrorMessageDTO(
         implements Response {
 
     public static ErrorMessageDTO of(String code, String message, String path) {
-        return new ErrorMessageDTO(code, message, path, "Contact support for more details.",
-                LocalDateTime.now(ZoneId.of("Asia/Tashkent")));
+        return new ErrorMessageDTO(
+                code,
+                message,
+                path,
+                "Contact support for more details.",
+                LocalDateTime.now(ZoneId.of("Asia/Tashkent"))
+        );
     }
 
     public String getTimestamp() {

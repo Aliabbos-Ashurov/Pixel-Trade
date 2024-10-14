@@ -1,5 +1,6 @@
 package com.pdp.PixelTrade.service.otp;
 
+import com.pdp.PixelTrade.dto.ApiResponse;
 import com.pdp.PixelTrade.dto.request.OtpSendRequestDTO;
 import com.pdp.PixelTrade.dto.request.OtpVerifyRequestDTO;
 import com.pdp.PixelTrade.dto.response.OtpResponseDTO;
@@ -16,7 +17,7 @@ public interface OtpVerificationService {
     void send(@NotNull OtpSendRequestDTO request);
 
 
-    OtpResponseDTO verify(@NotNull OtpVerifyRequestDTO request);
+    ApiResponse<OtpResponseDTO> verify(@NotNull OtpVerifyRequestDTO request);
 
     default String generateOtpCode() {
         return String.valueOf(ThreadLocalRandom.current().nextInt(100000, 999999));

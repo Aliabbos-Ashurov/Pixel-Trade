@@ -1,5 +1,6 @@
 package com.pdp.PixelTrade.service.otp;
 
+import com.pdp.PixelTrade.dto.ApiResponse;
 import com.pdp.PixelTrade.dto.client.MessageRequestDTO;
 import com.pdp.PixelTrade.dto.request.OtpSendRequestDTO;
 import com.pdp.PixelTrade.dto.request.OtpVerifyRequestDTO;
@@ -31,7 +32,7 @@ public class SmsOtpService implements OtpVerificationService {
     @Override
     public void send(OtpSendRequestDTO request) {
         if (!request.recipient().matches(PHONE_REGEX))
-            throw new InvalidInputFormatException("Invalid phone number: {0} ",request.recipient());
+            throw new InvalidInputFormatException("Invalid phone number: {0} ", request.recipient());
         if (otpService.hasActiveOtp(request.recipient()))
             throw new TooManyOtpRequestsException("Too many active otp requests with recipient: {0}", request.recipient());
         String code = generateOtpCode();
@@ -44,13 +45,13 @@ public class SmsOtpService implements OtpVerificationService {
     }
 
     @Override
-    public OtpResponseDTO verify(OtpVerifyRequestDTO request) {
+    public ApiResponse<OtpResponseDTO> verify(OtpVerifyRequestDTO request) {
         Otp activeOtp = otpService.findActiveOtp(request.recipient(), request.code());
         System.out.println(activeOtp);
         if (activeOtp.getExpiresAt().isBefore(LocalDateTime.now())) {
             throw new OtpExpiredException("OTP expired with request code: {0}, recipient: {1}", request.code(), request.recipient());
         }
         otpService.markOtpAsUsed(request.recipient(), request.code());
-        return new OtpResponseDTO(true, "OTP verified successfully");
+        return ApiResponse.ok(new OtpResponseDTO(true, "OTP verified successfully"));
     }
 }
