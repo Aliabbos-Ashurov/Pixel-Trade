@@ -1,6 +1,7 @@
 package com.pdp.PixelTrade.mapper;
 
 import com.pdp.PixelTrade.dto.request.transaction.CryptoCreateDTO;
+import com.pdp.PixelTrade.dto.response.transaction.CryptoResponseDTO;
 import com.pdp.PixelTrade.entity.Crypto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -15,4 +16,6 @@ public interface CryptoMapper {
 
     @Mapping(target = "imageURL", ignore = true)
     Crypto toCrypto(CryptoCreateDTO dto);
+
+    CryptoResponseDTO toCryptoResponseDTO(Crypto crypto);
 }

@@ -1,5 +1,6 @@
 package com.pdp.PixelTrade.config.handler;
 
+import com.pdp.PixelTrade.dto.ApiResponse;
 import com.pdp.PixelTrade.dto.response.ErrorMessageDTO;
 import com.pdp.PixelTrade.exceptions.BaseException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,10 +22,14 @@ public class GlobalExceptionHandler {
     private boolean LOG_MODE;
 
     @ExceptionHandler(BaseException.class)
-    public ResponseEntity<ErrorMessageDTO> handleCryptoOperationException(BaseException ex, HttpServletRequest request) {
+    public ResponseEntity<ApiResponse<ErrorMessageDTO>> handleCryptoOperationException(BaseException ex, HttpServletRequest request) {
         logException(ex, request);
         ErrorMessageDTO errorMessage = ErrorMessageDTO.of(ex.getCode(), ex.getMessage(), request.getRequestURI());
-        return new ResponseEntity<>(errorMessage, ex.getHttpStatus());
+        return new ResponseEntity<>(ApiResponse.error(
+                ex.getHttpStatus().value(),
+                "Operation failed",
+                errorMessage
+        ), ex.getHttpStatus());
     }
 
     private void logException(Exception ex, HttpServletRequest request) {

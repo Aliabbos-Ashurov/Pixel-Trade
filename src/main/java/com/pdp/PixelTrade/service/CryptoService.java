@@ -1,6 +1,8 @@
 package com.pdp.PixelTrade.service;
 
+import com.pdp.PixelTrade.dto.ApiResponse;
 import com.pdp.PixelTrade.dto.request.transaction.CryptoCreateDTO;
+import com.pdp.PixelTrade.dto.response.transaction.CryptoResponseDTO;
 import com.pdp.PixelTrade.entity.Crypto;
 import com.pdp.PixelTrade.enums.AwsPackage;
 import com.pdp.PixelTrade.mapper.CryptoMapper;
@@ -47,6 +49,12 @@ public class CryptoService {
 
     public boolean existsByName(String name) {
         return cryptoRepository.existsByName(name);
+    }
+
+    public ApiResponse<List<CryptoResponseDTO>> findAll() {
+        return ApiResponse.ok(cryptoRepository.findAll().stream()
+                .map(cryptoMapper::toCryptoResponseDTO)
+                .toList());
     }
 
     public List<Crypto> findAllOrderByFeePercentageDesc() {

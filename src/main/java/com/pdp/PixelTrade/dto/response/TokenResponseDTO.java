@@ -11,9 +11,8 @@ import org.springframework.validation.annotation.Validated;
  * @since 02/October/2024  13:21
  **/
 @Validated
-@JsonPropertyOrder({"success", "user_id", "token_type", "access", "refresh", "_links"})
+@JsonPropertyOrder({"user_id", "token_type", "access", "refresh", "_links"})
 public record TokenResponseDTO(
-        @NotNull Boolean success,
         @JsonProperty("token_type")
         @NotNull TokenType tokenType,
         @JsonProperty("user_id")
@@ -22,6 +21,6 @@ public record TokenResponseDTO(
         @NotNull TokenDTO refresh
 ) implements Response {
     public static TokenResponseDTO of(Long userId, TokenDTO access, TokenDTO refresh) {
-        return new TokenResponseDTO(Boolean.TRUE, TokenType.BEARER, userId, access, refresh);
+        return new TokenResponseDTO(TokenType.BEARER, userId, access, refresh);
     }
 }

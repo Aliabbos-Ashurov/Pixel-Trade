@@ -1,13 +1,18 @@
 package com.pdp.PixelTrade.controller;
 
+import com.pdp.PixelTrade.dto.ApiResponse;
 import com.pdp.PixelTrade.dto.request.transaction.CryptoCreateDTO;
+import com.pdp.PixelTrade.dto.response.transaction.CryptoResponseDTO;
 import com.pdp.PixelTrade.service.CryptoService;
 import com.pdp.PixelTrade.utils.Constants;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author Aliabbos Ashurov
@@ -19,8 +24,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class CryptoController {
     private final CryptoService cryptoService;
 
-    public ResponseEntity<Void> cryptoCreate(@RequestBody CryptoCreateDTO dto) {
+    @PostMapping(value = "/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Void> cryptoCreate(@Valid @RequestBody CryptoCreateDTO dto) {
         cryptoService.save(dto);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/get")
+    public ResponseEntity<ApiResponse<List<CryptoResponseDTO>>> cryptoList() {
+        return ResponseEntity.ok(cryptoService.findAll());
     }
 }
