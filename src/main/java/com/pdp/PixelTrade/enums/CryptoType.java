@@ -15,8 +15,6 @@ public enum CryptoType {
     ETH("ETH", "Ethereum"),
     BTC("BTC", "Bitcoin"),
     TON("TON", "Ton"),
-    NOT("NOT", "Notcoin"),
-    HMSTR("HMSTR", "Hamster"),
     DOGS("DOGS", "Dogs"),
     SOLANA("SOL", "Solana"),
     ADA("ADA", "Cardano"),

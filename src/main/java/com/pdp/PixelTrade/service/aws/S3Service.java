@@ -20,7 +20,6 @@ import java.util.Objects;
  * @since 02/October/2024  09:08
  **/
 @Service
-@SuppressWarnings("unused")
 public class S3Service {
 
     private final S3Client s3Client;
@@ -73,9 +72,8 @@ public class S3Service {
                Region.US_EAST_1.id(),
                key);*/
     private String getFileUrl(String key, AwsPackage directory) {
-        return String.format("https://%s.s3.amazonaws.com/%s/%s",
+        return String.format("https://%s.s3.amazonaws.com/%s",
                 bucketName,
-                directory.getDirectory(),
                 key);
     }
 }

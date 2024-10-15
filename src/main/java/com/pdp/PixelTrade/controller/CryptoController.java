@@ -7,7 +7,6 @@ import com.pdp.PixelTrade.service.CryptoService;
 import com.pdp.PixelTrade.utils.Constants;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +24,7 @@ public class CryptoController {
     private final CryptoService cryptoService;
 
     @PostMapping(value = "/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Void> cryptoCreate(@Valid @RequestBody CryptoCreateDTO dto) {
+    public ResponseEntity<Void> cryptoCreate(@Valid @ModelAttribute CryptoCreateDTO dto) {
         cryptoService.save(dto);
         return ResponseEntity.noContent().build();
     }

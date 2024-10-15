@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 public record CryptoCreateDTO(
         @NotBlank @NotNull String name,
         @NotBlank @NotNull String symbol,
-        @NotBlank @NotNull MultipartFile image,
+        @NotNull MultipartFile image,
         @NotNull BigDecimal feePercentage,
         @NotBlank @NotNull String description
 ) implements Request {
