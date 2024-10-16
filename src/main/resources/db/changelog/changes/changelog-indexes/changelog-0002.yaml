@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0002
+      author: Aliabbos Ashurov
+      comment: 'Creating an index on the email column of the users table.'
+      created: '16-10-2024 11:42'
+      changes:
+        - createIndex:
+            indexName: idx_email
+            tableName: users
+            columns:
+              - column:
+                  name: email
