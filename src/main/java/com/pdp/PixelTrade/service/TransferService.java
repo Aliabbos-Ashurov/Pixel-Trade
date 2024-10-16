@@ -1,5 +1,7 @@
 package com.pdp.PixelTrade.service;
 
+import com.pdp.PixelTrade.dto.ApiResponse;
+import com.pdp.PixelTrade.dto.transaction.response.TransactionResponseDTO;
 import com.pdp.PixelTrade.service.wallet.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,4 +20,7 @@ public class TransferService {
     private final WalletService walletService;
     private final WalletSuspicionRecordService walletSuspicionRecordService;
 
+    public ApiResponse<TransactionResponseDTO> transferW2W() {
+
+    }
 }

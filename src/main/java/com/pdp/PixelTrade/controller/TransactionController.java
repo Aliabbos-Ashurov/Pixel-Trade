@@ -1,6 +1,6 @@
 package com.pdp.PixelTrade.controller;
 
-import com.pdp.PixelTrade.dto.request.transaction.TransactionRequestDTO;
+import com.pdp.PixelTrade.dto.transaction.request.TransactionRequestDTO;
 import com.pdp.PixelTrade.utils.Constants;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

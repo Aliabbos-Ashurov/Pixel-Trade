@@ -1,9 +1,9 @@
 package com.pdp.PixelTrade.controller;
 
 import com.pdp.PixelTrade.dto.ApiResponse;
-import com.pdp.PixelTrade.dto.request.OtpSendRequestDTO;
-import com.pdp.PixelTrade.dto.request.OtpVerifyRequestDTO;
-import com.pdp.PixelTrade.dto.response.OtpResponseDTO;
+import com.pdp.PixelTrade.dto.auth.OtpResponseDTO;
+import com.pdp.PixelTrade.dto.auth.OtpSendRequestDTO;
+import com.pdp.PixelTrade.dto.auth.OtpVerifyRequestDTO;
 import com.pdp.PixelTrade.event.EmailOtpSentEvent;
 import com.pdp.PixelTrade.event.PhoneOtpSentEvent;
 import com.pdp.PixelTrade.service.otp.OtpVerificationService;

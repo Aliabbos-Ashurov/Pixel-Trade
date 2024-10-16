@@ -1,7 +1,7 @@
 package com.pdp.PixelTrade.config.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pdp.PixelTrade.dto.response.ErrorMessageDTO;
+import com.pdp.PixelTrade.dto.ErrorMessageDTO;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;

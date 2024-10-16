@@ -1,6 +1,6 @@
 package com.pdp.PixelTrade.event;
 
-import com.pdp.PixelTrade.dto.request.OtpSendRequestDTO;
+import com.pdp.PixelTrade.dto.auth.OtpSendRequestDTO;
 import com.pdp.PixelTrade.service.otp.OtpVerificationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;

@@ -1,6 +1,4 @@
-package com.pdp.PixelTrade.dto.response;
-
-import com.pdp.PixelTrade.dto.DTO;
+package com.pdp.PixelTrade.dto;
 
 /**
  * @author Aliabbos Ashurov

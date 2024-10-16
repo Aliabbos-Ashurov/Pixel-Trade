@@ -13,7 +13,8 @@ public enum AwsPackage {
 
     PUBLIC("public"),
     NFT("nft"),
-    TRANSACTION("transaction");
+    TRANSACTION("transaction"),
+    CRYPTO("crypto");
 
     private final String directory;
-}
+    }

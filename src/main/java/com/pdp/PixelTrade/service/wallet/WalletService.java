@@ -1,7 +1,7 @@
 package com.pdp.PixelTrade.service.wallet;
 
 import com.pdp.PixelTrade.dto.ApiResponse;
-import com.pdp.PixelTrade.dto.response.transaction.WalletDTO;
+import com.pdp.PixelTrade.dto.transaction.response.WalletDTO;
 import com.pdp.PixelTrade.entity.wallet.Wallet;
 import com.pdp.PixelTrade.enums.IdentificationLevel;
 import com.pdp.PixelTrade.exceptions.transaction.WalletNotFoundException;
@@ -50,14 +50,6 @@ public class WalletService {
 
     public Long countWalletsByIdentificationLevel(@NotNull IdentificationLevel level) {
         return walletRepository.countWalletsByIdentificationLevel(level);
-    }
-
-    public void addBalance(@NotNull String address, @NotNull BigDecimal amount) {
-        walletRepository.addBalance(address, amount);
-    }
-
-    public void subtractBalance(@NotNull String address, @NotNull BigDecimal amount) {
-        walletRepository.subtractBalance(address, amount);
     }
 
     public void lockAllAssetsInWallet(@NotNull Long walletId, @NotNull String reason) {

@@ -1,8 +1,8 @@
 package com.pdp.PixelTrade.dto;
 
-import com.pdp.PixelTrade.dto.response.ErrorMessageDTO;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.http.HttpStatus;
 
 /**
  * @author Aliabbos Ashurov
@@ -26,8 +26,16 @@ public class ApiResponse<E> implements DTO {
         return new ApiResponse<>(true, status, data, "Operation successful", null);
     }
 
-    public static <E> ApiResponse<E> error(int status, String message, ErrorMessageDTO error) {
-        return new ApiResponse<>(false, status, null, message, error);
+    public static <E> ApiResponse<E> ok(HttpStatus httpStatus, E data) {
+        return new ApiResponse<>(true, httpStatus.value(), data, "Operation successful", null);
+    }
+
+    public static <E> ApiResponse<E> error(int status, ErrorMessageDTO error) {
+        return new ApiResponse<>(false, status, null, "Operation failed", error);
+    }
+
+    public static <E> ApiResponse<E> error(HttpStatus status, ErrorMessageDTO error) {
+        return new ApiResponse<>(false, status.value(), null, "Operation failed", error);
     }
 
     private ApiResponse(boolean success, int status, E data, String message, ErrorMessageDTO error) {

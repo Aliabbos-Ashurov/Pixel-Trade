@@ -5,12 +5,12 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.3</version>
+        <version>3.3.4</version>
         <relativePath/>
     </parent>
     <groupId>com.pdp</groupId>
     <artifactId>PixelTrade</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>PixelTrade</name>
     <description>A Spring Boot application for managing an NFT store</description>
 
@@ -75,6 +75,11 @@
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <version>2.6.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>4.29.0</version>
         </dependency>
         <dependency>
             <groupId>jakarta.validation</groupId>

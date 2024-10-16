@@ -1,9 +1,9 @@
 package com.pdp.PixelTrade.mapper;
 
 import com.pdp.PixelTrade.config.security.CustomUserDetails;
-import com.pdp.PixelTrade.dto.request.UserRegisterDTO;
-import com.pdp.PixelTrade.dto.response.UserDTO;
-import com.pdp.PixelTrade.dto.response.UserResponseDTO;
+import com.pdp.PixelTrade.dto.auth.UserDTO;
+import com.pdp.PixelTrade.dto.auth.UserRegisterDTO;
+import com.pdp.PixelTrade.dto.auth.UserResponseDTO;
 import com.pdp.PixelTrade.entity.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;

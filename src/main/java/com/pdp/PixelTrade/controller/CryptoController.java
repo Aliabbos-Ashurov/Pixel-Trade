@@ -1,8 +1,8 @@
 package com.pdp.PixelTrade.controller;
 
 import com.pdp.PixelTrade.dto.ApiResponse;
-import com.pdp.PixelTrade.dto.request.transaction.CryptoCreateDTO;
-import com.pdp.PixelTrade.dto.response.transaction.CryptoResponseDTO;
+import com.pdp.PixelTrade.dto.transaction.request.CryptoCreateDTO;
+import com.pdp.PixelTrade.dto.transaction.response.CryptoResponseDTO;
 import com.pdp.PixelTrade.service.CryptoService;
 import com.pdp.PixelTrade.utils.Constants;
 import jakarta.validation.Valid;

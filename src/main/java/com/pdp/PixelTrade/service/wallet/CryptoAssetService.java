@@ -1,8 +1,8 @@
 package com.pdp.PixelTrade.service.wallet;
 
 import com.pdp.PixelTrade.dto.ApiResponse;
-import com.pdp.PixelTrade.dto.request.transaction.CryptoAssetCreationDTO;
-import com.pdp.PixelTrade.dto.response.transaction.CryptoAssetDTO;
+import com.pdp.PixelTrade.dto.transaction.request.CryptoAssetCreationDTO;
+import com.pdp.PixelTrade.dto.transaction.response.CryptoAssetDTO;
 import com.pdp.PixelTrade.entity.wallet.CryptoAsset;
 import com.pdp.PixelTrade.entity.wallet.Wallet;
 import com.pdp.PixelTrade.enums.CryptoType;

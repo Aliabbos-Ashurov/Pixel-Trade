@@ -1,8 +1,8 @@
 package com.pdp.PixelTrade.service;
 
 import com.pdp.PixelTrade.dto.ApiResponse;
-import com.pdp.PixelTrade.dto.request.transaction.CryptoCreateDTO;
-import com.pdp.PixelTrade.dto.response.transaction.CryptoResponseDTO;
+import com.pdp.PixelTrade.dto.transaction.request.CryptoCreateDTO;
+import com.pdp.PixelTrade.dto.transaction.response.CryptoResponseDTO;
 import com.pdp.PixelTrade.entity.Crypto;
 import com.pdp.PixelTrade.enums.AwsPackage;
 import com.pdp.PixelTrade.mapper.CryptoMapper;
@@ -10,7 +10,9 @@ import com.pdp.PixelTrade.repository.CryptoRepository;
 import com.pdp.PixelTrade.service.aws.S3Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.repository.query.Param;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -28,8 +30,10 @@ public class CryptoService {
     private final CryptoRepository cryptoRepository;
     private final CryptoMapper cryptoMapper;
 
+    @Async
+    @Transactional
     public void save(CryptoCreateDTO dto) {
-        String imageURL = s3Service.uploadFile(dto.image(), AwsPackage.PUBLIC);
+        String imageURL = s3Service.uploadFile(dto.image(), AwsPackage.CRYPTO);
         Crypto crypto = cryptoMapper.toCrypto(dto);
         crypto.setImageURL(imageURL);
         cryptoRepository.save(crypto);

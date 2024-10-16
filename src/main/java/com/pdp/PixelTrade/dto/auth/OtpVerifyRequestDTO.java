@@ -1,5 +1,6 @@
-package com.pdp.PixelTrade.dto.request;
+package com.pdp.PixelTrade.dto.auth;
 
+import com.pdp.PixelTrade.dto.Request;
 import jakarta.validation.constraints.NotNull;
 
 /**

@@ -1,9 +1,9 @@
 package com.pdp.PixelTrade.service;
 
 import com.pdp.PixelTrade.dto.ApiResponse;
-import com.pdp.PixelTrade.dto.request.UserRegisterDTO;
-import com.pdp.PixelTrade.dto.response.UserDTO;
-import com.pdp.PixelTrade.dto.response.UserResponseDTO;
+import com.pdp.PixelTrade.dto.auth.UserDTO;
+import com.pdp.PixelTrade.dto.auth.UserRegisterDTO;
+import com.pdp.PixelTrade.dto.auth.UserResponseDTO;
 import com.pdp.PixelTrade.entity.User;
 import com.pdp.PixelTrade.mapper.UserMapper;
 import com.pdp.PixelTrade.repository.UserRepository;

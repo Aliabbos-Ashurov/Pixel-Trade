@@ -1,6 +1,6 @@
 package com.pdp.PixelTrade.utils;
 
-import com.pdp.PixelTrade.dto.response.TokenDTO;
+import com.pdp.PixelTrade.dto.auth.TokenDTO;
 import com.pdp.PixelTrade.enums.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;

@@ -63,10 +63,12 @@ public class NFT extends Auditable {
     @Column(name = "auction_end_date")
     private LocalDateTime auctionEndDate;
 
+    @Builder.Default
     @PositiveOrZero
     @Column(name = "likes_count", nullable = false)
     private Integer likesCount = 0;
 
+    @Builder.Default
     @PositiveOrZero
     @Column(name = "views_count", nullable = false)
     private Integer viewsCount = 0;

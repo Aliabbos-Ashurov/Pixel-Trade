@@ -1,6 +1,6 @@
 package com.pdp.PixelTrade.mapper;
 
-import com.pdp.PixelTrade.dto.response.transaction.WalletDTO;
+import com.pdp.PixelTrade.dto.transaction.response.WalletDTO;
 import com.pdp.PixelTrade.entity.wallet.Wallet;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

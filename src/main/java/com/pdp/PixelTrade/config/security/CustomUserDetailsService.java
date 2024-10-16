@@ -1,6 +1,6 @@
 package com.pdp.PixelTrade.config.security;
 
-import com.pdp.PixelTrade.dto.response.UserDTO;
+import com.pdp.PixelTrade.dto.auth.UserDTO;
 import com.pdp.PixelTrade.mapper.UserMapper;
 import com.pdp.PixelTrade.service.UserService;
 import lombok.RequiredArgsConstructor;

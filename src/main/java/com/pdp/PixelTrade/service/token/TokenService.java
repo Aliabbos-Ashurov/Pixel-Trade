@@ -2,10 +2,10 @@ package com.pdp.PixelTrade.service.token;
 
 import com.pdp.PixelTrade.controller.AuthController;
 import com.pdp.PixelTrade.dto.ApiResponse;
-import com.pdp.PixelTrade.dto.request.RefreshTokenRequestDTO;
-import com.pdp.PixelTrade.dto.request.TokenRequestDTO;
-import com.pdp.PixelTrade.dto.response.TokenDTO;
-import com.pdp.PixelTrade.dto.response.TokenResponseDTO;
+import com.pdp.PixelTrade.dto.auth.RefreshTokenRequestDTO;
+import com.pdp.PixelTrade.dto.auth.TokenDTO;
+import com.pdp.PixelTrade.dto.auth.TokenRequestDTO;
+import com.pdp.PixelTrade.dto.auth.TokenResponseDTO;
 import com.pdp.PixelTrade.entity.User;
 import com.pdp.PixelTrade.exceptions.UserNotFoundException;
 import com.pdp.PixelTrade.exceptions.security.TokenExpiredException;

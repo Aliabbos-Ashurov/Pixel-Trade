@@ -31,7 +31,7 @@ public class BaseEntity implements Serializable {
     private LocalDateTime createdAt;
 
     @Builder.Default
-    @Column(name = "deleted", nullable = false)
+    @Column(name = "deleted", nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
     // @Convert(converter = org.hibernate.type.NumericBooleanConverter.class)
     private boolean deleted = false;
 }

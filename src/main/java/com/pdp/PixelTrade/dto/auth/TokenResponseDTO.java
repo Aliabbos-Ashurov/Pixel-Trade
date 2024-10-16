@@ -1,7 +1,8 @@
-package com.pdp.PixelTrade.dto.response;
+package com.pdp.PixelTrade.dto.auth;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.pdp.PixelTrade.dto.Response;
 import com.pdp.PixelTrade.enums.TokenType;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.validation.annotation.Validated;

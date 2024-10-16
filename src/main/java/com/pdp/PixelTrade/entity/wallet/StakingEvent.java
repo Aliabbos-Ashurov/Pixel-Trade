@@ -5,10 +5,7 @@ import com.pdp.PixelTrade.entity.Upload;
 import com.pdp.PixelTrade.enums.CryptoType;
 import com.pdp.PixelTrade.enums.StakingEventStatus;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
@@ -49,6 +46,7 @@ public class StakingEvent extends Auditable {
     @Column(name = "end_date", nullable = false, updatable = false)
     private LocalDateTime endDate;
 
+    @Builder.Default
     @Enumerated(EnumType.STRING)
     @Column(name = "event_status", nullable = false)
     private StakingEventStatus eventStatus = StakingEventStatus.WAITING;

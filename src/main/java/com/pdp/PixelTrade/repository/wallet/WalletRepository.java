@@ -52,25 +52,6 @@ public interface WalletRepository extends JpaRepository<Wallet, Long> {
 
     @Modifying
     @Query("""
-            UPDATE Wallet w
-            SET w.balance = w.balance + :amount
-            WHERE w.address = :address
-            AND w.deleted = FALSE
-            """)
-    void addBalance(@Param("address") String address, @Param("amount") BigDecimal amount);
-
-    @Modifying
-    @Query("""
-            UPDATE Wallet w
-            SET w.balance = w.balance - :amount
-            WHERE w.address = :address
-            AND w.deleted = FALSE
-            AND w.balance >= :amount
-            """)
-    void subtractBalance(@Param("address") String address, @Param("amount") BigDecimal amount);
-
-    @Modifying
-    @Query("""
             UPDATE CryptoAsset ca
             SET ca.isLocked = TRUE, ca.lockedReason = :reason
             WHERE ca.wallet.id = :walletId
@@ -93,5 +74,24 @@ public interface WalletRepository extends JpaRepository<Wallet, Long> {
             AND ca.isLocked = TRUE
             """)
     boolean hasLockedAssets(@Param("walletId") Long walletId);
+
+//    @Modifying
+//    @Query("""
+//            UPDATE Wallet w
+//            SET w.balance = w.balance + :amount
+//            WHERE w.address = :address
+//            AND w.deleted = FALSE
+//            """)
+//    void addBalance(@Param("address") String address, @Param("amount") BigDecimal amount);
+//
+//    @Modifying
+//    @Query("""
+//            UPDATE Wallet w
+//            SET w.balance = w.balance - :amount
+//            WHERE w.address = :address
+//            AND w.deleted = FALSE
+//            AND w.balance >= :amount
+//            """)
+//    void subtractBalance(@Param("address") String address, @Param("amount") BigDecimal amount);
 
 }

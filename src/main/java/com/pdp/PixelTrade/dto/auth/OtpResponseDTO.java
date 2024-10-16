@@ -1,4 +1,6 @@
-package com.pdp.PixelTrade.dto.response;
+package com.pdp.PixelTrade.dto.auth;
+
+import com.pdp.PixelTrade.dto.Response;
 
 /**
  * @author Aliabbos Ashurov

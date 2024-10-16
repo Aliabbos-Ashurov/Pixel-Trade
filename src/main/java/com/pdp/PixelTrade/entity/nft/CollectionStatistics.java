@@ -2,10 +2,7 @@ package com.pdp.PixelTrade.entity.nft;
 
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.PositiveOrZero;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 /**
@@ -17,16 +14,19 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder(toBuilder = true)
-public class CollectionStatistics{
+public class CollectionStatistics {
 
+    @Builder.Default
     @PositiveOrZero
     @Column(name = "nft_count", nullable = false)
     private Integer nftCount = 0;
 
+    @Builder.Default
     @PositiveOrZero
     @Column(name = "total_likes", nullable = false)
     private Integer totalLikes = 0;
 
+    @Builder.Default
     @PositiveOrZero
     @Column(name = "total_views", nullable = false)
     private Integer totalViews = 0;

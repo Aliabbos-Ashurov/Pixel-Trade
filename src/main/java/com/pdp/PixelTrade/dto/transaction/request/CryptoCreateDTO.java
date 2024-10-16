@@ -1,6 +1,6 @@
-package com.pdp.PixelTrade.dto.request.transaction;
+package com.pdp.PixelTrade.dto.transaction.request;
 
-import com.pdp.PixelTrade.dto.request.Request;
+import com.pdp.PixelTrade.dto.Request;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.web.multipart.MultipartFile;

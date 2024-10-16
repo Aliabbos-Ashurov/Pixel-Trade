@@ -1,11 +1,7 @@
 package com.pdp.PixelTrade.controller;
 
 import com.pdp.PixelTrade.dto.ApiResponse;
-import com.pdp.PixelTrade.dto.request.RefreshTokenRequestDTO;
-import com.pdp.PixelTrade.dto.request.TokenRequestDTO;
-import com.pdp.PixelTrade.dto.request.UserRegisterDTO;
-import com.pdp.PixelTrade.dto.response.TokenResponseDTO;
-import com.pdp.PixelTrade.dto.response.UserResponseDTO;
+import com.pdp.PixelTrade.dto.auth.*;
 import com.pdp.PixelTrade.service.UserService;
 import com.pdp.PixelTrade.service.token.TokenService;
 import com.pdp.PixelTrade.utils.Constants;

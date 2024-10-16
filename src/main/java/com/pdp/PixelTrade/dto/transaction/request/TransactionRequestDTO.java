@@ -1,6 +1,6 @@
-package com.pdp.PixelTrade.dto.request.transaction;
+package com.pdp.PixelTrade.dto.transaction.request;
 
-import com.pdp.PixelTrade.dto.request.Request;
+import com.pdp.PixelTrade.dto.Request;
 import com.pdp.PixelTrade.enums.CryptoType;
 import com.pdp.PixelTrade.enums.TransactionType;
 import jakarta.validation.constraints.NotBlank;

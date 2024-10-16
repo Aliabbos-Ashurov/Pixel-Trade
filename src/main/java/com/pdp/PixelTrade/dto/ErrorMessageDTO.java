@@ -1,4 +1,4 @@
-package com.pdp.PixelTrade.dto.response;
+package com.pdp.PixelTrade.dto;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;

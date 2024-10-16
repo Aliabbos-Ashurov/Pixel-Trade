@@ -1,7 +1,7 @@
 package com.pdp.PixelTrade.config.handler;
 
 import com.pdp.PixelTrade.dto.ApiResponse;
-import com.pdp.PixelTrade.dto.response.ErrorMessageDTO;
+import com.pdp.PixelTrade.dto.ErrorMessageDTO;
 import com.pdp.PixelTrade.exceptions.BaseException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +27,6 @@ public class GlobalExceptionHandler {
         ErrorMessageDTO errorMessage = ErrorMessageDTO.of(ex.getCode(), ex.getMessage(), request.getRequestURI());
         return new ResponseEntity<>(ApiResponse.error(
                 ex.getHttpStatus().value(),
-                "Operation failed",
                 errorMessage
         ), ex.getHttpStatus());
     }

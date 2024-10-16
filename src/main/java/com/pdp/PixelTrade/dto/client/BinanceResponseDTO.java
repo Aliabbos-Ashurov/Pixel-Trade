@@ -1,6 +1,6 @@
 package com.pdp.PixelTrade.dto.client;
 
-import com.pdp.PixelTrade.dto.response.Response;
+import com.pdp.PixelTrade.dto.Response;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;

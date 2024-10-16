@@ -1,9 +1,9 @@
 package com.pdp.PixelTrade.service.otp;
 
 import com.pdp.PixelTrade.dto.ApiResponse;
-import com.pdp.PixelTrade.dto.request.OtpSendRequestDTO;
-import com.pdp.PixelTrade.dto.request.OtpVerifyRequestDTO;
-import com.pdp.PixelTrade.dto.response.OtpResponseDTO;
+import com.pdp.PixelTrade.dto.auth.OtpResponseDTO;
+import com.pdp.PixelTrade.dto.auth.OtpSendRequestDTO;
+import com.pdp.PixelTrade.dto.auth.OtpVerifyRequestDTO;
 import com.pdp.PixelTrade.entity.Otp;
 import com.pdp.PixelTrade.enums.OtpType;
 import com.pdp.PixelTrade.exceptions.otp.OtpExpiredException;

@@ -1,4 +1,4 @@
-package com.pdp.PixelTrade.dto.response.transaction;
+package com.pdp.PixelTrade.dto.transaction.response;
 
 import com.pdp.PixelTrade.enums.CryptoType;
 import com.pdp.PixelTrade.enums.TransactionStatus;
