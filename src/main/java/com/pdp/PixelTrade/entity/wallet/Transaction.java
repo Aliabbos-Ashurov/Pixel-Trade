@@ -8,7 +8,6 @@ import com.pdp.PixelTrade.enums.TransactionStatus;
 import com.pdp.PixelTrade.enums.TransactionType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.FutureOrPresent;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -53,7 +52,6 @@ public class Transaction extends Auditable implements Transactional {
     @Column(name = "transaction_status", nullable = false)
     private TransactionStatus transactionStatus = TransactionStatus.PENDING;
 
-    @FutureOrPresent
     @Column(name = "confirmed_at")
     private LocalDateTime confirmedAt;
 

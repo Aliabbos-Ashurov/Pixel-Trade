@@ -5,9 +5,11 @@ import com.pdp.PixelTrade.dto.transaction.request.CryptoCreateDTO;
 import com.pdp.PixelTrade.dto.transaction.response.CryptoResponseDTO;
 import com.pdp.PixelTrade.entity.Crypto;
 import com.pdp.PixelTrade.enums.AwsPackage;
+import com.pdp.PixelTrade.enums.CryptoType;
 import com.pdp.PixelTrade.mapper.CryptoMapper;
 import com.pdp.PixelTrade.repository.CryptoRepository;
 import com.pdp.PixelTrade.service.aws.S3Service;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.repository.query.Param;
 import org.springframework.scheduling.annotation.Async;
@@ -39,20 +41,17 @@ public class CryptoService {
         cryptoRepository.save(crypto);
     }
 
+
+    public Optional<BigDecimal> getFeePercentage(@NotNull CryptoType type) {
+        return cryptoRepository.getFeePercentage(type.getCode());
+    }
+
     public Optional<Crypto> findByName(String name) {
         return cryptoRepository.findByName(name);
     }
 
     public Optional<Crypto> findBySymbol(String symbol) {
         return cryptoRepository.findBySymbol(symbol);
-    }
-
-    public boolean existsBySymbol(String symbol) {
-        return cryptoRepository.existsBySymbol(symbol);
-    }
-
-    public boolean existsByName(String name) {
-        return cryptoRepository.existsByName(name);
     }
 
     public ApiResponse<List<CryptoResponseDTO>> findAll() {

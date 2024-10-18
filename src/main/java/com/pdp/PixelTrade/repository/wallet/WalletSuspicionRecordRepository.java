@@ -19,6 +19,15 @@ public interface WalletSuspicionRecordRepository extends JpaRepository<WalletSus
     List<WalletSuspicionRecord> findByWalletAddress(@NotNull @Param("address") String address);
 
     @Query("""
+            SELECT COUNT(*) > 0 
+            FROM WalletSuspicionRecord wsr
+            WHERE wsr.wallet.address = :address
+            AND wsr.deleted = FALSE
+            """)
+    boolean exists(@NotNull @Param("address") String address);
+
+
+    @Query("""
             FROM WalletSuspicionRecord wsr
             WHERE wsr.reason LIKE %:reason%
             AND wsr.deleted = FALSE

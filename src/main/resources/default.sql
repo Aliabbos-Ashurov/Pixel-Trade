@@ -5,7 +5,7 @@ INSERT INTO users(created_at, deleted, created_by,
 VALUES (CURRENT_TIMESTAMP, false, 1,
         'nigga@gmail.com', 'Niggayev Nigga', false, false,
         '$2a$10$iUk6s8/YZnnkCpvMNmCuguG5EgB/VM455hL291FUJLfdITuZOkEee',
-        '998336831054', 'USER', false, 'nigga')
+        '998336831054', 'USER', false, 'nigga');
 
 
 INSERT INTO public.crypto (name, symbol, image_url, fee_percentage, created_by)
@@ -18,3 +18,10 @@ VALUES ('Bitcoin', 'BTC', 'https://pixel-trade.s3.amazonaws.com/crypto/bitcoin-b
        ('Cardano', 'ADA', 'https://pixel-trade.s3.amazonaws.com/crypto/cardano-ada-logo.png', 0.20, -1),
        ('Binance Coin', 'BNB', 'https://pixel-trade.s3.amazonaws.com/crypto/bnb-bnb-logo.png', 0.20, -1),
        ('Dogecoin', 'DOGE', 'https://pixel-trade.s3.amazonaws.com/crypto/dogecoin-doge-logo.png', 0.30, -1);
+
+
+truncate fee CASCADE;
+truncate  transaction CASCADE;
+truncate  otp CASCADE;
+truncate  wallet_history CASCADE;
+

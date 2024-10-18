@@ -21,6 +21,10 @@ public class FeeService {
 
     private final FeeRepository feeRepository;
 
+    public Fee saveFee(Fee fee) {
+        return feeRepository.save(fee);
+    }
+
     public Optional<Fee> findByTransactionId(@Param("transactionId") Long transactionId) {
         return feeRepository.findByTransactionId(transactionId);
     }

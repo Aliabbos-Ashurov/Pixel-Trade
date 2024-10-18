@@ -20,11 +20,15 @@ import java.util.List;
 public class WalletSuspicionRecordService {
     private final WalletSuspicionRecordRepository walletSuspicionRecordRepository;
 
-    public ApiResponse<List<WalletSuspicionRecord>> findByWalletAddress(@NotNull @Param("address") String address) {
+    public boolean exists(@NotNull String address) {
+        return walletSuspicionRecordRepository.exists(address);
+    }
+
+    public ApiResponse<List<WalletSuspicionRecord>> findByWalletAddress(@NotNull String address) {
         return ApiResponse.ok(walletSuspicionRecordRepository.findByWalletAddress(address));
     }
 
-    public ApiResponse<List<WalletSuspicionRecord>> findByReasonContaining(@Param("reason") String reason) {
+    public ApiResponse<List<WalletSuspicionRecord>> findByReasonContaining(String reason) {
         return ApiResponse.ok(walletSuspicionRecordRepository.findByReasonContaining(reason));
     }
 

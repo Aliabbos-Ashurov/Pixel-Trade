@@ -27,9 +27,10 @@ import java.util.List;
 @Entity
 public class Wallet extends Auditable {
 
+    @Builder.Default
     @DecimalMin(value = "0.0", message = "Balance must be positive")
     @Column(nullable = false, precision = 38, scale = 8)
-    private BigDecimal balance;
+    private BigDecimal balance = BigDecimal.ZERO;
 
     @Builder.Default
     @Enumerated(EnumType.STRING)
@@ -44,9 +45,10 @@ public class Wallet extends Auditable {
     @Pattern(regexp = "\\d{4}|\\d{6}", message = "Password must be 4 or 6 digits")
     private String password;
 
+    @Builder.Default
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private IdentificationLevel level;
+    private IdentificationLevel level = IdentificationLevel.BASIC;
 
     @DecimalMin(value = "0.0", message = "Daily transaction limit must be non-negative")
     @Column(name = "daily_transaction_limit", precision = 38, scale = 8)

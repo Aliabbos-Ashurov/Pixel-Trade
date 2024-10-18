@@ -1,4 +1,3 @@
--- Insert data into the crypto table
 INSERT INTO public.crypto (name, symbol, image_url, fee_percentage, created_by)
 VALUES ('Bitcoin', 'BTC', 'https://pixel-trade.s3.amazonaws.com/crypto/bitcoin-btc-logo.png', 0.30, -1),
        ('USD dollar', 'USDT', 'https://pixel-trade.s3.amazonaws.com/crypto/dollar_logo.png', 0.10, -1),

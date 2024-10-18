@@ -36,7 +36,6 @@ public class User extends Auditable {
     @Column(nullable = false)
     private String password;
 
-    @NotBlank
     @Column(unique = true)
     private String phone;
 

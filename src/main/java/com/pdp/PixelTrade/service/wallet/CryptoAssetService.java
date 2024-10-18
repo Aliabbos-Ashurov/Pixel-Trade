@@ -1,7 +1,6 @@
 package com.pdp.PixelTrade.service.wallet;
 
 import com.pdp.PixelTrade.dto.ApiResponse;
-import com.pdp.PixelTrade.dto.transaction.request.CryptoAssetCreationDTO;
 import com.pdp.PixelTrade.dto.transaction.response.CryptoAssetDTO;
 import com.pdp.PixelTrade.entity.wallet.CryptoAsset;
 import com.pdp.PixelTrade.entity.wallet.Wallet;
@@ -17,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Aliabbos Ashurov
@@ -31,15 +31,23 @@ public class CryptoAssetService {
     private final CryptoAssetMapper cryptoAssetMapper;
 
     @Transactional
-    public void createCryptoAsset(CryptoAssetCreationDTO dto) {
-        Wallet wallet = walletService.findByAddress(dto.walletAddress());
+    public CryptoAsset createCryptoAsset(String address, BigDecimal amount, CryptoType type) {
+        Wallet wallet = walletService.findByAddress(address);
         if (wallet == null)
-            throw new WalletNotFoundException("Wallet not found by address: {0}", dto.walletAddress());
-        cryptoAssetRepository.save(CryptoAsset.builder()
+            throw new WalletNotFoundException("Wallet not found by address: {0}", address);
+        return cryptoAssetRepository.save(CryptoAsset.builder()
                 .wallet(wallet)
-                .amount(dto.amount())
-                .cryptoType(dto.cryptoType())
+                .amount(amount)
+                .cryptoType(type)
                 .build());
+    }
+
+    public CryptoAsset update(CryptoAsset asset) {
+        return cryptoAssetRepository.save(asset);
+    }
+
+    public Optional<CryptoAsset> find(String address, CryptoType cryptoType) {
+        return cryptoAssetRepository.find(address, cryptoType);
     }
 
     public ApiResponse<List<CryptoAssetDTO>> findAllByWalletAddress(@NotNull String address) {
@@ -52,10 +60,6 @@ public class CryptoAssetService {
         return ApiResponse.ok(cryptoAssetRepository.findLockedAssetsByWalletAddress(address).stream()
                 .map(cryptoAssetMapper::toCryptoAssetDTO)
                 .toList());
-    }
-
-    public BigDecimal getTotalCryptoByAddress(@NotNull String address) {
-        return cryptoAssetRepository.getTotalCryptoByAddress(address);
     }
 
     public ApiResponse<CryptoAssetDTO> findByWalletAddressAndCryptoType(@NotNull String address, @NotNull CryptoType cryptoType) {

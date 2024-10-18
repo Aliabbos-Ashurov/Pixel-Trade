@@ -12,13 +12,17 @@ import java.util.Optional;
 
 public interface CryptoRepository extends JpaRepository<Crypto, Long> {
 
+    @Query("""
+            SELECT c.feePercentage
+            FROM Crypto c
+            WHERE c.symbol = :symbol
+            AND c.deleted = FALSE
+            """)
+    Optional<BigDecimal> getFeePercentage(@Param("symbol") String symbol);
+
     Optional<Crypto> findByName(String name);
 
     Optional<Crypto> findBySymbol(String symbol);
-
-    boolean existsBySymbol(String symbol);
-
-    boolean existsByName(String name);
 
     @Query("""
             SELECT c

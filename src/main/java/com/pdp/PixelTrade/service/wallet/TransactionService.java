@@ -29,6 +29,10 @@ public class TransactionService {
         return ApiResponse.ok(transactionRepository.findTransactionsBetweenWallets(fromWalletAddress, toWalletAddress));
     }
 
+    public Transaction saveTransaction(@NotNull Transaction transaction) {
+        return transactionRepository.save(transaction);
+    }
+
     public long countTransactionsByAddress(@NotNull @Param("address") String address) {
         return transactionRepository.countTransactionsByAddress(address);
     }

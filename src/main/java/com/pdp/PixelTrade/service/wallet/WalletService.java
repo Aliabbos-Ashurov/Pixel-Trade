@@ -28,10 +28,18 @@ public class WalletService {
         return walletRepository.getBalance(address);
     }
 
+    public boolean isWalletActive(@NotNull String address) {
+        return walletRepository.isWalletActive(address);
+    }
+
     public Wallet findByAddress(@NotNull String address) {
         return walletRepository.findByAddress(address).orElseThrow(
                 () -> new WalletNotFoundException("Wallet not found with address: {0}" + address)
         );
+    }
+
+    public WalletDTO createWallet(@NotNull Wallet wallet) {
+        return walletMapper.toWalletDTO(walletRepository.save(wallet));
     }
 
     public ApiResponse<WalletDTO> findByAddressDto(@NotNull String address) {

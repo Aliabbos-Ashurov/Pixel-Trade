@@ -12,6 +12,6 @@ public record UserRegisterDTO(
         @NotBlank @NotNull String fullname,
         @NotBlank @NotNull String username,
         @NotBlank @NotNull String password,
-        @NotBlank @NotNull String phone
+        @NotBlank @NotNull String email
 ) implements Request {
 }

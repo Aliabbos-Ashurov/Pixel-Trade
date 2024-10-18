@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,18 +23,19 @@ public interface CryptoAssetRepository extends JpaRepository<CryptoAsset, Long> 
     @Query("""
             FROM CryptoAsset ca
             WHERE ca.wallet.address = :address
+            AND ca.cryptoType = :type
+            AND ca.deleted = FALSE
+            """)
+    Optional<CryptoAsset> find(@Param("address") String address, @Param("type") CryptoType type);
+
+    @Query("""
+            FROM CryptoAsset ca
+            WHERE ca.wallet.address = :address
             AND ca.isLocked = TRUE
             AND ca.deleted = FALSE
             """)
     List<CryptoAsset> findLockedAssetsByWalletAddress(@NotNull @Param("address") String address);
 
-    @Query("""
-            SELECT ca.amount
-            FROM CryptoAsset ca
-            WHERE ca.wallet.address = :address
-            AND ca.deleted = FALSE
-            """)
-    BigDecimal getTotalCryptoByAddress(@NotNull @Param("address") String address);
 
     @Query("""
             FROM CryptoAsset ca
