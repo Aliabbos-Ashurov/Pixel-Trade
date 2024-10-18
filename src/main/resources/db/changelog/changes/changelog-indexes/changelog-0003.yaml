@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0003
+      author: Aliabbos Ashurov
+      comment: 'Unique index for wallet id, crypto type and'
+      changes:
+        - addUniqueConstraint:
+            tableName: crypto_asset
+            columnNames: wallet_id, crypto_type
+            constraintName: uq_wallet_id_crypto_type

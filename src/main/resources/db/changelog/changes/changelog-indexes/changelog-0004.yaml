@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0004
+      author: Aliabbos Ashurov
+      comment: 'Index for wallet id on wallet history entity'
+      changes:
+        - createIndex:
+            indexName: idx_wallet_id
+            tableName: wallet_history
+            columns:
+              - column:
+                  name: wallet_id
