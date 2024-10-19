@@ -22,29 +22,29 @@ import java.util.List;
 public class StakingEventService {
     private final StakingEventRepository stakingEventRepository;
 
-    public ApiResponse<List<StakingEvent>> findByCryptoType(@Param("cryptoType") CryptoType cryptoType) {
+    public ApiResponse<List<StakingEvent>> findByCryptoType(@NotNull CryptoType cryptoType) {
         return ApiResponse.ok(stakingEventRepository.findByCryptoType(cryptoType));
     }
 
-    public ApiResponse<List<StakingEvent>> findByEventStatus(@NotNull @Param("status") StakingEventStatus status) {
+    public ApiResponse<List<StakingEvent>> findByEventStatus(@NotNull StakingEventStatus status) {
         return ApiResponse.ok(stakingEventRepository.findByEventStatus(status));
     }
 
-    public ApiResponse<List<StakingEvent>> findEventsByDateRange(@Param("startDate") LocalDateTime startDate,
-                                                                 @Param("endDate") LocalDateTime endDate) {
+    public ApiResponse<List<StakingEvent>> findEventsByDateRange(@NotNull LocalDateTime startDate,
+                                                                 @NotNull LocalDateTime endDate) {
         return ApiResponse.ok(stakingEventRepository.findEventsByDateRange(startDate, endDate));
     }
 
-    public ApiResponse<List<StakingEvent>> findByCryptoTypeAndStatus(@Param("cryptoType") CryptoType cryptoType,
-                                                                     @Param("status") StakingEventStatus status) {
+    public ApiResponse<List<StakingEvent>> findByCryptoTypeAndStatus(@NotNull CryptoType cryptoType,
+                                                                     @NotNull StakingEventStatus status) {
         return ApiResponse.ok(stakingEventRepository.findByCryptoTypeAndStatus(cryptoType, status));
     }
 
-    public ApiResponse<List<StakingEvent>> findByTitleContaining(@Param("keyword") String keyword) {
+    public ApiResponse<List<StakingEvent>> findByTitleContaining(@NotNull String keyword) {
         return ApiResponse.ok(stakingEventRepository.findByTitleContaining(keyword));
     }
 
-    public ApiResponse<List<StakingEvent>> findByDescriptionContaining(@Param("keyword") String keyword) {
+    public ApiResponse<List<StakingEvent>> findByDescriptionContaining(@NotNull String keyword) {
         return ApiResponse.ok(stakingEventRepository.findByDescriptionContaining(keyword));
     }
 
@@ -52,7 +52,7 @@ public class StakingEventService {
         return stakingEventRepository.countByEventStatus(status);
     }
 
-    public ApiResponse<List<StakingEvent>> findByTitleOrDescriptionContaining(@Param("keyword") String keyword) {
+    public ApiResponse<List<StakingEvent>> findByTitleOrDescriptionContaining(@NotNull String keyword) {
         return ApiResponse.ok(stakingEventRepository.findByTitleOrDescriptionContaining(keyword));
     }
 

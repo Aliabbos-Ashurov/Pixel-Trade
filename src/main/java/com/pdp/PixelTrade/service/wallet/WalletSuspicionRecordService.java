@@ -5,7 +5,6 @@ import com.pdp.PixelTrade.entity.wallet.WalletSuspicionRecord;
 import com.pdp.PixelTrade.repository.wallet.WalletSuspicionRecordRepository;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -28,17 +27,17 @@ public class WalletSuspicionRecordService {
         return ApiResponse.ok(walletSuspicionRecordRepository.findByWalletAddress(address));
     }
 
-    public ApiResponse<List<WalletSuspicionRecord>> findByReasonContaining(String reason) {
+    public ApiResponse<List<WalletSuspicionRecord>> findByReasonContaining(@NotNull String reason) {
         return ApiResponse.ok(walletSuspicionRecordRepository.findByReasonContaining(reason));
     }
 
     public ApiResponse<List<WalletSuspicionRecord>> findByCreatedAtRange(
-            @NotNull @Param("startDate") LocalDateTime startDate,
-            @NotNull @Param("endDate") LocalDateTime endDate) {
+            @NotNull LocalDateTime startDate,
+            @NotNull LocalDateTime endDate) {
         return ApiResponse.ok(walletSuspicionRecordRepository.findByCreatedAtRange(startDate, endDate));
     }
 
-    public long countSuspectRecordsByWallet(@Param("address") String address) {
+    public long countSuspectRecordsByWallet(@NotNull String address) {
         return walletSuspicionRecordRepository.countSuspectRecordsByWallet(address);
     }
 }

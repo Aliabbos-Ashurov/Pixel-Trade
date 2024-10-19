@@ -1,7 +1,6 @@
 package com.pdp.PixelTrade.repository.wallet;
 
 import com.pdp.PixelTrade.entity.wallet.WalletSuspicionRecord;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -16,7 +15,7 @@ public interface WalletSuspicionRecordRepository extends JpaRepository<WalletSus
             WHERE wsr.wallet.address = :address
             AND wsr.deleted = FALSE
             """)
-    List<WalletSuspicionRecord> findByWalletAddress(@NotNull @Param("address") String address);
+    List<WalletSuspicionRecord> findByWalletAddress(@Param("address") String address);
 
     @Query("""
             SELECT COUNT(*) > 0 
@@ -24,7 +23,7 @@ public interface WalletSuspicionRecordRepository extends JpaRepository<WalletSus
             WHERE wsr.wallet.address = :address
             AND wsr.deleted = FALSE
             """)
-    boolean exists(@NotNull @Param("address") String address);
+    boolean exists(@Param("address") String address);
 
 
     @Query("""
@@ -40,8 +39,8 @@ public interface WalletSuspicionRecordRepository extends JpaRepository<WalletSus
             AND wsr.deleted = FALSE
             """)
     List<WalletSuspicionRecord> findByCreatedAtRange(
-            @NotNull @Param("startDate") LocalDateTime startDate,
-            @NotNull @Param("endDate") LocalDateTime endDate);
+            @Param("startDate") LocalDateTime startDate,
+            @Param("endDate") LocalDateTime endDate);
 
     @Query("""
             SELECT COUNT(wsr)

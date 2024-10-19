@@ -2,7 +2,6 @@ package com.pdp.PixelTrade.repository.wallet;
 
 import com.pdp.PixelTrade.entity.wallet.Wallet;
 import com.pdp.PixelTrade.enums.IdentificationLevel;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -34,7 +33,7 @@ public interface WalletRepository extends JpaRepository<Wallet, Long> {
             AND w.active = TRUE
             AND w.deleted = FALSE
             """)
-    boolean isWalletActive(@NotNull @Param("address") String address);
+    boolean isWalletActive(@Param("address") String address);
 
 
     @Query("""

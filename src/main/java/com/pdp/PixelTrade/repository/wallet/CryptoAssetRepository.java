@@ -2,7 +2,6 @@ package com.pdp.PixelTrade.repository.wallet;
 
 import com.pdp.PixelTrade.entity.wallet.CryptoAsset;
 import com.pdp.PixelTrade.enums.CryptoType;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -18,7 +17,7 @@ public interface CryptoAssetRepository extends JpaRepository<CryptoAsset, Long> 
             WHERE ca.wallet.address = :address
             AND ca.deleted = FALSE
             """)
-    List<CryptoAsset> findAllByWalletAddress(@NotNull @Param("address") String address);
+    List<CryptoAsset> findAllByWalletAddress(@Param("address") String address);
 
     @Query("""
             FROM CryptoAsset ca
@@ -34,7 +33,7 @@ public interface CryptoAssetRepository extends JpaRepository<CryptoAsset, Long> 
             AND ca.isLocked = TRUE
             AND ca.deleted = FALSE
             """)
-    List<CryptoAsset> findLockedAssetsByWalletAddress(@NotNull @Param("address") String address);
+    List<CryptoAsset> findLockedAssetsByWalletAddress(@Param("address") String address);
 
 
     @Query("""

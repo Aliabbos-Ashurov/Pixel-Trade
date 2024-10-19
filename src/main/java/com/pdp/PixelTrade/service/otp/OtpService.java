@@ -31,6 +31,10 @@ public class OtpService {
                 .build());
     }
 
+    public boolean isOtpUsedByRecipient(@NotNull String recipient, @NotNull OtpType type) {
+        return otpRepository.isOtpUsedByRecipient(recipient, type);
+    }
+
     public Otp findActiveOtp(@NotNull String recipient, @NotNull String code) {
         validateCode(code);
         return getOtp(otpRepository.findActive(code, recipient));

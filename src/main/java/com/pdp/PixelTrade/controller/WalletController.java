@@ -7,6 +7,7 @@ import com.pdp.PixelTrade.service.UserService;
 import com.pdp.PixelTrade.service.wallet.WalletService;
 import com.pdp.PixelTrade.utils.Constants;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,12 +28,12 @@ public class WalletController {
     private final SessionUser sessionUser;
 
 
-    @GetMapping("/get-me")
+    @GetMapping(value = "/get-me", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ApiResponse<WalletDTO>> getWalletMe() {
         return null;
     }
 
-    @GetMapping("/get/{id}")
+    @GetMapping(value = "/get/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ApiResponse<WalletDTO>> getWallet(@PathVariable Long id) {
         return ResponseEntity.ok(walletService.findByWalletId(id));
     }

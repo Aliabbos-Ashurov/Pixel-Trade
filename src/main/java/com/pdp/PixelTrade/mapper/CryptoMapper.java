@@ -14,8 +14,9 @@ import org.mapstruct.MappingConstants;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface CryptoMapper {
 
-    @Mapping(target = "imageURL", ignore = true)
+    @Mapping(target = "image", ignore = true)
     Crypto toCrypto(CryptoCreateDTO dto);
 
+    @Mapping(target = "imageURL", source = "image.url")
     CryptoResponseDTO toCryptoResponseDTO(Crypto crypto);
 }

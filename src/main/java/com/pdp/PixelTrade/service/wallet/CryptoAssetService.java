@@ -31,7 +31,9 @@ public class CryptoAssetService {
     private final CryptoAssetMapper cryptoAssetMapper;
 
     @Transactional
-    public CryptoAsset createCryptoAsset(String address, BigDecimal amount, CryptoType type) {
+    public CryptoAsset createCryptoAsset(@NotNull String address,
+                                         @NotNull BigDecimal amount,
+                                         @NotNull CryptoType type) {
         Wallet wallet = walletService.findByAddress(address);
         if (wallet == null)
             throw new WalletNotFoundException("Wallet not found by address: {0}", address);
@@ -42,11 +44,11 @@ public class CryptoAssetService {
                 .build());
     }
 
-    public CryptoAsset update(CryptoAsset asset) {
+    public CryptoAsset update(@NotNull CryptoAsset asset) {
         return cryptoAssetRepository.save(asset);
     }
 
-    public Optional<CryptoAsset> find(String address, CryptoType cryptoType) {
+    public Optional<CryptoAsset> find(@NotNull String address, @NotNull CryptoType cryptoType) {
         return cryptoAssetRepository.find(address, cryptoType);
     }
 

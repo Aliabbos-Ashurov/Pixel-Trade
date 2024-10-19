@@ -5,6 +5,7 @@ import com.pdp.PixelTrade.entity.wallet.Fee;
 import com.pdp.PixelTrade.service.wallet.FeeService;
 import com.pdp.PixelTrade.utils.Constants;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +23,7 @@ import java.util.List;
 public class FeeController {
     private final FeeService feeService;
 
-    @GetMapping("/get")
+    @GetMapping(value = "/get", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ApiResponse<List<Fee>>> fees() {
         return ResponseEntity.ok(feeService.findActiveTransactionFees());
     }

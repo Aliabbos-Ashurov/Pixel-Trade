@@ -17,6 +17,6 @@ public record TransactionRequestDTO(
         @NotBlank @NotNull String toAddress,
         @NotNull BigDecimal amount,
         @NotNull CryptoType cryptoType,
-        @NotBlank @NotNull TransactionType transactionType
+        @NotNull TransactionType transactionType
 ) implements Request {
 }

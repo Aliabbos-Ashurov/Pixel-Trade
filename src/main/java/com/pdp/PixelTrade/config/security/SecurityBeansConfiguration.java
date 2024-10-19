@@ -45,6 +45,7 @@ public class SecurityBeansConfiguration {
     @SneakyThrows
     private void handleError(HttpServletResponse response, Exception exception, int errorCode, String errorPath) {
         String errorMessage = exception.getMessage();
+        System.err.println(errorMessage);
         ErrorMessageDTO errorMessageDTO = ErrorMessageDTO.of(String.valueOf(errorCode), errorMessage, errorPath);
         response.setStatus(errorCode);
         response.setContentType("application/json");

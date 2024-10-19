@@ -4,8 +4,8 @@ import com.pdp.PixelTrade.dto.ApiResponse;
 import com.pdp.PixelTrade.entity.wallet.Staking;
 import com.pdp.PixelTrade.enums.CryptoType;
 import com.pdp.PixelTrade.repository.wallet.StakingRepository;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -21,34 +21,34 @@ import java.util.List;
 public class StakingService {
     private final StakingRepository stakingRepository;
 
-    public ApiResponse<List<Staking>> findByUserId(@Param("userId") Long userId) {
+    public ApiResponse<List<Staking>> findByUserId(@NotNull Long userId) {
         return ApiResponse.ok(stakingRepository.findByUserId(userId));
     }
 
-    public ApiResponse<List<Staking>> findByStakingEventId(@Param("eventId") Long eventId) {
+    public ApiResponse<List<Staking>> findByStakingEventId(@NotNull Long eventId) {
         return ApiResponse.ok(stakingRepository.findByStakingEventId(eventId));
     }
 
-    public ApiResponse<List<Staking>> findByCryptoType(@Param("cryptoType") CryptoType cryptoType) {
+    public ApiResponse<List<Staking>> findByCryptoType(@NotNull CryptoType cryptoType) {
         return ApiResponse.ok(stakingRepository.findByCryptoType(cryptoType));
     }
 
-    public ApiResponse<List<Staking>> findByUserIdAndEventId(@Param("userId") Long userId,
-                                                             @Param("eventId") Long eventId) {
+    public ApiResponse<List<Staking>> findByUserIdAndEventId(@NotNull Long userId,
+                                                             @NotNull Long eventId) {
         return ApiResponse.ok(stakingRepository.findByUserIdAndEventId(userId, eventId));
     }
 
-    public ApiResponse<List<Staking>> findByDateRange(@Param("startDate") LocalDateTime startDate,
-                                                      @Param("endDate") LocalDateTime endDate) {
+    public ApiResponse<List<Staking>> findByDateRange(@NotNull LocalDateTime startDate,
+                                                      @NotNull LocalDateTime endDate) {
         return ApiResponse.ok(stakingRepository.findByDateRange(startDate, endDate));
     }
 
-    public ApiResponse<List<Staking>> findByEventIdAndCryptoType(@Param("eventId") Long eventId,
-                                                                 @Param("cryptoType") CryptoType cryptoType) {
+    public ApiResponse<List<Staking>> findByEventIdAndCryptoType(@NotNull Long eventId,
+                                                                 @NotNull CryptoType cryptoType) {
         return ApiResponse.ok(stakingRepository.findByEventIdAndCryptoType(eventId, cryptoType));
     }
 
-    public BigDecimal getTotalEarnedByUser(@Param("userId") Long userId) {
+    public BigDecimal getTotalEarnedByUser(@NotNull Long userId) {
         return stakingRepository.getTotalEarnedByUser(userId);
     }
 
@@ -56,7 +56,7 @@ public class StakingService {
         return ApiResponse.ok(stakingRepository.findAllOrderByStakeStart());
     }
 
-    public long countByStakingEventId(@Param("eventId") Long eventId) {
+    public long countByStakingEventId(@NotNull Long eventId) {
         return stakingRepository.countByStakingEventId(eventId);
     }
 }

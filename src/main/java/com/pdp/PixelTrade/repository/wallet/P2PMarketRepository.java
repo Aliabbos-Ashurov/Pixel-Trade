@@ -14,10 +14,10 @@ public interface P2PMarketRepository extends JpaRepository<P2PMarket, Long> {
 
     @Query("""
             FROM P2PMarket pm
-            WHERE pm.owner.id = :ownerId
+            WHERE pm.seller.id = :sellerId
             AND pm.deleted = FALSE
             """)
-    List<P2PMarket> findByOwnerId(@Param("ownerId") Long ownerId);
+    List<P2PMarket> findByOwnerId(@Param("sellerId") Long sellerId);
 
     @Query("""
             FROM P2PMarket pm

@@ -1,10 +1,10 @@
 package com.pdp.PixelTrade.entity.wallet;
 
 import com.pdp.PixelTrade.entity.Auditable;
-import com.pdp.PixelTrade.entity.User;
 import com.pdp.PixelTrade.enums.CardType;
 import com.pdp.PixelTrade.enums.CryptoType;
 import com.pdp.PixelTrade.enums.CurrencyType;
+import com.pdp.PixelTrade.enums.P2PType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import lombok.AllArgsConstructor;
@@ -28,17 +28,13 @@ import java.math.BigDecimal;
 @Entity
 public class P2PMarket extends Auditable {
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "owner_id", referencedColumnName = "id", nullable = false)
-    private User owner;
+    @ManyToOne
+    @JoinColumn(name = "seller_id", referencedColumnName = "id", nullable = false)
+    private Seller seller;
 
     @DecimalMin("0.0")
-    @Column(nullable = false, precision = 38, scale = 8)
+    @Column(name = "per_price", nullable = false, precision = 38, scale = 8)
     private BigDecimal perPrice;                              // 74.000
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "currency_type", nullable = false)
-    private CurrencyType currencyType;                        // UZS
 
     @Enumerated(EnumType.STRING)
     @Column(name = "crypto_type", nullable = false)
@@ -48,10 +44,17 @@ public class P2PMarket extends Auditable {
     @Column(nullable = false, precision = 38, scale = 8)
     private BigDecimal amount;                                // available balance   100 TON
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, updatable = false)
+    private CurrencyType currencyType;                        // UZS da olaman / sotaman.
 
     @Enumerated(EnumType.STRING)
-    private CardType cardType;                                // UZCARD,  HUMO ,  WALLET
+    @Column(nullable = false, updatable = false)              // shu karta turi orqali
+    private CardType cardType;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "p2p_type", nullable = false, updatable = false)
+    private P2PType p2PType;
 
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;

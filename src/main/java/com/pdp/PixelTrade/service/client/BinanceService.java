@@ -3,6 +3,7 @@ package com.pdp.PixelTrade.service.client;
 import com.pdp.PixelTrade.client.BinanceClient;
 import com.pdp.PixelTrade.enums.CryptoType;
 import com.pdp.PixelTrade.enums.CurrencyType;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +20,7 @@ public class BinanceService {
     private final BinanceClient binanceClient;
     private final CbuUzService cbuUzService;
 
-    public BigDecimal getAvgPrice(CryptoType cryptoType, CurrencyType currencyType) {
+    public BigDecimal getAvgPrice(@NotNull CryptoType cryptoType, @NotNull CurrencyType currencyType) {
         if (currencyType.equals(CurrencyType.UZS)) {
             BigDecimal price = binanceClient.getAvgPrice(cryptoType.getCode() + CurrencyType.USD.getName()).price();
             System.out.println(price);

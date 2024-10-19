@@ -24,4 +24,6 @@ public interface UserMapper {
     UserResponseDTO toUserResponseDTO(User user);
 
     CustomUserDetails toCustomUserDetails(UserDTO dto);
+
+    CustomUserDetails toCustomUserDetails(User dto);
 }

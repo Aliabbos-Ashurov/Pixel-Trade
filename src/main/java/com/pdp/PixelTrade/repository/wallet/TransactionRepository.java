@@ -3,7 +3,6 @@ package com.pdp.PixelTrade.repository.wallet;
 import com.pdp.PixelTrade.entity.wallet.Transaction;
 import com.pdp.PixelTrade.enums.TransactionStatus;
 import com.pdp.PixelTrade.enums.TransactionType;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -23,23 +22,23 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
             AND t.deleted = FALSE
             """)
     List<Transaction> findTransactionsBetweenWallets(
-            @NotNull @Param("fromWalletAddress") String fromWalletAddress,
-            @NotNull @Param("toWalletAddress") String toWalletAddress);
+            @Param("fromWalletAddress") String fromWalletAddress,
+            @Param("toWalletAddress") String toWalletAddress);
 
     @Query(""" 
             SELECT COUNT(t) FROM Transaction t
             WHERE t.fromWallet.address = :address
             AND t.deleted = FALSE
             """)
-    long countTransactionsByAddress(@NotNull @Param("address") String address);
+    long countTransactionsByAddress(@Param("address") String address);
 
     @Query("""
             SELECT t FROM Transaction t
             WHERE t.confirmedAt BETWEEN :startDate AND :endDate
             """)
     List<Transaction> findTransactionsBetweenDates(
-            @NotNull @Param("startDate") LocalDateTime startDate,
-            @NotNull @Param("endDate") LocalDateTime endDate);
+            @Param("startDate") LocalDateTime startDate,
+            @Param("endDate") LocalDateTime endDate);
 
     @Query("""
             SELECT t FROM Transaction t
@@ -53,14 +52,14 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
             WHERE t.fromWallet.address = :address
             AND t.deleted = FALSE
             """)
-    List<Transaction> findAllByAddress(@NotNull @Param("address") String address);
+    List<Transaction> findAllByAddress(@Param("address") String address);
 
     @Query("""
             FROM Transaction t
             WHERE t.transactionType = :type
             AND t.deleted = FALSE
             """)
-    List<Transaction> findByTransactionType(@NotNull @Param("type") TransactionType type);
+    List<Transaction> findByTransactionType(@Param("type") TransactionType type);
 
     @Query("""
             FROM Transaction t WHERE t.transactionStatus = 'PENDING'

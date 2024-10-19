@@ -14,6 +14,8 @@ import com.pdp.PixelTrade.service.wallet.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
@@ -39,14 +41,17 @@ public class TransferService {
     private static final BigDecimal HUNDRED = BigDecimal.valueOf(100);
     private static final BigDecimal ONE = BigDecimal.ONE;
 
-    @Transactional
+    @Transactional(
+            propagation = Propagation.REQUIRED,
+            isolation = Isolation.READ_COMMITTED,
+            timeout = 3
+    )
     public ApiResponse<TransactionResponseDTO> transferW2W(@NotNull TransactionRequestDTO request) {
         Wallet fromWallet = fetchAndValidateWallet(request.fromAddress());
         Wallet toWallet = fetchAndValidateWallet(request.toAddress());
 
         BigDecimal feePercentage = cryptoService.getFeePercentage(request.cryptoType())
                 .orElseThrow(() -> new CryptoOperationException("Crypto not found with symbol: {0}", request.cryptoType()));
-
         CryptoAsset fromCryptoAsset = cryptoAssetService.find(request.fromAddress(), request.cryptoType())
                 .orElseThrow(() -> new CryptoTransactionException("Crypto Asset not found with symbol: {0} on wallet address: {1}", request.cryptoType(), request.fromAddress()));
 
@@ -56,10 +61,8 @@ public class TransferService {
         fromCryptoAsset.setAmount(fromCryptoAsset.getAmount().subtract(totalAmount));
         cryptoAssetService.update(fromCryptoAsset);
 
-
         CryptoAsset toCryptoAsset = cryptoAssetService.find(request.toAddress(), request.cryptoType())
                 .orElseGet(() -> cryptoAssetService.createCryptoAsset(request.toAddress(), BigDecimal.ZERO, request.cryptoType()));
-
         toCryptoAsset.setAmount(toCryptoAsset.getAmount().add(request.amount()));
         cryptoAssetService.update(toCryptoAsset);
 
@@ -69,24 +72,22 @@ public class TransferService {
         return buildResponse(request, fee);
     }
 
-    private Wallet fetchAndValidateWallet(String address) {
+    private Wallet fetchAndValidateWallet(@NotNull String address) {
         Wallet wallet = walletService.findByAddress(address);
         checkWalletSuspicion(address);
         return wallet;
     }
 
-    private BigDecimal calculateTotalWithFee(BigDecimal amount, BigDecimal feePercentage) {
-        if (feePercentage.signum() == 0) {
+    private BigDecimal calculateTotalWithFee(@NotNull BigDecimal amount, @NotNull BigDecimal feePercentage) {
+        if (feePercentage.signum() == 0)
             return amount;
-        }
         BigDecimal multiplier = ONE.add(feePercentage.divide(HUNDRED));
         return amount.multiply(multiplier);
     }
 
-    private BigDecimal calculateFeeAmount(BigDecimal amount, BigDecimal feePercentage) {
-        if (feePercentage.signum() == 0) {
+    private BigDecimal calculateFeeAmount(@NotNull BigDecimal amount, @NotNull BigDecimal feePercentage) {
+        if (feePercentage.signum() == 0)
             return BigDecimal.ZERO;
-        }
         return amount.multiply(feePercentage).divide(HUNDRED);
     }
 

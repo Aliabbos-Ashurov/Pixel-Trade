@@ -29,7 +29,7 @@ public class CryptoController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/get")
+    @GetMapping(value = "/get", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ApiResponse<List<CryptoResponseDTO>>> cryptoList() {
         return ResponseEntity.ok(cryptoService.findAll());
     }

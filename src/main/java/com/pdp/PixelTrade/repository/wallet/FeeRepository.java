@@ -40,12 +40,4 @@ public interface FeeRepository extends JpaRepository<Fee, Long> {
             AND f.deleted = FALSE
             """)
     List<Fee> findActiveTransactionFees();
-
-    @Query("""
-            SELECT COUNT(f)
-            FROM Fee f
-            WHERE f.feePercentage = 0
-            AND f.deleted = FALSE
-            """)
-    long countZeroPercentageFees();
 }

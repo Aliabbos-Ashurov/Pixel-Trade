@@ -39,7 +39,7 @@ public class Upload extends BaseEntity {
     private String fileType;
 
     @NotBlank
-    @Column(nullable = false)
+    @Column(nullable = false, updatable = false)
     private String url;
 }
 

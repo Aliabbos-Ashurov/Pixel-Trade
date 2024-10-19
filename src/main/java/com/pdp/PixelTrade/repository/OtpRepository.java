@@ -2,7 +2,6 @@ package com.pdp.PixelTrade.repository;
 
 import com.pdp.PixelTrade.entity.Otp;
 import com.pdp.PixelTrade.enums.OtpType;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -20,8 +19,17 @@ public interface OtpRepository extends JpaRepository<Otp, Long> {
             AND o.used = FALSE
             AND o.deleted = FALSE
             """)
-    Optional<Otp> findActive(@NotNull @Param("code") String code, @NotNull @Param("recipient") String recipient);
+    Optional<Otp> findActive(@Param("code") String code, @Param("recipient") String recipient);
 
+    @Query("""
+            SELECT COUNT(o) > 0 FROM Otp o
+            WHERE o.recipient = :recipient
+            AND o.type = :type
+            AND o.used = TRUE
+            AND o.deleted = FALSE
+            """)
+    boolean isOtpUsedByRecipient(@Param("recipient") String recipient,
+                                 @Param("type") OtpType type);
 
     @Query(""" 
             SELECT COUNT(o) > 0 FROM Otp o
@@ -37,14 +45,14 @@ public interface OtpRepository extends JpaRepository<Otp, Long> {
             WHERE o.id = :id
             AND o.deleted = FALSE
             """)
-    Optional<Otp> findById(@NotNull @Param("id") Long id);
+    Optional<Otp> findById(@Param("id") Long id);
 
     @Query("""
             FROM Otp o
             WHERE o.code = :code
             AND o.deleted = FALSE
             """)
-    Optional<Otp> findByCode(@NotNull String code);
+    Optional<Otp> findByCode(String code);
 
     @Query("""
             FROM Otp o
@@ -52,7 +60,7 @@ public interface OtpRepository extends JpaRepository<Otp, Long> {
             AND o.used = FALSE
             AND o.deleted = FALSE
             """)
-    Optional<Otp> findByCodeAndNotUsed(@NotNull String code);
+    Optional<Otp> findByCodeAndNotUsed(String code);
 
     @Query("""
             FROM Otp o
@@ -73,7 +81,7 @@ public interface OtpRepository extends JpaRepository<Otp, Long> {
             WHERE o.type = :type
             AND o.used = FALSE
             """)
-    long countUnusedOtpsByType(@NotNull @Param("type") OtpType type);
+    long countUnusedOtpsByType(@Param("type") OtpType type);
 
     @Modifying
     @Query("""

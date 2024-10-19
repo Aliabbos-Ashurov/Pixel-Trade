@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Optional;
 
 public interface CryptoRepository extends JpaRepository<Crypto, Long> {
@@ -23,14 +22,6 @@ public interface CryptoRepository extends JpaRepository<Crypto, Long> {
     Optional<Crypto> findByName(String name);
 
     Optional<Crypto> findBySymbol(String symbol);
-
-    @Query("""
-            SELECT c
-            FROM Crypto c
-            WHERE c.deleted = FALSE
-            ORDER BY c.feePercentage DESC
-            """)
-    List<Crypto> findAllOrderByFeePercentageDesc();
 
     @Modifying
     @Query("""

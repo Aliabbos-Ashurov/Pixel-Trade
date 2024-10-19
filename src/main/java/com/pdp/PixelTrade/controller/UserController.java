@@ -6,6 +6,7 @@ import com.pdp.PixelTrade.dto.auth.UserResponseDTO;
 import com.pdp.PixelTrade.service.UserService;
 import com.pdp.PixelTrade.utils.Constants;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +24,7 @@ public class UserController {
     private final UserService userService;
     private final SessionUser sessionUser;
 
-    @GetMapping("/profile/me")
+    @GetMapping(value = "/profile/me", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ApiResponse<UserResponseDTO>> profile() {
         return ResponseEntity.ok(userService.findById(sessionUser.id()));
     }

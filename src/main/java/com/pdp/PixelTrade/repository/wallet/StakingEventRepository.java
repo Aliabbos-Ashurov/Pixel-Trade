@@ -3,7 +3,6 @@ package com.pdp.PixelTrade.repository.wallet;
 import com.pdp.PixelTrade.entity.wallet.StakingEvent;
 import com.pdp.PixelTrade.enums.CryptoType;
 import com.pdp.PixelTrade.enums.StakingEventStatus;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -24,7 +23,7 @@ public interface StakingEventRepository extends JpaRepository<StakingEvent, Long
             WHERE se.eventStatus = :status
             AND se.deleted = FALSE
             """)
-    List<StakingEvent> findByEventStatus(@NotNull @Param("status") StakingEventStatus status);
+    List<StakingEvent> findByEventStatus( @Param("status") StakingEventStatus status);
 
     @Query("""
             FROM StakingEvent se

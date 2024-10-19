@@ -4,6 +4,7 @@ import com.pdp.PixelTrade.client.CbuUzClient;
 import com.pdp.PixelTrade.dto.client.CbuUzResponseDTO;
 import com.pdp.PixelTrade.enums.CurrencyType;
 import com.pdp.PixelTrade.exceptions.client.CurrencyRateFetchException;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,16 +24,16 @@ public class CbuUzService {
 
     private final CbuUzClient cbuUzClient;
 
-    public BigDecimal getCurrency(CurrencyType type) {
+    public BigDecimal getCurrency(@NotNull CurrencyType type) {
         return getCurrencyRate(() -> cbuUzClient.getCurrency(type));
     }
 
-    public BigDecimal getCurrency(CurrencyType type, LocalDate date) {
+    public BigDecimal getCurrency(@NotNull CurrencyType type, @NotNull LocalDate date) {
         String datePath = String.format("%d-%02d-%02d", date.getYear(), date.getMonthValue(), date.getDayOfMonth());
         return getCurrencyRate(() -> cbuUzClient.getCurrencyByDate(type, datePath));
     }
 
-    private BigDecimal getCurrencyRate(Supplier<List<CbuUzResponseDTO>> currencySupplier) {
+    private BigDecimal getCurrencyRate(@NotNull Supplier<List<CbuUzResponseDTO>> currencySupplier) {
         return Optional.ofNullable(currencySupplier.get())
                 .filter(currencies -> !currencies.isEmpty())
                 .map(currencies -> currencies.getFirst().rate())

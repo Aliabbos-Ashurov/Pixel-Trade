@@ -1,7 +1,6 @@
 package com.pdp.PixelTrade.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,8 +28,9 @@ public class Crypto extends Auditable {
     @Column(unique = true, nullable = false, updatable = false)
     private String symbol;
 
-    @Column(name = "image_url", unique = true, nullable = false)
-    private String imageURL;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "image", unique = true, nullable = false)
+    private Upload image;
 
     @DecimalMin("0.0")
     @Column(name = "fee_percentage", nullable = false, precision = 5, scale = 2)

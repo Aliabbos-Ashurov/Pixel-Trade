@@ -3,6 +3,7 @@ package com.pdp.PixelTrade.controller;
 import com.pdp.PixelTrade.utils.Constants;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class NotificationController {
 
     @SneakyThrows
-    @PostMapping("/send")
+    @PostMapping(value = "/send", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> send(@RequestParam String recipient) {
         return ResponseEntity.noContent().build();
     }

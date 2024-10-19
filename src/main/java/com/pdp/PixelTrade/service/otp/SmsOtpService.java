@@ -11,6 +11,7 @@ import com.pdp.PixelTrade.exceptions.otp.OtpExpiredException;
 import com.pdp.PixelTrade.exceptions.otp.TooManyOtpRequestsException;
 import com.pdp.PixelTrade.exceptions.validation.InvalidInputFormatException;
 import com.pdp.PixelTrade.service.client.EskizService;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +31,7 @@ public class SmsOtpService implements OtpVerificationService {
     private static final String PHONE_REGEX = "^998\\d{9}$";
 
     @Override
-    public void send(OtpSendRequestDTO request) {
+    public void send(@NotNull OtpSendRequestDTO request) {
         if (!request.recipient().matches(PHONE_REGEX))
             throw new InvalidInputFormatException("Invalid phone number: {0} ", request.recipient());
         if (otpService.hasActiveOtp(request.recipient()))
@@ -45,7 +46,7 @@ public class SmsOtpService implements OtpVerificationService {
     }
 
     @Override
-    public ApiResponse<OtpResponseDTO> verify(OtpVerifyRequestDTO request) {
+    public ApiResponse<OtpResponseDTO> verify(@NotNull OtpVerifyRequestDTO request) {
         Otp activeOtp = otpService.findActiveOtp(request.recipient(), request.code());
         System.out.println(activeOtp);
         if (activeOtp.getExpiresAt().isBefore(LocalDateTime.now())) {

@@ -5,6 +5,7 @@ import com.pdp.PixelTrade.dto.transaction.response.WalletHistoryDTO;
 import com.pdp.PixelTrade.service.wallet.WalletHistoryService;
 import com.pdp.PixelTrade.utils.Constants;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,17 +25,17 @@ public class WalletHistoryController {
 
     private final WalletHistoryService walletHistoryService;
 
-    @GetMapping("/get")
+    @GetMapping(value = "/get", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ApiResponse<List<WalletHistoryDTO>>> findAll() {
         return ResponseEntity.ok(walletHistoryService.findAll());
     }
 
-    @GetMapping("/get/by-wallet/{id}")
+    @GetMapping(value = "/get/by-wallet/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ApiResponse<List<WalletHistoryDTO>>> findWalletId(@PathVariable Long id) {
         return ResponseEntity.ok(walletHistoryService.findByWalletId(id));
     }
 
-    @GetMapping("/get/by-address/{address}")
+    @GetMapping(value = "/get/by-address/{address}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ApiResponse<List<WalletHistoryDTO>>> findByAddress(@PathVariable String address) {
         return ResponseEntity.ok(walletHistoryService.findByWalletAddress(address));
     }

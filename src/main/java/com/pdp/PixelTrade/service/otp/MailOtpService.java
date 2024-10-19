@@ -11,6 +11,7 @@ import com.pdp.PixelTrade.exceptions.otp.TooManyOtpRequestsException;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import jakarta.mail.internet.MimeMessage;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -35,7 +36,7 @@ public class MailOtpService implements OtpVerificationService {
 
     @SneakyThrows
     @Override
-    public void send(OtpSendRequestDTO request) {
+    public void send(@NotNull OtpSendRequestDTO request) {
         if (otpService.hasActiveOtp(request.recipient()))
             throw new TooManyOtpRequestsException("Too many active otp requests with recipient: {0}", request.recipient());
 
@@ -56,7 +57,7 @@ public class MailOtpService implements OtpVerificationService {
     }
 
     @Override
-    public ApiResponse<OtpResponseDTO> verify(OtpVerifyRequestDTO request) {
+    public ApiResponse<OtpResponseDTO> verify(@NotNull OtpVerifyRequestDTO request) {
 
         Otp activeOtp = otpService.findActiveOtp(request.recipient(), request.code());
         if (activeOtp.getExpiresAt().isBefore(LocalDateTime.now())) {

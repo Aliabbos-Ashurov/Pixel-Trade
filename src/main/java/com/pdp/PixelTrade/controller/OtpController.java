@@ -11,6 +11,7 @@ import com.pdp.PixelTrade.utils.Constants;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,34 +29,38 @@ public class OtpController {
     private final OtpVerificationService smsOtpService;
 
 
-    @PostMapping("/send-email")
+    @PostMapping(value = "/send-email", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> sendEmail(@Valid @RequestBody OtpSendRequestDTO dto) {
         publisher.publishEvent(new EmailOtpSentEvent(dto.recipient()));
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/send-phone")
+    @PostMapping(value = "/send-phone", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> sendPhone(@Valid @RequestBody OtpSendRequestDTO dto) {
         publisher.publishEvent(new PhoneOtpSentEvent(dto.recipient()));
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/send-backup-mail")
+    @PostMapping(value = "/send-backup-mail", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> sendBackupMail(@Valid @RequestBody OtpSendRequestDTO dto) {
         return null;
     }
 
-    @PostMapping("/verify-email")
+    @PostMapping(value = "/verify-email",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ApiResponse<OtpResponseDTO>> verifyEmail(@Valid @RequestBody OtpVerifyRequestDTO dto) {
         return ResponseEntity.ok(mailOtpService.verify(dto));
     }
 
-    @PostMapping("/verify-phone")
+    @PostMapping(value = "/verify-phone",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ApiResponse<OtpResponseDTO>> verifyPhone(@Valid @RequestBody OtpVerifyRequestDTO dto) {
         return ResponseEntity.ok(smsOtpService.verify(dto));
     }
 
-    @GetMapping("/verify-backup-mail/{code}")
+    @GetMapping(value = "/verify-backup-mail/{code}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ApiResponse<OtpResponseDTO>> verifyBackupMail(@PathVariable String code) {
         return null;
     }

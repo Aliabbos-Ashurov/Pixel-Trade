@@ -5,7 +5,9 @@ import com.pdp.PixelTrade.dto.transaction.request.TransactionRequestDTO;
 import com.pdp.PixelTrade.dto.transaction.response.TransactionResponseDTO;
 import com.pdp.PixelTrade.service.TransferService;
 import com.pdp.PixelTrade.utils.Constants;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,8 +25,10 @@ public class TransactionController {
 
     private final TransferService transferService;
 
-    @PostMapping("/wallet-to-wallet")
-    public ResponseEntity<ApiResponse<TransactionResponseDTO>> transfer(@RequestBody TransactionRequestDTO dto) {
+    @PostMapping(value = "/wallet-to-wallet",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ApiResponse<TransactionResponseDTO>> transfer(@Valid @RequestBody TransactionRequestDTO dto) {
         return ResponseEntity.ok(transferService.transferW2W(dto));
     }
 }

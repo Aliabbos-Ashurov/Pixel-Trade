@@ -7,7 +7,6 @@ import com.pdp.PixelTrade.enums.TransactionType;
 import com.pdp.PixelTrade.repository.wallet.TransactionRepository;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -24,34 +23,34 @@ public class TransactionService {
     private final TransactionRepository transactionRepository;
 
     public ApiResponse<List<Transaction>> findTransactionsBetweenWallets(
-            @NotNull @Param("fromWalletAddress") String fromWalletAddress,
-            @NotNull @Param("toWalletAddress") String toWalletAddress) {
+            @NotNull String fromWalletAddress,
+            @NotNull String toWalletAddress) {
         return ApiResponse.ok(transactionRepository.findTransactionsBetweenWallets(fromWalletAddress, toWalletAddress));
     }
 
-    public Transaction saveTransaction(@NotNull Transaction transaction) {
-        return transactionRepository.save(transaction);
+    public void saveTransaction(@NotNull Transaction transaction) {
+        transactionRepository.save(transaction);
     }
 
-    public long countTransactionsByAddress(@NotNull @Param("address") String address) {
+    public long countTransactionsByAddress(@NotNull String address) {
         return transactionRepository.countTransactionsByAddress(address);
     }
 
     public ApiResponse<List<Transaction>> findTransactionsBetweenDates(
-            @NotNull @Param("startDate") LocalDateTime startDate,
-            @NotNull @Param("endDate") LocalDateTime endDate) {
+            @NotNull LocalDateTime startDate,
+            @NotNull LocalDateTime endDate) {
         return ApiResponse.ok(transactionRepository.findTransactionsBetweenDates(startDate, endDate));
     }
 
-    public ApiResponse<List<Transaction>> findByTransactionStatus(@Param("status") TransactionStatus status) {
+    public ApiResponse<List<Transaction>> findByTransactionStatus(@NotNull TransactionStatus status) {
         return ApiResponse.ok(transactionRepository.findByTransactionStatus(status));
     }
 
-    public ApiResponse<List<Transaction>> findAllByAddress(@NotNull @Param("address") String address) {
+    public ApiResponse<List<Transaction>> findAllByAddress(@NotNull String address) {
         return ApiResponse.ok(transactionRepository.findAllByAddress(address));
     }
 
-    public ApiResponse<List<Transaction>> findByTransactionType(@NotNull @Param("type") TransactionType type) {
+    public ApiResponse<List<Transaction>> findByTransactionType(@NotNull TransactionType type) {
         return ApiResponse.ok(transactionRepository.findByTransactionType(type));
     }
 
@@ -67,7 +66,7 @@ public class TransactionService {
         return ApiResponse.ok(transactionRepository.findTransactionsWithQRCode());
     }
 
-    public ApiResponse<List<Transaction>> findByTransactionStatuses(@Param("statuses") List<TransactionStatus> statuses) {
+    public ApiResponse<List<Transaction>> findByTransactionStatuses(@NotNull List<TransactionStatus> statuses) {
         return ApiResponse.ok(transactionRepository.findByTransactionStatuses(statuses));
     }
 }

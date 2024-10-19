@@ -10,7 +10,7 @@ public interface Constants {
     String AUTH_HEADER = "Authorization";
     String[] OPEN_PAGES = {
             "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html",
-            "/api/v1/auth/**", "/api/v1/**"
+            "/api/v1/auth/**", "/api/v1/otp/**"
 
     };
 }

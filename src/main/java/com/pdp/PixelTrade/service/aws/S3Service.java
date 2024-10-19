@@ -1,6 +1,8 @@
 package com.pdp.PixelTrade.service.aws;
 
 import com.pdp.PixelTrade.enums.AwsPackage;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -32,7 +34,7 @@ public class S3Service {
     }
 
     @SneakyThrows
-    public String uploadFile(MultipartFile file, AwsPackage path) {
+    public String uploadFile(@NotNull MultipartFile file, AwsPackage path) {
         String uniqueFileName = generateFileName(file, path);
         PutObjectRequest putObjectRequest = PutObjectRequest.builder()
                 .bucket(bucketName)
@@ -44,7 +46,7 @@ public class S3Service {
         return getFileUrl(uniqueFileName, path);
     }
 
-    public ResponseBytes<GetObjectResponse> downloadFile(String key) {
+    public ResponseBytes<GetObjectResponse> downloadFile(@NotBlank @NotNull String key) {
         GetObjectRequest getObjectRequest = GetObjectRequest.builder()
                 .bucket(bucketName)
                 .key(key)
@@ -53,7 +55,7 @@ public class S3Service {
         return s3Client.getObjectAsBytes(getObjectRequest);
     }
 
-    public void deleteFile(String key) {
+    public void deleteFile(@NotBlank @NotNull String key) {
         DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
                 .bucket(bucketName)
                 .key(key)
@@ -61,7 +63,7 @@ public class S3Service {
         s3Client.deleteObject(deleteObjectRequest);
     }
 
-    private String generateFileName(MultipartFile file, AwsPackage directory) {
+    private String generateFileName(@NotNull MultipartFile file, AwsPackage directory) {
         return directory.getDirectory() + "/" +
                 java.util.UUID.randomUUID().toString().substring(0, 5) + "-" +
                 Objects.requireNonNull(file.getOriginalFilename()).replace(" ", "_");
