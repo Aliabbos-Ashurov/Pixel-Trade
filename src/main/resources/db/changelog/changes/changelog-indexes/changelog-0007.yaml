@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0007
+      author: Aliabbos Ashurov
+      comment: 'index for url on table upload'
+      created: '19-10-2024 16:56'
+      changes:
+        - createIndex:
+            indexName: idx_upload_url
+            tableName: upload
+            columns:
+              - column:
+                  name: url

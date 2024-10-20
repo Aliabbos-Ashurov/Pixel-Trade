@@ -6,10 +6,7 @@ import com.pdp.PixelTrade.enums.CryptoType;
 import com.pdp.PixelTrade.enums.P2POrderStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
@@ -43,9 +40,10 @@ public class P2POrder extends Auditable {
     @Column(name = "card_type", nullable = false, updatable = false)
     private CardType cardType;
 
+    @Builder.Default
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private P2POrderStatus status;
+    @Column(name = "order_status", nullable = false)
+    private P2POrderStatus orderStatus = P2POrderStatus.WAITING;
 
     @ManyToOne(optional = false)
     @JoinColumn(nullable = false, updatable = false)

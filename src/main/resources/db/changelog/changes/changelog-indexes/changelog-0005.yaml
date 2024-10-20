@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0005
+      author: Aliabbos Ashurov
+      comment: 'Index for wallet_id of wallet_suspicion_record table'
+      created: '19-10-2024 16:53'
+      changes:
+        - createIndex:
+            indexName: idx_wsr_wallet_id
+            tableName: wallet_suspicion_record
+            columns:
+              - column:
+                  name: wallet_id
+
+

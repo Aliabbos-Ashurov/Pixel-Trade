@@ -3,9 +3,10 @@ databaseChangeLog:
       id: 0004
       author: Aliabbos Ashurov
       comment: 'Index for wallet id on wallet history entity'
+      created: '17-10-2024 15:42'
       changes:
         - createIndex:
-            indexName: idx_wallet_id
+            indexName: idx_wh_wallet_id
             tableName: wallet_history
             columns:
               - column:

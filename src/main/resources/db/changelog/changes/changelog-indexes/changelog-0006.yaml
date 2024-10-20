@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0006
+      author: Aliabbos Ashurov
+      comment: 'indexes for wallet table'
+      created: '19-10-2024 16:54'
+      changes:
+        - createIndex:
+            indexName: idx_wallet_id
+            tableName: wallet
+            columns:
+              - column:
+                  name: id
+        - createIndex:
+            indexName: idx_wallet_address
+            tableName: wallet
+            columns:
+              - column:
+                  name: address
+        - createIndex:
+            indexName: idx_wallet_user_id
+            tableName: wallet
+            columns:
+              - column:
+                  name: user_id

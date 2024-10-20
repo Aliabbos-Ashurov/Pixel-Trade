@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum P2POrderStatus {
     CANCELLED("CANCELLED"),
+    WAITING("WAITING"),
     COMPLETED("COMPLETED");
     private final String value;
 }
