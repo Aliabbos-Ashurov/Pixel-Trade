@@ -1,9 +1,9 @@
 package com.pdp.PixelTrade.controller;
 
-import com.pdp.PixelTrade.dto.ApiResponse;
+import com.pdp.PixelTrade.dto.Response;
 import com.pdp.PixelTrade.dto.transaction.request.CryptoCreateDTO;
 import com.pdp.PixelTrade.dto.transaction.response.CryptoResponseDTO;
-import com.pdp.PixelTrade.service.CryptoService;
+import com.pdp.PixelTrade.service.wallet.CryptoService;
 import com.pdp.PixelTrade.utils.Constants;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +30,7 @@ public class CryptoController {
     }
 
     @GetMapping(value = "/get", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ApiResponse<List<CryptoResponseDTO>>> cryptoList() {
+    public ResponseEntity<Response<List<CryptoResponseDTO>>> cryptoList() {
         return ResponseEntity.ok(cryptoService.findAll());
     }
 }

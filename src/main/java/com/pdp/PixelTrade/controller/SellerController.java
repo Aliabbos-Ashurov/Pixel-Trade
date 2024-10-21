@@ -1,6 +1,6 @@
 package com.pdp.PixelTrade.controller;
 
-import com.pdp.PixelTrade.dto.ApiResponse;
+import com.pdp.PixelTrade.dto.Response;
 import com.pdp.PixelTrade.dto.transaction.response.SellerResponseDTO;
 import com.pdp.PixelTrade.service.wallet.SellerService;
 import com.pdp.PixelTrade.utils.Constants;
@@ -26,12 +26,12 @@ public class SellerController {
     private final SellerService sellerService;
 
     @GetMapping(value = "/get", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ApiResponse<List<SellerResponseDTO>>> findAllSeller() {
+    public ResponseEntity<Response<List<SellerResponseDTO>>> findAllSeller() {
         return ResponseEntity.ok(sellerService.findAll());
     }
 
     @GetMapping(value = "/get/by-name/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ApiResponse<SellerResponseDTO>> findByName(@NotBlank @PathVariable String name) {
+    public ResponseEntity<Response<SellerResponseDTO>> findByName(@NotBlank @PathVariable String name) {
         return ResponseEntity.ok(sellerService.findByName(name));
     }
 }

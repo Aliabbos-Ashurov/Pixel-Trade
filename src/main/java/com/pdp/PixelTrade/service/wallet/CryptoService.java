@@ -1,6 +1,6 @@
-package com.pdp.PixelTrade.service;
+package com.pdp.PixelTrade.service.wallet;
 
-import com.pdp.PixelTrade.dto.ApiResponse;
+import com.pdp.PixelTrade.dto.Response;
 import com.pdp.PixelTrade.dto.transaction.request.CryptoCreateDTO;
 import com.pdp.PixelTrade.dto.transaction.response.CryptoResponseDTO;
 import com.pdp.PixelTrade.entity.Crypto;
@@ -9,6 +9,7 @@ import com.pdp.PixelTrade.enums.AwsPackage;
 import com.pdp.PixelTrade.enums.CryptoType;
 import com.pdp.PixelTrade.mapper.CryptoMapper;
 import com.pdp.PixelTrade.repository.CryptoRepository;
+import com.pdp.PixelTrade.service.UploadService;
 import com.pdp.PixelTrade.service.aws.S3Service;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
@@ -66,8 +67,8 @@ public class CryptoService {
         return cryptoRepository.findBySymbol(symbol);
     }
 
-    public ApiResponse<List<CryptoResponseDTO>> findAll() {
-        return ApiResponse.ok(cryptoRepository.findAll().stream()
+    public Response<List<CryptoResponseDTO>> findAll() {
+        return Response.ok(cryptoRepository.findAll().stream()
                 .map(cryptoMapper::toCryptoResponseDTO)
                 .toList());
     }

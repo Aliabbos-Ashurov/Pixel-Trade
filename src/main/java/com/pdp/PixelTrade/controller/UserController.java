@@ -1,7 +1,7 @@
 package com.pdp.PixelTrade.controller;
 
 import com.pdp.PixelTrade.config.security.SessionUser;
-import com.pdp.PixelTrade.dto.ApiResponse;
+import com.pdp.PixelTrade.dto.Response;
 import com.pdp.PixelTrade.dto.auth.UserResponseDTO;
 import com.pdp.PixelTrade.service.UserService;
 import com.pdp.PixelTrade.utils.Constants;
@@ -25,7 +25,7 @@ public class UserController {
     private final SessionUser sessionUser;
 
     @GetMapping(value = "/profile/me", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ApiResponse<UserResponseDTO>> profile() {
-        return ResponseEntity.ok(userService.findById(sessionUser.id()));
+    public ResponseEntity<Response<UserResponseDTO>> profile() {
+        return ResponseEntity.ok(userService.getById(sessionUser.id()));
     }
 }

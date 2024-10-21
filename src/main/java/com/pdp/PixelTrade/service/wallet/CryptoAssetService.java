@@ -1,6 +1,6 @@
 package com.pdp.PixelTrade.service.wallet;
 
-import com.pdp.PixelTrade.dto.ApiResponse;
+import com.pdp.PixelTrade.dto.Response;
 import com.pdp.PixelTrade.dto.transaction.response.CryptoAssetDTO;
 import com.pdp.PixelTrade.entity.wallet.CryptoAsset;
 import com.pdp.PixelTrade.entity.wallet.Wallet;
@@ -52,23 +52,23 @@ public class CryptoAssetService {
         return cryptoAssetRepository.find(address, cryptoType);
     }
 
-    public ApiResponse<List<CryptoAssetDTO>> findAllByWalletAddress(@NotNull String address) {
-        return ApiResponse.ok(cryptoAssetRepository.findAllByWalletAddress(address).stream()
+    public Response<List<CryptoAssetDTO>> findAllByWalletAddress(@NotNull String address) {
+        return Response.ok(cryptoAssetRepository.findAllByWalletAddress(address).stream()
                 .map(cryptoAssetMapper::toCryptoAssetDTO)
                 .toList());
     }
 
-    public ApiResponse<List<CryptoAssetDTO>> findLockedAssetsByWalletAddress(@NotNull String address) {
-        return ApiResponse.ok(cryptoAssetRepository.findLockedAssetsByWalletAddress(address).stream()
+    public Response<List<CryptoAssetDTO>> findLockedAssetsByWalletAddress(@NotNull String address) {
+        return Response.ok(cryptoAssetRepository.findLockedAssetsByWalletAddress(address).stream()
                 .map(cryptoAssetMapper::toCryptoAssetDTO)
                 .toList());
     }
 
-    public ApiResponse<CryptoAssetDTO> findByWalletAddressAndCryptoType(@NotNull String address, @NotNull CryptoType cryptoType) {
+    public Response<CryptoAssetDTO> findByWalletAddressAndCryptoType(@NotNull String address, @NotNull CryptoType cryptoType) {
         CryptoAsset cryptoAsset = cryptoAssetRepository.findByWalletAddressAndCryptoType(address, cryptoType).orElseThrow(
                 () -> new ResourceNotFoundException("CryptoAsset not found by wallet address {0} and type {1}", address, cryptoType)
         );
-        return ApiResponse.ok(cryptoAssetMapper.toCryptoAssetDTO(cryptoAsset));
+        return Response.ok(cryptoAssetMapper.toCryptoAssetDTO(cryptoAsset));
     }
 
     public void lockCryptoAsset(@NotNull Long assetId, @NotNull String reason) {

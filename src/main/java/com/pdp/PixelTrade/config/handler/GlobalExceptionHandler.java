@@ -1,7 +1,7 @@
 package com.pdp.PixelTrade.config.handler;
 
-import com.pdp.PixelTrade.dto.ApiResponse;
-import com.pdp.PixelTrade.dto.ErrorMessageDTO;
+import com.pdp.PixelTrade.dto.ErrorResponse;
+import com.pdp.PixelTrade.dto.Response;
 import com.pdp.PixelTrade.exceptions.BaseException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -22,10 +22,10 @@ public class GlobalExceptionHandler {
     private boolean LOG_MODE;
 
     @ExceptionHandler(BaseException.class)
-    public ResponseEntity<ApiResponse<ErrorMessageDTO>> handleCryptoOperationException(BaseException ex, HttpServletRequest request) {
+    public ResponseEntity<Response<ErrorResponse>> handleCryptoOperationException(BaseException ex, HttpServletRequest request) {
         logException(ex, request);
-        ErrorMessageDTO errorMessage = ErrorMessageDTO.of(ex.getCode(), ex.getMessage(), request.getRequestURI());
-        return new ResponseEntity<>(ApiResponse.error(
+        ErrorResponse errorMessage = ErrorResponse.of(ex.getCode(), ex.getMessage(), request.getRequestURI());
+        return new ResponseEntity<>(Response.error(
                 ex.getHttpStatus().value(),
                 errorMessage
         ), ex.getHttpStatus());

@@ -1,4 +1,4 @@
-package com.pdp.PixelTrade.dto;
+package com.pdp.PixelTrade.dto.marker;
 
 /**
  * @author Aliabbos Ashurov

@@ -23,7 +23,7 @@ public interface StakingEventRepository extends JpaRepository<StakingEvent, Long
             WHERE se.eventStatus = :status
             AND se.deleted = FALSE
             """)
-    List<StakingEvent> findByEventStatus( @Param("status") StakingEventStatus status);
+    List<StakingEvent> findByEventStatus(@Param("status") StakingEventStatus status);
 
     @Query("""
             FROM StakingEvent se

@@ -1,6 +1,6 @@
 package com.pdp.PixelTrade.service.wallet;
 
-import com.pdp.PixelTrade.dto.ApiResponse;
+import com.pdp.PixelTrade.dto.Response;
 import com.pdp.PixelTrade.entity.wallet.Transaction;
 import com.pdp.PixelTrade.enums.TransactionStatus;
 import com.pdp.PixelTrade.enums.TransactionType;
@@ -22,10 +22,10 @@ public class TransactionService {
 
     private final TransactionRepository transactionRepository;
 
-    public ApiResponse<List<Transaction>> findTransactionsBetweenWallets(
+    public Response<List<Transaction>> findTransactionsBetweenWallets(
             @NotNull String fromWalletAddress,
             @NotNull String toWalletAddress) {
-        return ApiResponse.ok(transactionRepository.findTransactionsBetweenWallets(fromWalletAddress, toWalletAddress));
+        return Response.ok(transactionRepository.findTransactionsBetweenWallets(fromWalletAddress, toWalletAddress));
     }
 
     public void saveTransaction(@NotNull Transaction transaction) {
@@ -36,37 +36,37 @@ public class TransactionService {
         return transactionRepository.countTransactionsByAddress(address);
     }
 
-    public ApiResponse<List<Transaction>> findTransactionsBetweenDates(
+    public Response<List<Transaction>> findTransactionsBetweenDates(
             @NotNull LocalDateTime startDate,
             @NotNull LocalDateTime endDate) {
-        return ApiResponse.ok(transactionRepository.findTransactionsBetweenDates(startDate, endDate));
+        return Response.ok(transactionRepository.findTransactionsBetweenDates(startDate, endDate));
     }
 
-    public ApiResponse<List<Transaction>> findByTransactionStatus(@NotNull TransactionStatus status) {
-        return ApiResponse.ok(transactionRepository.findByTransactionStatus(status));
+    public Response<List<Transaction>> findByTransactionStatus(@NotNull TransactionStatus status) {
+        return Response.ok(transactionRepository.findByTransactionStatus(status));
     }
 
-    public ApiResponse<List<Transaction>> findAllByAddress(@NotNull String address) {
-        return ApiResponse.ok(transactionRepository.findAllByAddress(address));
+    public Response<List<Transaction>> findAllByAddress(@NotNull String address) {
+        return Response.ok(transactionRepository.findAllByAddress(address));
     }
 
-    public ApiResponse<List<Transaction>> findByTransactionType(@NotNull TransactionType type) {
-        return ApiResponse.ok(transactionRepository.findByTransactionType(type));
+    public Response<List<Transaction>> findByTransactionType(@NotNull TransactionType type) {
+        return Response.ok(transactionRepository.findByTransactionType(type));
     }
 
-    public ApiResponse<List<Transaction>> findPendingTransactions() {
-        return ApiResponse.ok(transactionRepository.findPendingTransactions());
+    public Response<List<Transaction>> findPendingTransactions() {
+        return Response.ok(transactionRepository.findPendingTransactions());
     }
 
-    public ApiResponse<List<Transaction>> findFailedTransactions() {
-        return ApiResponse.ok(transactionRepository.findFailedTransactions());
+    public Response<List<Transaction>> findFailedTransactions() {
+        return Response.ok(transactionRepository.findFailedTransactions());
     }
 
-    public ApiResponse<List<Transaction>> findTransactionsWithQRCode() {
-        return ApiResponse.ok(transactionRepository.findTransactionsWithQRCode());
+    public Response<List<Transaction>> findTransactionsWithQRCode() {
+        return Response.ok(transactionRepository.findTransactionsWithQRCode());
     }
 
-    public ApiResponse<List<Transaction>> findByTransactionStatuses(@NotNull List<TransactionStatus> statuses) {
-        return ApiResponse.ok(transactionRepository.findByTransactionStatuses(statuses));
+    public Response<List<Transaction>> findByTransactionStatuses(@NotNull List<TransactionStatus> statuses) {
+        return Response.ok(transactionRepository.findByTransactionStatuses(statuses));
     }
 }

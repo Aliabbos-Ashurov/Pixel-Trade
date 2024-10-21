@@ -1,6 +1,6 @@
 package com.pdp.PixelTrade.controller;
 
-import com.pdp.PixelTrade.dto.ApiResponse;
+import com.pdp.PixelTrade.dto.Response;
 import com.pdp.PixelTrade.entity.wallet.Fee;
 import com.pdp.PixelTrade.service.wallet.FeeService;
 import com.pdp.PixelTrade.utils.Constants;
@@ -24,7 +24,7 @@ public class FeeController {
     private final FeeService feeService;
 
     @GetMapping(value = "/get", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ApiResponse<List<Fee>>> fees() {
+    public ResponseEntity<Response<List<Fee>>> fees() {
         return ResponseEntity.ok(feeService.findActiveTransactionFees());
     }
 }

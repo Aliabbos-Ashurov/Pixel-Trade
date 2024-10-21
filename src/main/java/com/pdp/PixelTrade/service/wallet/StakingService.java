@@ -1,6 +1,6 @@
 package com.pdp.PixelTrade.service.wallet;
 
-import com.pdp.PixelTrade.dto.ApiResponse;
+import com.pdp.PixelTrade.dto.Response;
 import com.pdp.PixelTrade.entity.wallet.Staking;
 import com.pdp.PixelTrade.enums.CryptoType;
 import com.pdp.PixelTrade.repository.wallet.StakingRepository;
@@ -21,39 +21,39 @@ import java.util.List;
 public class StakingService {
     private final StakingRepository stakingRepository;
 
-    public ApiResponse<List<Staking>> findByUserId(@NotNull Long userId) {
-        return ApiResponse.ok(stakingRepository.findByUserId(userId));
+    public Response<List<Staking>> findByUserId(@NotNull Long userId) {
+        return Response.ok(stakingRepository.findByUserId(userId));
     }
 
-    public ApiResponse<List<Staking>> findByStakingEventId(@NotNull Long eventId) {
-        return ApiResponse.ok(stakingRepository.findByStakingEventId(eventId));
+    public Response<List<Staking>> findByStakingEventId(@NotNull Long eventId) {
+        return Response.ok(stakingRepository.findByStakingEventId(eventId));
     }
 
-    public ApiResponse<List<Staking>> findByCryptoType(@NotNull CryptoType cryptoType) {
-        return ApiResponse.ok(stakingRepository.findByCryptoType(cryptoType));
+    public Response<List<Staking>> findByCryptoType(@NotNull CryptoType cryptoType) {
+        return Response.ok(stakingRepository.findByCryptoType(cryptoType));
     }
 
-    public ApiResponse<List<Staking>> findByUserIdAndEventId(@NotNull Long userId,
-                                                             @NotNull Long eventId) {
-        return ApiResponse.ok(stakingRepository.findByUserIdAndEventId(userId, eventId));
+    public Response<List<Staking>> findByUserIdAndEventId(@NotNull Long userId,
+                                                          @NotNull Long eventId) {
+        return Response.ok(stakingRepository.findByUserIdAndEventId(userId, eventId));
     }
 
-    public ApiResponse<List<Staking>> findByDateRange(@NotNull LocalDateTime startDate,
-                                                      @NotNull LocalDateTime endDate) {
-        return ApiResponse.ok(stakingRepository.findByDateRange(startDate, endDate));
+    public Response<List<Staking>> findByDateRange(@NotNull LocalDateTime startDate,
+                                                   @NotNull LocalDateTime endDate) {
+        return Response.ok(stakingRepository.findByDateRange(startDate, endDate));
     }
 
-    public ApiResponse<List<Staking>> findByEventIdAndCryptoType(@NotNull Long eventId,
-                                                                 @NotNull CryptoType cryptoType) {
-        return ApiResponse.ok(stakingRepository.findByEventIdAndCryptoType(eventId, cryptoType));
+    public Response<List<Staking>> findByEventIdAndCryptoType(@NotNull Long eventId,
+                                                              @NotNull CryptoType cryptoType) {
+        return Response.ok(stakingRepository.findByEventIdAndCryptoType(eventId, cryptoType));
     }
 
     public BigDecimal getTotalEarnedByUser(@NotNull Long userId) {
         return stakingRepository.getTotalEarnedByUser(userId);
     }
 
-    public ApiResponse<List<Staking>> findAllOrderByStakeStart() {
-        return ApiResponse.ok(stakingRepository.findAllOrderByStakeStart());
+    public Response<List<Staking>> findAllOrderByStakeStart() {
+        return Response.ok(stakingRepository.findAllOrderByStakeStart());
     }
 
     public long countByStakingEventId(@NotNull Long eventId) {

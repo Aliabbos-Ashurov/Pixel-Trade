@@ -1,6 +1,6 @@
 package com.pdp.PixelTrade.service.otp;
 
-import com.pdp.PixelTrade.dto.ApiResponse;
+import com.pdp.PixelTrade.dto.Response;
 import com.pdp.PixelTrade.dto.auth.OtpResponseDTO;
 import com.pdp.PixelTrade.dto.auth.OtpSendRequestDTO;
 import com.pdp.PixelTrade.dto.auth.OtpVerifyRequestDTO;
@@ -46,13 +46,13 @@ public class SmsOtpService implements OtpVerificationService {
     }
 
     @Override
-    public ApiResponse<OtpResponseDTO> verify(@NotNull OtpVerifyRequestDTO request) {
+    public Response<OtpResponseDTO> verify(@NotNull OtpVerifyRequestDTO request) {
         Otp activeOtp = otpService.findActiveOtp(request.recipient(), request.code());
         System.out.println(activeOtp);
         if (activeOtp.getExpiresAt().isBefore(LocalDateTime.now())) {
             throw new OtpExpiredException("OTP expired with request code: {0}, recipient: {1}", request.code(), request.recipient());
         }
         otpService.markOtpAsUsed(request.recipient(), request.code());
-        return ApiResponse.ok(new OtpResponseDTO(true, "OTP verified successfully"));
+        return Response.ok(new OtpResponseDTO(true, "OTP verified successfully"));
     }
 }

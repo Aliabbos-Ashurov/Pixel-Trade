@@ -1,7 +1,7 @@
 package com.pdp.PixelTrade.config.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pdp.PixelTrade.dto.ErrorMessageDTO;
+import com.pdp.PixelTrade.dto.ErrorResponse;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -46,11 +46,11 @@ public class SecurityBeansConfiguration {
     private void handleError(HttpServletResponse response, Exception exception, int errorCode, String errorPath) {
         String errorMessage = exception.getMessage();
         System.err.println(errorMessage);
-        ErrorMessageDTO errorMessageDTO = ErrorMessageDTO.of(String.valueOf(errorCode), errorMessage, errorPath);
+        ErrorResponse errorResponse = ErrorResponse.of(String.valueOf(errorCode), errorMessage, errorPath);
         response.setStatus(errorCode);
         response.setContentType("application/json");
         try (ServletOutputStream outputStream = response.getOutputStream()) {
-            objectMapper.writeValue(outputStream, errorMessageDTO);
+            objectMapper.writeValue(outputStream, errorResponse);
         }
     }
 }

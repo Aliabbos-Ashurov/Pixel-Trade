@@ -1,5 +1,8 @@
 package com.pdp.PixelTrade.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.pdp.PixelTrade.dto.marker.Response;
+
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -8,7 +11,8 @@ import java.time.format.DateTimeFormatter;
  * @author Aliabbos Ashurov
  * @since 03/September/2024  14:30
  **/
-public record ErrorMessageDTO(
+@JsonInclude(JsonInclude.Include.NON_ABSENT)
+public record ErrorResponse(
         String code,
         String message,
         String path,
@@ -16,8 +20,8 @@ public record ErrorMessageDTO(
         LocalDateTime timestamp)
         implements Response {
 
-    public static ErrorMessageDTO of(String code, String message, String path) {
-        return new ErrorMessageDTO(
+    public static ErrorResponse of(String code, String message, String path) {
+        return new ErrorResponse(
                 code,
                 message,
                 path,

@@ -1,7 +1,7 @@
 package com.pdp.PixelTrade.service.token;
 
 import com.pdp.PixelTrade.controller.AuthController;
-import com.pdp.PixelTrade.dto.ApiResponse;
+import com.pdp.PixelTrade.dto.Response;
 import com.pdp.PixelTrade.dto.auth.RefreshTokenRequestDTO;
 import com.pdp.PixelTrade.dto.auth.TokenDTO;
 import com.pdp.PixelTrade.dto.auth.TokenRequestDTO;
@@ -10,7 +10,6 @@ import com.pdp.PixelTrade.entity.User;
 import com.pdp.PixelTrade.exceptions.UserNotFoundException;
 import com.pdp.PixelTrade.exceptions.security.TokenExpiredException;
 import com.pdp.PixelTrade.repository.UserRepository;
-import com.pdp.PixelTrade.utils.JwtTokenUtil;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.EntityModel;
@@ -30,29 +29,29 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 public class TokenService {
 
     private final UserRepository userRepository;
-    private final JwtTokenUtil jwtTokenUtil;
+    private final JwtTokenService jwtTokenService;
     private final AuthenticationManager authenticationManager;
 
-    public ApiResponse<TokenResponseDTO> generateToken(@NotNull String username, @NotNull String password) {
+    public Response<TokenResponseDTO> generateToken(@NotNull String username, @NotNull String password) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(username, password)
         );
         User user = userRepository.findByUsername(username);
-        TokenDTO accessToken = jwtTokenUtil.generateAccessToken(user.getId(), user.getUsername(), user.getRole());
-        TokenDTO refreshToken = jwtTokenUtil.generateRefreshToken(user.getUsername());
-        return ApiResponse.ok(TokenResponseDTO.of(user.getId(), accessToken, refreshToken));
+        TokenDTO accessToken = jwtTokenService.generateAccessToken(user.getId(), user.getUsername(), user.getRole());
+        TokenDTO refreshToken = jwtTokenService.generateRefreshToken(user.getUsername());
+        return Response.ok(TokenResponseDTO.of(user.getId(), accessToken, refreshToken));
     }
 
-    public ApiResponse<TokenResponseDTO> refreshToken(@NotNull String refreshToken) {
-        if (!jwtTokenUtil.validateToken(refreshToken))
+    public Response<TokenResponseDTO> refreshToken(@NotNull String refreshToken) {
+        if (!jwtTokenService.validateToken(refreshToken))
             throw new TokenExpiredException("Token has expired or invalid: {0}", refreshToken);
-        String username = jwtTokenUtil.extractUsername(refreshToken);
+        String username = jwtTokenService.extractUsername(refreshToken);
         User user = userRepository.findByUsername(username);
         if (user == null)
             throw new UserNotFoundException("User not found: {0}", username);
-        TokenDTO newAccessToken = jwtTokenUtil.generateAccessToken(user.getId(), user.getUsername(), user.getRole());
-        TokenDTO newRefreshToken = jwtTokenUtil.generateRefreshToken(user.getUsername());
-        return ApiResponse.ok(TokenResponseDTO.of(user.getId(), newAccessToken, newRefreshToken));
+        TokenDTO newAccessToken = jwtTokenService.generateAccessToken(user.getId(), user.getUsername(), user.getRole());
+        TokenDTO newRefreshToken = jwtTokenService.generateRefreshToken(user.getUsername());
+        return Response.ok(TokenResponseDTO.of(user.getId(), newAccessToken, newRefreshToken));
     }
 
     private EntityModel<TokenResponseDTO> addLinks(EntityModel<TokenResponseDTO> entityModel,

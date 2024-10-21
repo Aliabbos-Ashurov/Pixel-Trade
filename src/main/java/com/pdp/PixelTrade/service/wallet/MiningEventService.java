@@ -1,6 +1,6 @@
 package com.pdp.PixelTrade.service.wallet;
 
-import com.pdp.PixelTrade.dto.ApiResponse;
+import com.pdp.PixelTrade.dto.Response;
 import com.pdp.PixelTrade.entity.wallet.MiningEvent;
 import com.pdp.PixelTrade.enums.CryptoType;
 import com.pdp.PixelTrade.repository.wallet.MiningEventRepository;
@@ -22,21 +22,21 @@ public class MiningEventService {
 
     private final MiningEventRepository miningEventRepository;
 
-    public ApiResponse<List<MiningEvent>> findByCryptoType(@NotNull CryptoType cryptoType) {
-        return ApiResponse.ok(miningEventRepository.findByCryptoType(cryptoType));
+    public Response<List<MiningEvent>> findByCryptoType(@NotNull CryptoType cryptoType) {
+        return Response.ok(miningEventRepository.findByCryptoType(cryptoType));
     }
 
-    public ApiResponse<List<MiningEvent>> findByTimeRange(@NotNull LocalDateTime start,
-                                                          @NotNull LocalDateTime end) {
-        return ApiResponse.ok(miningEventRepository.findByTimeRange(start, end));
+    public Response<List<MiningEvent>> findByTimeRange(@NotNull LocalDateTime start,
+                                                       @NotNull LocalDateTime end) {
+        return Response.ok(miningEventRepository.findByTimeRange(start, end));
     }
 
-    public ApiResponse<List<MiningEvent>> findCurrentlyActiveEvents(@NotNull LocalDateTime currentTime) {
-        return ApiResponse.ok(miningEventRepository.findCurrentlyActiveEvents(currentTime));
+    public Response<List<MiningEvent>> findCurrentlyActiveEvents(@NotNull LocalDateTime currentTime) {
+        return Response.ok(miningEventRepository.findCurrentlyActiveEvents(currentTime));
     }
 
-    public ApiResponse<List<MiningEvent>> findExpiredEvents(@NotNull LocalDateTime currentTime) {
-        return ApiResponse.ok(miningEventRepository.findExpiredEvents(currentTime));
+    public Response<List<MiningEvent>> findExpiredEvents(@NotNull LocalDateTime currentTime) {
+        return Response.ok(miningEventRepository.findExpiredEvents(currentTime));
     }
 
     public long countByCryptoType(@NotNull CryptoType cryptoType) {

@@ -1,6 +1,6 @@
 package com.pdp.PixelTrade.service.wallet;
 
-import com.pdp.PixelTrade.dto.ApiResponse;
+import com.pdp.PixelTrade.dto.Response;
 import com.pdp.PixelTrade.entity.wallet.WalletSuspicionRecord;
 import com.pdp.PixelTrade.repository.wallet.WalletSuspicionRecordRepository;
 import jakarta.validation.constraints.NotNull;
@@ -23,18 +23,18 @@ public class WalletSuspicionRecordService {
         return walletSuspicionRecordRepository.exists(address);
     }
 
-    public ApiResponse<List<WalletSuspicionRecord>> findByWalletAddress(@NotNull String address) {
-        return ApiResponse.ok(walletSuspicionRecordRepository.findByWalletAddress(address));
+    public Response<List<WalletSuspicionRecord>> findByWalletAddress(@NotNull String address) {
+        return Response.ok(walletSuspicionRecordRepository.findByWalletAddress(address));
     }
 
-    public ApiResponse<List<WalletSuspicionRecord>> findByReasonContaining(@NotNull String reason) {
-        return ApiResponse.ok(walletSuspicionRecordRepository.findByReasonContaining(reason));
+    public Response<List<WalletSuspicionRecord>> findByReasonContaining(@NotNull String reason) {
+        return Response.ok(walletSuspicionRecordRepository.findByReasonContaining(reason));
     }
 
-    public ApiResponse<List<WalletSuspicionRecord>> findByCreatedAtRange(
+    public Response<List<WalletSuspicionRecord>> findByCreatedAtRange(
             @NotNull LocalDateTime startDate,
             @NotNull LocalDateTime endDate) {
-        return ApiResponse.ok(walletSuspicionRecordRepository.findByCreatedAtRange(startDate, endDate));
+        return Response.ok(walletSuspicionRecordRepository.findByCreatedAtRange(startDate, endDate));
     }
 
     public long countSuspectRecordsByWallet(@NotNull String address) {

@@ -1,6 +1,6 @@
 package com.pdp.PixelTrade.controller;
 
-import com.pdp.PixelTrade.dto.ApiResponse;
+import com.pdp.PixelTrade.dto.Response;
 import com.pdp.PixelTrade.dto.auth.OtpResponseDTO;
 import com.pdp.PixelTrade.dto.auth.OtpSendRequestDTO;
 import com.pdp.PixelTrade.dto.auth.OtpVerifyRequestDTO;
@@ -49,19 +49,19 @@ public class OtpController {
     @PostMapping(value = "/verify-email",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ApiResponse<OtpResponseDTO>> verifyEmail(@Valid @RequestBody OtpVerifyRequestDTO dto) {
+    public ResponseEntity<Response<OtpResponseDTO>> verifyEmail(@Valid @RequestBody OtpVerifyRequestDTO dto) {
         return ResponseEntity.ok(mailOtpService.verify(dto));
     }
 
     @PostMapping(value = "/verify-phone",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ApiResponse<OtpResponseDTO>> verifyPhone(@Valid @RequestBody OtpVerifyRequestDTO dto) {
+    public ResponseEntity<Response<OtpResponseDTO>> verifyPhone(@Valid @RequestBody OtpVerifyRequestDTO dto) {
         return ResponseEntity.ok(smsOtpService.verify(dto));
     }
 
     @GetMapping(value = "/verify-backup-mail/{code}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ApiResponse<OtpResponseDTO>> verifyBackupMail(@PathVariable String code) {
+    public ResponseEntity<Response<OtpResponseDTO>> verifyBackupMail(@PathVariable String code) {
         return null;
     }
 }

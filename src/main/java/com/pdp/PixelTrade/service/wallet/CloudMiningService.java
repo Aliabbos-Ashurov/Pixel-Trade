@@ -1,6 +1,6 @@
 package com.pdp.PixelTrade.service.wallet;
 
-import com.pdp.PixelTrade.dto.ApiResponse;
+import com.pdp.PixelTrade.dto.Response;
 import com.pdp.PixelTrade.entity.wallet.CloudMining;
 import com.pdp.PixelTrade.enums.CryptoType;
 import com.pdp.PixelTrade.enums.MiningStatus;
@@ -22,31 +22,31 @@ public class CloudMiningService {
 
     private final CloudMiningRepository cloudMiningRepository;
 
-    public ApiResponse<List<CloudMining>> findByUserId(@NotNull Long userId) {
-        return ApiResponse.ok(cloudMiningRepository.findByUserId(userId));
+    public Response<List<CloudMining>> findByUserId(@NotNull Long userId) {
+        return Response.ok(cloudMiningRepository.findByUserId(userId));
     }
 
-    public ApiResponse<List<CloudMining>> findByUserIdAndStatus(@NotNull Long userId,
-                                                                @NotNull MiningStatus status) {
-        return ApiResponse.ok(cloudMiningRepository.findByUserIdAndStatus(userId, status));
+    public Response<List<CloudMining>> findByUserIdAndStatus(@NotNull Long userId,
+                                                             @NotNull MiningStatus status) {
+        return Response.ok(cloudMiningRepository.findByUserIdAndStatus(userId, status));
     }
 
-    public ApiResponse<List<CloudMining>> findByStatus(@NotNull MiningStatus status) {
-        return ApiResponse.ok(cloudMiningRepository.findByStatus(status));
+    public Response<List<CloudMining>> findByStatus(@NotNull MiningStatus status) {
+        return Response.ok(cloudMiningRepository.findByStatus(status));
     }
 
-    public ApiResponse<List<CloudMining>> findByTimeRange(@NotNull LocalDateTime startTime,
-                                                          @NotNull LocalDateTime endTime) {
-        return ApiResponse.ok(cloudMiningRepository.findByTimeRange(startTime, endTime));
+    public Response<List<CloudMining>> findByTimeRange(@NotNull LocalDateTime startTime,
+                                                       @NotNull LocalDateTime endTime) {
+        return Response.ok(cloudMiningRepository.findByTimeRange(startTime, endTime));
     }
 
-    public ApiResponse<List<CloudMining>> findByCryptoType(@NotNull CryptoType cryptoType) {
-        return ApiResponse.ok(cloudMiningRepository.findByCryptoType(cryptoType));
+    public Response<List<CloudMining>> findByCryptoType(@NotNull CryptoType cryptoType) {
+        return Response.ok(cloudMiningRepository.findByCryptoType(cryptoType));
     }
 
-    public ApiResponse<List<CloudMining>> findByUserIdAndCryptoType(@NotNull Long userId,
-                                                                    @NotNull CryptoType cryptoType) {
-        return ApiResponse.ok(cloudMiningRepository.findByUserIdAndCryptoType(userId, cryptoType));
+    public Response<List<CloudMining>> findByUserIdAndCryptoType(@NotNull Long userId,
+                                                                 @NotNull CryptoType cryptoType) {
+        return Response.ok(cloudMiningRepository.findByUserIdAndCryptoType(userId, cryptoType));
     }
 
     long countByStatus(@NotNull MiningStatus status) {

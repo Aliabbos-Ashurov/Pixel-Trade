@@ -1,6 +1,6 @@
 package com.pdp.PixelTrade.dto.client;
 
-import com.pdp.PixelTrade.dto.Request;
+import com.pdp.PixelTrade.dto.marker.Request;
 import jakarta.validation.constraints.NotNull;
 
 /**

@@ -1,7 +1,8 @@
-package com.pdp.PixelTrade.utils;
+package com.pdp.PixelTrade.service.token;
 
 import com.pdp.PixelTrade.dto.auth.TokenDTO;
 import com.pdp.PixelTrade.enums.Role;
+import com.pdp.PixelTrade.utils.Util;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -24,7 +25,7 @@ import java.util.function.Function;
  * @since 01/October/2024  16:04
  **/
 @Component
-public class JwtTokenUtil implements Util {
+public class JwtTokenService implements Util {
 
     @Value("${token.secret-key}")
     private String SECRET_KEY;

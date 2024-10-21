@@ -1,6 +1,6 @@
 package com.pdp.PixelTrade.dto.auth;
 
-import com.pdp.PixelTrade.dto.Response;
+import com.pdp.PixelTrade.dto.marker.Response;
 import com.pdp.PixelTrade.enums.Role;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

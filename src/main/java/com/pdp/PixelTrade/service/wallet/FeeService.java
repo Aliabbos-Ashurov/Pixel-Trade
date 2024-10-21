@@ -1,6 +1,6 @@
 package com.pdp.PixelTrade.service.wallet;
 
-import com.pdp.PixelTrade.dto.ApiResponse;
+import com.pdp.PixelTrade.dto.Response;
 import com.pdp.PixelTrade.entity.wallet.Fee;
 import com.pdp.PixelTrade.repository.wallet.FeeRepository;
 import jakarta.validation.constraints.NotNull;
@@ -29,17 +29,17 @@ public class FeeService {
         return feeRepository.findByTransactionId(transactionId);
     }
 
-    public ApiResponse<List<Fee>> findByFeeRange(@NotNull BigDecimal minFee,
-                                                 @NotNull BigDecimal maxFee) {
-        return ApiResponse.ok(feeRepository.findByFeeRange(minFee, maxFee));
+    public Response<List<Fee>> findByFeeRange(@NotNull BigDecimal minFee,
+                                              @NotNull BigDecimal maxFee) {
+        return Response.ok(feeRepository.findByFeeRange(minFee, maxFee));
     }
 
-    public ApiResponse<List<Fee>> findByFeePercentageRange(@NotNull BigDecimal minPercentage,
-                                                           @NotNull BigDecimal maxPercentage) {
-        return ApiResponse.ok(feeRepository.findByFeePercentageRange(minPercentage, maxPercentage));
+    public Response<List<Fee>> findByFeePercentageRange(@NotNull BigDecimal minPercentage,
+                                                        @NotNull BigDecimal maxPercentage) {
+        return Response.ok(feeRepository.findByFeePercentageRange(minPercentage, maxPercentage));
     }
 
-    public ApiResponse<List<Fee>> findActiveTransactionFees() {
-        return ApiResponse.ok(feeRepository.findActiveTransactionFees());
+    public Response<List<Fee>> findActiveTransactionFees() {
+        return Response.ok(feeRepository.findActiveTransactionFees());
     }
 }

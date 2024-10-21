@@ -21,7 +21,8 @@ public interface EskizClient {
 
 
     @PostMapping("/message/sms/send")
-    void sendSms(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @RequestBody MessageRequestDTO messageRequest);
+    void sendSms(@RequestHeader(HttpHeaders.AUTHORIZATION) String token,
+                 @RequestBody MessageRequestDTO messageRequest);
 
     @GetMapping("/user/get-limit")
     EskizBalanceDTO getEskizBalance(@RequestHeader(HttpHeaders.AUTHORIZATION) String token);

@@ -1,6 +1,6 @@
 package com.pdp.PixelTrade.service.wallet;
 
-import com.pdp.PixelTrade.dto.ApiResponse;
+import com.pdp.PixelTrade.dto.Response;
 import com.pdp.PixelTrade.entity.wallet.StakingEvent;
 import com.pdp.PixelTrade.enums.CryptoType;
 import com.pdp.PixelTrade.enums.StakingEventStatus;
@@ -22,41 +22,41 @@ import java.util.List;
 public class StakingEventService {
     private final StakingEventRepository stakingEventRepository;
 
-    public ApiResponse<List<StakingEvent>> findByCryptoType(@NotNull CryptoType cryptoType) {
-        return ApiResponse.ok(stakingEventRepository.findByCryptoType(cryptoType));
+    public Response<List<StakingEvent>> findByCryptoType(@NotNull CryptoType cryptoType) {
+        return Response.ok(stakingEventRepository.findByCryptoType(cryptoType));
     }
 
-    public ApiResponse<List<StakingEvent>> findByEventStatus(@NotNull StakingEventStatus status) {
-        return ApiResponse.ok(stakingEventRepository.findByEventStatus(status));
+    public Response<List<StakingEvent>> findByEventStatus(@NotNull StakingEventStatus status) {
+        return Response.ok(stakingEventRepository.findByEventStatus(status));
     }
 
-    public ApiResponse<List<StakingEvent>> findEventsByDateRange(@NotNull LocalDateTime startDate,
-                                                                 @NotNull LocalDateTime endDate) {
-        return ApiResponse.ok(stakingEventRepository.findEventsByDateRange(startDate, endDate));
+    public Response<List<StakingEvent>> findEventsByDateRange(@NotNull LocalDateTime startDate,
+                                                              @NotNull LocalDateTime endDate) {
+        return Response.ok(stakingEventRepository.findEventsByDateRange(startDate, endDate));
     }
 
-    public ApiResponse<List<StakingEvent>> findByCryptoTypeAndStatus(@NotNull CryptoType cryptoType,
-                                                                     @NotNull StakingEventStatus status) {
-        return ApiResponse.ok(stakingEventRepository.findByCryptoTypeAndStatus(cryptoType, status));
+    public Response<List<StakingEvent>> findByCryptoTypeAndStatus(@NotNull CryptoType cryptoType,
+                                                                  @NotNull StakingEventStatus status) {
+        return Response.ok(stakingEventRepository.findByCryptoTypeAndStatus(cryptoType, status));
     }
 
-    public ApiResponse<List<StakingEvent>> findByTitleContaining(@NotNull String keyword) {
-        return ApiResponse.ok(stakingEventRepository.findByTitleContaining(keyword));
+    public Response<List<StakingEvent>> findByTitleContaining(@NotNull String keyword) {
+        return Response.ok(stakingEventRepository.findByTitleContaining(keyword));
     }
 
-    public ApiResponse<List<StakingEvent>> findByDescriptionContaining(@NotNull String keyword) {
-        return ApiResponse.ok(stakingEventRepository.findByDescriptionContaining(keyword));
+    public Response<List<StakingEvent>> findByDescriptionContaining(@NotNull String keyword) {
+        return Response.ok(stakingEventRepository.findByDescriptionContaining(keyword));
     }
 
     public long countByEventStatus(@Param("status") StakingEventStatus status) {
         return stakingEventRepository.countByEventStatus(status);
     }
 
-    public ApiResponse<List<StakingEvent>> findByTitleOrDescriptionContaining(@NotNull String keyword) {
-        return ApiResponse.ok(stakingEventRepository.findByTitleOrDescriptionContaining(keyword));
+    public Response<List<StakingEvent>> findByTitleOrDescriptionContaining(@NotNull String keyword) {
+        return Response.ok(stakingEventRepository.findByTitleOrDescriptionContaining(keyword));
     }
 
-    public ApiResponse<List<StakingEvent>> findAllOrderByStartDate() {
-        return ApiResponse.ok(stakingEventRepository.findAllOrderByStartDate());
+    public Response<List<StakingEvent>> findAllOrderByStartDate() {
+        return Response.ok(stakingEventRepository.findAllOrderByStartDate());
     }
 }

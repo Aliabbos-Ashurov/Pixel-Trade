@@ -17,4 +17,4 @@ public enum AwsPackage {
     CRYPTO("crypto");
 
     private final String directory;
-    }
+}

@@ -1,6 +1,6 @@
 package com.pdp.PixelTrade.service.wallet;
 
-import com.pdp.PixelTrade.dto.ApiResponse;
+import com.pdp.PixelTrade.dto.Response;
 import com.pdp.PixelTrade.dto.transaction.response.WalletDTO;
 import com.pdp.PixelTrade.entity.wallet.Wallet;
 import com.pdp.PixelTrade.enums.IdentificationLevel;
@@ -42,18 +42,18 @@ public class WalletService {
         return walletMapper.toWalletDTO(walletRepository.save(wallet));
     }
 
-    public ApiResponse<WalletDTO> findByAddressDto(@NotNull String address) {
+    public Response<WalletDTO> findByAddressDto(@NotNull String address) {
         Wallet wallet = walletRepository.findByAddress(address).orElseThrow(
                 () -> new WalletNotFoundException("Wallet not found with address: {0}" + address)
         );
-        return ApiResponse.ok(walletMapper.toWalletDTO(wallet));
+        return Response.ok(walletMapper.toWalletDTO(wallet));
     }
 
-    public ApiResponse<WalletDTO> findByWalletId(@NotNull Long id) {
+    public Response<WalletDTO> findByWalletId(@NotNull Long id) {
         Wallet wallet = walletRepository.findByWalletId(id).orElseThrow(
                 () -> new WalletNotFoundException("Wallet not found with id: {0}" + id)
         );
-        return ApiResponse.ok(walletMapper.toWalletDTO(wallet));
+        return Response.ok(walletMapper.toWalletDTO(wallet));
     }
 
     public Long countWalletsByIdentificationLevel(@NotNull IdentificationLevel level) {

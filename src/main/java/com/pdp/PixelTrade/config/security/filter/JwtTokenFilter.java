@@ -1,8 +1,8 @@
 package com.pdp.PixelTrade.config.security.filter;
 
 import com.pdp.PixelTrade.config.security.CustomUserDetailsService;
+import com.pdp.PixelTrade.service.token.JwtTokenService;
 import com.pdp.PixelTrade.utils.Constants;
-import com.pdp.PixelTrade.utils.JwtTokenUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,7 +27,7 @@ import java.io.IOException;
 public class JwtTokenFilter extends OncePerRequestFilter {
 
     private final CustomUserDetailsService userDetailsService;
-    private final JwtTokenUtil jwtTokenUtil;
+    private final JwtTokenService jwtTokenService;
 
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
@@ -39,10 +39,10 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             return;
         }
         String token = authorization.substring(Constants.AUTH_TYPE.length());
-        String username = jwtTokenUtil.extractUsername(token);
+        String username = jwtTokenService.extractUsername(token);
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-            if (jwtTokenUtil.validateToken(token, userDetails)) {
+            if (jwtTokenService.validateToken(token, userDetails)) {
                 UsernamePasswordAuthenticationToken authentication =
                         new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

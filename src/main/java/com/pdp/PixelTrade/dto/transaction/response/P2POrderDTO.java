@@ -2,7 +2,7 @@ package com.pdp.PixelTrade.dto.transaction.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.pdp.PixelTrade.dto.Response;
+import com.pdp.PixelTrade.dto.marker.Response;
 import com.pdp.PixelTrade.enums.CardType;
 import com.pdp.PixelTrade.enums.CryptoType;
 import com.pdp.PixelTrade.enums.P2POrderStatus;

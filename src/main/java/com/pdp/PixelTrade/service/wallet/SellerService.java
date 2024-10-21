@@ -1,6 +1,6 @@
 package com.pdp.PixelTrade.service.wallet;
 
-import com.pdp.PixelTrade.dto.ApiResponse;
+import com.pdp.PixelTrade.dto.Response;
 import com.pdp.PixelTrade.dto.transaction.response.SellerResponseDTO;
 import com.pdp.PixelTrade.entity.wallet.Seller;
 import com.pdp.PixelTrade.exceptions.ResourceNotFoundException;
@@ -22,16 +22,16 @@ public class SellerService {
     private final SellerRepository sellerRepository;
     private final SellerMapper sellerMapper;
 
-    public ApiResponse<List<SellerResponseDTO>> findAll() {
-        return ApiResponse.ok(
+    public Response<List<SellerResponseDTO>> findAll() {
+        return Response.ok(
                 sellerRepository.findAllSellers().stream()
                         .map(sellerMapper::toSellerResponseDTO)
                         .toList()
         );
     }
 
-    public ApiResponse<SellerResponseDTO> findByName(@NotNull String name) {
-        return ApiResponse.ok(
+    public Response<SellerResponseDTO> findByName(@NotNull String name) {
+        return Response.ok(
                 sellerMapper.toSellerResponseDTO(sellerRepository.findByName(name))
         );
     }
