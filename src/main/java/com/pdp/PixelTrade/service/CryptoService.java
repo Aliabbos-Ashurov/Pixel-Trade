@@ -11,7 +11,6 @@ import com.pdp.PixelTrade.mapper.CryptoMapper;
 import com.pdp.PixelTrade.repository.CryptoRepository;
 import com.pdp.PixelTrade.service.aws.S3Service;
 import jakarta.validation.constraints.NotNull;
-import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,13 +25,18 @@ import java.util.Optional;
  * @since 14/October/2024  12:22
  **/
 @Service
-@RequiredArgsConstructor
-public class CryptoService {
+public class CryptoService extends AbstractService<CryptoRepository, CryptoMapper> {
 
     private final S3Service s3Service;
-    private final UploadService uploadService;
     private final CryptoRepository cryptoRepository;
     private final CryptoMapper cryptoMapper;
+
+    protected CryptoService(CryptoRepository repository, CryptoMapper mapper, S3Service s3Service) {
+        super(repository, mapper);
+        this.cryptoRepository = repository;
+        this.cryptoMapper = mapper;
+        this.s3Service = s3Service;
+    }
 
     @Async
     @Transactional

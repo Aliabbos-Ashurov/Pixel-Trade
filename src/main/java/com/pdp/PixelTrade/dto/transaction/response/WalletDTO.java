@@ -25,6 +25,6 @@ public record WalletDTO(
         @NotNull IdentificationLevel level,
 
         @JsonProperty("crypto_assets")
-        List<CryptoAssetDTO> cryptoAssets
+        List<CryptoAssetResponseDTO> cryptoAssets
 ) implements Response {
 }

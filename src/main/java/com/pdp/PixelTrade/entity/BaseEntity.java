@@ -3,7 +3,6 @@ package com.pdp.PixelTrade.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-import org.hibernate.annotations.Filter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -20,7 +19,6 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 @SuperBuilder(toBuilder = true)
 @EntityListeners(AuditingEntityListener.class)
-@Filter(name = "df", condition = "deleted = false")
 public class BaseEntity implements BaseDomain {
 
     @Id

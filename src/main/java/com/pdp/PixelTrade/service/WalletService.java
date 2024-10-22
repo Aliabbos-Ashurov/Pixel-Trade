@@ -8,7 +8,6 @@ import com.pdp.PixelTrade.exceptions.transaction.WalletNotFoundException;
 import com.pdp.PixelTrade.mapper.WalletMapper;
 import com.pdp.PixelTrade.repository.wallet.WalletRepository;
 import jakarta.validation.constraints.NotNull;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -18,57 +17,57 @@ import java.math.BigDecimal;
  * @since 05/October/2024  11:09
  **/
 @Service
-@RequiredArgsConstructor
-public class WalletService {
+public class WalletService extends AbstractService<WalletRepository, WalletMapper> {
 
-    private final WalletRepository walletRepository;
-    private final WalletMapper walletMapper;
+    protected WalletService(WalletRepository repository, WalletMapper mapper) {
+        super(repository, mapper);
+    }
 
     public BigDecimal getBalance(@NotNull String address) {
-        return walletRepository.getBalance(address);
+        return repository.getBalance(address);
     }
 
     public boolean isWalletActive(@NotNull String address) {
-        return walletRepository.isWalletActive(address);
+        return repository.isWalletActive(address);
     }
 
     public Wallet findByAddress(@NotNull String address) {
-        return walletRepository.findByAddress(address).orElseThrow(
+        return repository.findByAddress(address).orElseThrow(
                 () -> new WalletNotFoundException("Wallet not found with address: {0}" + address)
         );
     }
 
     public WalletDTO createWallet(@NotNull Wallet wallet) {
-        return walletMapper.toWalletDTO(walletRepository.save(wallet));
+        return mapper.toWalletDTO(repository.save(wallet));
     }
 
     public Response<WalletDTO> findByAddressDto(@NotNull String address) {
-        Wallet wallet = walletRepository.findByAddress(address).orElseThrow(
+        Wallet wallet = repository.findByAddress(address).orElseThrow(
                 () -> new WalletNotFoundException("Wallet not found with address: {0}" + address)
         );
-        return Response.ok(walletMapper.toWalletDTO(wallet));
+        return Response.ok(mapper.toWalletDTO(wallet));
     }
 
     public Response<WalletDTO> findByWalletId(@NotNull Long id) {
-        Wallet wallet = walletRepository.findByWalletId(id).orElseThrow(
+        Wallet wallet = repository.findByWalletId(id).orElseThrow(
                 () -> new WalletNotFoundException("Wallet not found with id: {0}" + id)
         );
-        return Response.ok(walletMapper.toWalletDTO(wallet));
+        return Response.ok(mapper.toWalletDTO(wallet));
     }
 
     public Long countWalletsByIdentificationLevel(@NotNull IdentificationLevel level) {
-        return walletRepository.countWalletsByIdentificationLevel(level);
+        return repository.countWalletsByIdentificationLevel(level);
     }
 
     public void lockAllAssetsInWallet(@NotNull Long walletId, @NotNull String reason) {
-        walletRepository.lockAllAssetsInWallet(reason, walletId);
+        repository.lockAllAssetsInWallet(reason, walletId);
     }
 
     public void unlockAllAssetsInWallet(@NotNull Long walletId) {
-        walletRepository.unlockAllAssetsInWallet(walletId);
+        repository.unlockAllAssetsInWallet(walletId);
     }
 
     public boolean hasLockedAssets(@NotNull Long walletId) {
-        return walletRepository.hasLockedAssets(walletId);
+        return repository.hasLockedAssets(walletId);
     }
 }

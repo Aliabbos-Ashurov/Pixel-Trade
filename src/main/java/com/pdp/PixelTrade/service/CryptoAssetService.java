@@ -1,7 +1,7 @@
 package com.pdp.PixelTrade.service;
 
 import com.pdp.PixelTrade.dto.Response;
-import com.pdp.PixelTrade.dto.transaction.response.CryptoAssetDTO;
+import com.pdp.PixelTrade.dto.transaction.response.CryptoAssetResponseDTO;
 import com.pdp.PixelTrade.entity.wallet.CryptoAsset;
 import com.pdp.PixelTrade.entity.wallet.Wallet;
 import com.pdp.PixelTrade.enums.CryptoType;
@@ -52,19 +52,19 @@ public class CryptoAssetService {
         return cryptoAssetRepository.find(address, cryptoType);
     }
 
-    public Response<List<CryptoAssetDTO>> findAllByWalletAddress(@NotNull String address) {
+    public Response<List<CryptoAssetResponseDTO>> findAllByWalletAddress(@NotNull String address) {
         return Response.ok(cryptoAssetRepository.findAllByWalletAddress(address).stream()
                 .map(cryptoAssetMapper::toCryptoAssetDTO)
                 .toList());
     }
 
-    public Response<List<CryptoAssetDTO>> findLockedAssetsByWalletAddress(@NotNull String address) {
+    public Response<List<CryptoAssetResponseDTO>> findLockedAssetsByWalletAddress(@NotNull String address) {
         return Response.ok(cryptoAssetRepository.findLockedAssetsByWalletAddress(address).stream()
                 .map(cryptoAssetMapper::toCryptoAssetDTO)
                 .toList());
     }
 
-    public Response<CryptoAssetDTO> findByWalletAddressAndCryptoType(@NotNull String address, @NotNull CryptoType cryptoType) {
+    public Response<CryptoAssetResponseDTO> findByWalletAddressAndCryptoType(@NotNull String address, @NotNull CryptoType cryptoType) {
         CryptoAsset cryptoAsset = cryptoAssetRepository.findByWalletAddressAndCryptoType(address, cryptoType).orElseThrow(
                 () -> new ResourceNotFoundException("CryptoAsset not found by wallet address {0} and type {1}", address, cryptoType)
         );

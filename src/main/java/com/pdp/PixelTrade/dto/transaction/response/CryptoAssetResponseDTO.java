@@ -13,7 +13,7 @@ import java.math.BigDecimal;
  * @since 05/October/2024  11:14
  **/
 @JsonPropertyOrder({"id", "cryptoType", "amount", "isLocked", "lockedReason"})
-public record CryptoAssetDTO(
+public record CryptoAssetResponseDTO(
         @NotNull Long id,
         @NotNull BigDecimal amount,
 
@@ -27,7 +27,7 @@ public record CryptoAssetDTO(
         String lockedReason
 ) implements Response {
 
-    public CryptoAssetDTO of(Long id, CryptoType cryptoType, BigDecimal amount) {
-        return new CryptoAssetDTO(id, amount, cryptoType, false, null);
+    public CryptoAssetResponseDTO of(Long id, CryptoType cryptoType, BigDecimal amount) {
+        return new CryptoAssetResponseDTO(id, amount, cryptoType, false, null);
     }
 }

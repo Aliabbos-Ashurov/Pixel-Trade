@@ -1,5 +1,6 @@
 package com.pdp.PixelTrade.service;
 
+import com.pdp.PixelTrade.config.security.SessionUser;
 import com.pdp.PixelTrade.dto.Response;
 import com.pdp.PixelTrade.dto.auth.UserCreateDTO;
 import com.pdp.PixelTrade.dto.auth.UserResponseDTO;
@@ -37,6 +38,7 @@ public class UserServiceImpl implements UserService {
     private final WalletService walletService;
     private final CryptoAssetService cryptoAssetService;
     private final OtpService otpService;
+    private final SessionUser sessionUser;
 
     public User findByUsername(@NotNull String username) {
         User user = userRepository.findByUsername(username);
@@ -51,6 +53,7 @@ public class UserServiceImpl implements UserService {
             throw new OtpNotFoundException("Otp not used with this recipient: {0}", dto.email());
         User user = userMapper.toUser(dto);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        //user.setCreatedBy(sessionUser.id());
         User save = userRepository.save(user);
 
         WalletDTO wallet = walletService.createWallet(Wallet.builder()
