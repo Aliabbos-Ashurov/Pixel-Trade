@@ -1,4 +1,4 @@
-package com.pdp.PixelTrade.service.impl;
+package com.pdp.PixelTrade.service;
 
 import com.pdp.PixelTrade.dto.Response;
 import com.pdp.PixelTrade.dto.auth.UserCreateDTO;
@@ -9,13 +9,11 @@ import com.pdp.PixelTrade.entity.User;
 import com.pdp.PixelTrade.entity.wallet.Wallet;
 import com.pdp.PixelTrade.enums.CryptoType;
 import com.pdp.PixelTrade.enums.OtpType;
+import com.pdp.PixelTrade.exceptions.UserNotFoundException;
 import com.pdp.PixelTrade.exceptions.otp.OtpNotFoundException;
 import com.pdp.PixelTrade.mapper.UserMapper;
 import com.pdp.PixelTrade.repository.UserRepository;
-import com.pdp.PixelTrade.service.UserService;
 import com.pdp.PixelTrade.service.otp.OtpService;
-import com.pdp.PixelTrade.service.wallet.CryptoAssetService;
-import com.pdp.PixelTrade.service.wallet.WalletService;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -32,6 +30,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
+
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
@@ -63,22 +62,25 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Response<UserResponseDTO> update(UserUpdateDTO dto) {
+    public Response<Boolean> update(UserUpdateDTO dto) {
         return null;
     }
 
     @Override
-    public Response<UserResponseDTO> delete(Long aLong) {
+    public Response<Boolean> delete(Long id) {
         return null;
     }
 
     @Override
-    public Response<List<UserResponseDTO>> getAll() {
-        return null;
+    public Response<UserResponseDTO> find(Long id) {
+        return Response.ok(
+                userMapper.toUserResponseDTO(userRepository.findById(id)
+                        .orElseThrow(() -> new UserNotFoundException("User not found with: {0}", id))));
     }
 
     @Override
-    public Response<UserResponseDTO> getById(Long id) {
-        return Response.ok(userMapper.toUserResponseDTO(userRepository.findByIdAndDeletedFalse(id)));
+    public Response<List<UserResponseDTO>> findAll() {
+        return Response.ok(userRepository.findAll().stream()
+                .map(userMapper::toUserResponseDTO).toList());
     }
 }

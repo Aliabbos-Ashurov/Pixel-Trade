@@ -2,7 +2,7 @@ package com.pdp.PixelTrade.controller;
 
 import com.pdp.PixelTrade.dto.Response;
 import com.pdp.PixelTrade.entity.wallet.Fee;
-import com.pdp.PixelTrade.service.wallet.FeeService;
+import com.pdp.PixelTrade.service.FeeService;
 import com.pdp.PixelTrade.utils.Constants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;

@@ -26,6 +26,6 @@ public class UserController {
 
     @GetMapping(value = "/profile/me", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Response<UserResponseDTO>> profile() {
-        return ResponseEntity.ok(userService.getById(sessionUser.id()));
+        return ResponseEntity.ok(userService.find(sessionUser.id()));
     }
 }

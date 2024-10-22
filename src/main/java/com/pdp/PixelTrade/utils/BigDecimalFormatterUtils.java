@@ -10,7 +10,7 @@ import java.text.DecimalFormat;
  * @since 18/October/2024  19:24
  **/
 @Component
-public class BigDecimalFormatterUtil {
+public class BigDecimalFormatterUtils {
 
     private static final DecimalFormat formatWithDecimals = new DecimalFormat("#.########");
     private static final DecimalFormat formatWithoutDecimals = new DecimalFormat("#");

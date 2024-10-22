@@ -4,7 +4,7 @@ import com.pdp.PixelTrade.config.security.SessionUser;
 import com.pdp.PixelTrade.dto.Response;
 import com.pdp.PixelTrade.dto.transaction.response.WalletDTO;
 import com.pdp.PixelTrade.service.UserService;
-import com.pdp.PixelTrade.service.wallet.WalletService;
+import com.pdp.PixelTrade.service.WalletService;
 import com.pdp.PixelTrade.utils.Constants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;

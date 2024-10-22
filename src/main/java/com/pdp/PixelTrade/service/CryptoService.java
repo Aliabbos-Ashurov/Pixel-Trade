@@ -1,4 +1,4 @@
-package com.pdp.PixelTrade.service.wallet;
+package com.pdp.PixelTrade.service;
 
 import com.pdp.PixelTrade.dto.Response;
 import com.pdp.PixelTrade.dto.transaction.request.CryptoCreateDTO;
@@ -9,7 +9,6 @@ import com.pdp.PixelTrade.enums.AwsPackage;
 import com.pdp.PixelTrade.enums.CryptoType;
 import com.pdp.PixelTrade.mapper.CryptoMapper;
 import com.pdp.PixelTrade.repository.CryptoRepository;
-import com.pdp.PixelTrade.service.UploadService;
 import com.pdp.PixelTrade.service.aws.S3Service;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;

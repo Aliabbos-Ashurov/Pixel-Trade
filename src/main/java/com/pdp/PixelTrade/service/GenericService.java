@@ -2,7 +2,7 @@ package com.pdp.PixelTrade.service;
 
 /**
  * @author Aliabbos Ashurov
- * @since 21/October/2024  18:50
+ * @since 22/October/2024  10:03
  **/
 public interface GenericService {
 }

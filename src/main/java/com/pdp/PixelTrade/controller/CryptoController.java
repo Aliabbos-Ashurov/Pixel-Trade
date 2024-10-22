@@ -3,7 +3,7 @@ package com.pdp.PixelTrade.controller;
 import com.pdp.PixelTrade.dto.Response;
 import com.pdp.PixelTrade.dto.transaction.request.CryptoCreateDTO;
 import com.pdp.PixelTrade.dto.transaction.response.CryptoResponseDTO;
-import com.pdp.PixelTrade.service.wallet.CryptoService;
+import com.pdp.PixelTrade.service.CryptoService;
 import com.pdp.PixelTrade.utils.Constants;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

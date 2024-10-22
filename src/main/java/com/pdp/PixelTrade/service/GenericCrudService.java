@@ -2,13 +2,14 @@ package com.pdp.PixelTrade.service;
 
 import com.pdp.PixelTrade.dto.Response;
 import com.pdp.PixelTrade.dto.marker.DTO;
+import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
 import java.util.List;
 
 /**
  * @author Aliabbos Ashurov
- * @since 21/October/2024  18:50
+ * @since 22/October/2024  10:03
  **/
 public interface GenericCrudService<
         ID extends Serializable,
@@ -16,13 +17,14 @@ public interface GenericCrudService<
         CD extends DTO,
         UD extends DTO
         > extends GenericService {
-    Response<R> create(CD dto);
 
-    Response<R> update(UD dto);
+    Response<R> create(@NotNull CD dto);
 
-    Response<R> delete(ID id);
+    Response<Boolean> update(@NotNull UD dto);
 
-    Response<List<R>> getAll();
+    Response<Boolean> delete(@NotNull ID id);
 
-    Response<R> getById(ID id);
+    Response<R> find(@NotNull ID id);
+
+    Response<List<R>> findAll();
 }

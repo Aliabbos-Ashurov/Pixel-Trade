@@ -1,4 +1,4 @@
-package com.pdp.PixelTrade.service.impl;
+package com.pdp.PixelTrade.service;
 
 import com.pdp.PixelTrade.dto.Response;
 import com.pdp.PixelTrade.dto.transaction.request.TransactionRequestDTO;
@@ -10,8 +10,6 @@ import com.pdp.PixelTrade.exceptions.transaction.CryptoTransactionException;
 import com.pdp.PixelTrade.exceptions.transaction.InsufficientBalanceException;
 import com.pdp.PixelTrade.exceptions.transaction.WalletSuspicionRecordException;
 import com.pdp.PixelTrade.mapper.TransactionMapper;
-import com.pdp.PixelTrade.service.TransferService;
-import com.pdp.PixelTrade.service.wallet.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

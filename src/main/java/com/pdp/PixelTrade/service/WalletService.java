@@ -1,4 +1,4 @@
-package com.pdp.PixelTrade.service.wallet;
+package com.pdp.PixelTrade.service;
 
 import com.pdp.PixelTrade.dto.Response;
 import com.pdp.PixelTrade.dto.transaction.response.WalletDTO;

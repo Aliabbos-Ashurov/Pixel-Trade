@@ -2,7 +2,7 @@ package com.pdp.PixelTrade.controller;
 
 import com.pdp.PixelTrade.dto.Response;
 import com.pdp.PixelTrade.dto.transaction.response.SellerResponseDTO;
-import com.pdp.PixelTrade.service.wallet.SellerService;
+import com.pdp.PixelTrade.service.SellerService;
 import com.pdp.PixelTrade.utils.Constants;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;

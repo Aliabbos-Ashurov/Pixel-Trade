@@ -1,6 +1,6 @@
 package com.pdp.PixelTrade.controller;
 
-import com.pdp.PixelTrade.service.wallet.CryptoAssetService;
+import com.pdp.PixelTrade.service.CryptoAssetService;
 import com.pdp.PixelTrade.utils.Constants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;

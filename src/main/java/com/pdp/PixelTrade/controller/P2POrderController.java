@@ -4,7 +4,7 @@ import com.pdp.PixelTrade.dto.Response;
 import com.pdp.PixelTrade.dto.transaction.response.P2POrderDTO;
 import com.pdp.PixelTrade.enums.CryptoType;
 import com.pdp.PixelTrade.enums.P2POrderStatus;
-import com.pdp.PixelTrade.service.wallet.P2POrderService;
+import com.pdp.PixelTrade.service.P2POrderService;
 import com.pdp.PixelTrade.utils.Constants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
