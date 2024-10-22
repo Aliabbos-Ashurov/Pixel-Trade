@@ -12,7 +12,7 @@ import org.mapstruct.MappingConstants;
  * @since 05/October/2024  11:30
  **/
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
-public interface CryptoAssetMapper extends
-        GenericMapper<CryptoAsset, CryptoAssetResponseDTO, CryptoAssetCreateDTO, CryptoAssetUpdateDTO> {
+public interface CryptoAssetMapper
+        extends GenericMapper<CryptoAsset, CryptoAssetResponseDTO, CryptoAssetCreateDTO, CryptoAssetUpdateDTO> {
 
 }

@@ -1,7 +1,7 @@
 package com.pdp.PixelTrade.controller;
 
 import com.pdp.PixelTrade.dto.Response;
-import com.pdp.PixelTrade.dto.transaction.response.WalletHistoryDTO;
+import com.pdp.PixelTrade.dto.transaction.response.WalletHistoryResponseDTO;
 import com.pdp.PixelTrade.service.WalletHistoryService;
 import com.pdp.PixelTrade.utils.Constants;
 import lombok.RequiredArgsConstructor;
@@ -26,17 +26,17 @@ public class WalletHistoryController {
     private final WalletHistoryService walletHistoryService;
 
     @GetMapping(value = "/get", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Response<List<WalletHistoryDTO>>> findAll() {
+    public ResponseEntity<Response<List<WalletHistoryResponseDTO>>> findAll() {
         return ResponseEntity.ok(walletHistoryService.findAll());
     }
 
     @GetMapping(value = "/get/by-wallet/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Response<List<WalletHistoryDTO>>> findWalletId(@PathVariable Long id) {
+    public ResponseEntity<Response<List<WalletHistoryResponseDTO>>> findWalletId(@PathVariable Long id) {
         return ResponseEntity.ok(walletHistoryService.findByWalletId(id));
     }
 
     @GetMapping(value = "/get/by-address/{address}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Response<List<WalletHistoryDTO>>> findByAddress(@PathVariable String address) {
+    public ResponseEntity<Response<List<WalletHistoryResponseDTO>>> findByAddress(@PathVariable String address) {
         return ResponseEntity.ok(walletHistoryService.findByWalletAddress(address));
     }
 

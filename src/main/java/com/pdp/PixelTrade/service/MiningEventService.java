@@ -3,9 +3,9 @@ package com.pdp.PixelTrade.service;
 import com.pdp.PixelTrade.dto.Response;
 import com.pdp.PixelTrade.entity.wallet.MiningEvent;
 import com.pdp.PixelTrade.enums.CryptoType;
+import com.pdp.PixelTrade.mapper.MiningEventMapper;
 import com.pdp.PixelTrade.repository.wallet.MiningEventRepository;
 import jakarta.validation.constraints.NotNull;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -17,33 +17,34 @@ import java.util.List;
  * @since 14/October/2024  11:27
  **/
 @Service
-@RequiredArgsConstructor
-public class MiningEventService {
+public class MiningEventService extends AbstractService<MiningEventRepository, MiningEventMapper> {
 
-    private final MiningEventRepository miningEventRepository;
+    public MiningEventService(MiningEventRepository repository, MiningEventMapper mapper) {
+        super(repository, mapper);
+    }
 
     public Response<List<MiningEvent>> findByCryptoType(@NotNull CryptoType cryptoType) {
-        return Response.ok(miningEventRepository.findByCryptoType(cryptoType));
+        return Response.ok(repository.findByCryptoType(cryptoType));
     }
 
     public Response<List<MiningEvent>> findByTimeRange(@NotNull LocalDateTime start,
                                                        @NotNull LocalDateTime end) {
-        return Response.ok(miningEventRepository.findByTimeRange(start, end));
+        return Response.ok(repository.findByTimeRange(start, end));
     }
 
     public Response<List<MiningEvent>> findCurrentlyActiveEvents(@NotNull LocalDateTime currentTime) {
-        return Response.ok(miningEventRepository.findCurrentlyActiveEvents(currentTime));
+        return Response.ok(repository.findCurrentlyActiveEvents(currentTime));
     }
 
     public Response<List<MiningEvent>> findExpiredEvents(@NotNull LocalDateTime currentTime) {
-        return Response.ok(miningEventRepository.findExpiredEvents(currentTime));
+        return Response.ok(repository.findExpiredEvents(currentTime));
     }
 
     public long countByCryptoType(@NotNull CryptoType cryptoType) {
-        return miningEventRepository.countByCryptoType(cryptoType);
+        return repository.countByCryptoType(cryptoType);
     }
 
     public BigDecimal getTotalAmountByCryptoType(@NotNull CryptoType cryptoType) {
-        return miningEventRepository.getTotalAmountByCryptoType(cryptoType);
+        return repository.getTotalAmountByCryptoType(cryptoType);
     }
 }

@@ -1,6 +1,7 @@
 package com.pdp.PixelTrade.exceptions.security;
 
 import com.pdp.PixelTrade.exceptions.BaseException;
+import com.pdp.PixelTrade.utils.ErrorCode;
 import org.springframework.http.HttpStatus;
 
 /**
@@ -10,6 +11,6 @@ import org.springframework.http.HttpStatus;
 public class UnauthorizedAccessException extends BaseException {
 
     public UnauthorizedAccessException(String message, Object... args) {
-        super(HttpStatus.UNAUTHORIZED, "UNAUTHORIZED_ACCESS", message, args);
+        super(HttpStatus.UNAUTHORIZED, ErrorCode.UNAUTHORIZED, message, args);
     }
 }

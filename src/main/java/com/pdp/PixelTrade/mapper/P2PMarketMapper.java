@@ -12,6 +12,6 @@ import org.mapstruct.MappingConstants;
  * @since 22/October/2024  10:42
  **/
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
-public interface P2PMarketMapper extends
-        GenericMapper<P2PMarket, P2PMarketResponseDTO, P2PMarketCreateDTO, P2PMarketUpdateDTO> {
+public interface P2PMarketMapper
+        extends GenericMapper<P2PMarket, P2PMarketResponseDTO, P2PMarketCreateDTO, P2PMarketUpdateDTO> {
 }

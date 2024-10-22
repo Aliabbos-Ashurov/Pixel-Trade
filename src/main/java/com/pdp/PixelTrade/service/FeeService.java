@@ -2,9 +2,9 @@ package com.pdp.PixelTrade.service;
 
 import com.pdp.PixelTrade.dto.Response;
 import com.pdp.PixelTrade.entity.wallet.Fee;
+import com.pdp.PixelTrade.mapper.FeeMapper;
 import com.pdp.PixelTrade.repository.wallet.FeeRepository;
 import jakarta.validation.constraints.NotNull;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -16,30 +16,31 @@ import java.util.Optional;
  * @since 14/October/2024  11:30
  **/
 @Service
-@RequiredArgsConstructor
-public class FeeService {
+public class FeeService extends AbstractService<FeeRepository, FeeMapper> {
 
-    private final FeeRepository feeRepository;
+    public FeeService(FeeRepository repository, FeeMapper mapper) {
+        super(repository, mapper);
+    }
 
     public Fee saveFee(Fee fee) {
-        return feeRepository.save(fee);
+        return repository.save(fee);
     }
 
     public Optional<Fee> findByTransactionId(@NotNull Long transactionId) {
-        return feeRepository.findByTransactionId(transactionId);
+        return repository.findByTransactionId(transactionId);
     }
 
     public Response<List<Fee>> findByFeeRange(@NotNull BigDecimal minFee,
                                               @NotNull BigDecimal maxFee) {
-        return Response.ok(feeRepository.findByFeeRange(minFee, maxFee));
+        return Response.ok(repository.findByFeeRange(minFee, maxFee));
     }
 
     public Response<List<Fee>> findByFeePercentageRange(@NotNull BigDecimal minPercentage,
                                                         @NotNull BigDecimal maxPercentage) {
-        return Response.ok(feeRepository.findByFeePercentageRange(minPercentage, maxPercentage));
+        return Response.ok(repository.findByFeePercentageRange(minPercentage, maxPercentage));
     }
 
     public Response<List<Fee>> findActiveTransactionFees() {
-        return Response.ok(feeRepository.findActiveTransactionFees());
+        return Response.ok(repository.findActiveTransactionFees());
     }
 }

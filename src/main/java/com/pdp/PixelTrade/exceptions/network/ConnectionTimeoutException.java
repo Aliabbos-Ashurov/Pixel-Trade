@@ -1,6 +1,7 @@
 package com.pdp.PixelTrade.exceptions.network;
 
 import com.pdp.PixelTrade.exceptions.BaseException;
+import com.pdp.PixelTrade.utils.ErrorCode;
 import org.springframework.http.HttpStatus;
 
 /**
@@ -10,6 +11,6 @@ import org.springframework.http.HttpStatus;
 public class ConnectionTimeoutException extends BaseException {
 
     public ConnectionTimeoutException(String message, Object... args) {
-        super(HttpStatus.REQUEST_TIMEOUT, "CONNECTION_TIMEOUT", message, args);
+        super(HttpStatus.REQUEST_TIMEOUT, ErrorCode.CONNECTION_TIMEOUT, message, args);
     }
 }

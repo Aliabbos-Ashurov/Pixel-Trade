@@ -1,5 +1,7 @@
 package com.pdp.PixelTrade.dto.transaction.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.pdp.PixelTrade.dto.marker.Response;
 import com.pdp.PixelTrade.enums.CryptoType;
 import com.pdp.PixelTrade.enums.TransactionStatus;
 import com.pdp.PixelTrade.enums.TransactionType;
@@ -22,7 +24,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class TransactionResponseDTO {
+public class TransactionResponseDTO implements Response {
 
     @NotNull
     private Long id;
@@ -46,6 +48,7 @@ public class TransactionResponseDTO {
     private TransactionStatus transactionStatus;
 
     @NotNull
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime confirmedAt;
 
     private String metadata;

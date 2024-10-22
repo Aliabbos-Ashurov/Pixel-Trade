@@ -24,10 +24,10 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(BaseException.class)
     public ResponseEntity<Response<ErrorResponse>> handleCryptoOperationException(BaseException ex, HttpServletRequest request) {
         logException(ex, request);
-        ErrorResponse errorMessage = ErrorResponse.of(ex.getCode(), ex.getMessage(), request.getRequestURI());
+        var errorResponse = ErrorResponse.of(ex.getCode(), ex.getMessage(), request.getRequestURI());
         return new ResponseEntity<>(Response.error(
                 ex.getHttpStatus().value(),
-                errorMessage
+                errorResponse
         ), ex.getHttpStatus());
     }
 

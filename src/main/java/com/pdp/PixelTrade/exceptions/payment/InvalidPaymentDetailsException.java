@@ -1,6 +1,7 @@
 package com.pdp.PixelTrade.exceptions.payment;
 
 import com.pdp.PixelTrade.exceptions.BaseException;
+import com.pdp.PixelTrade.utils.ErrorCode;
 import org.springframework.http.HttpStatus;
 
 /**
@@ -10,6 +11,6 @@ import org.springframework.http.HttpStatus;
 public class InvalidPaymentDetailsException extends BaseException {
 
     public InvalidPaymentDetailsException(String message, Object... args) {
-        super(HttpStatus.BAD_REQUEST, "INVALID_PAYMENT_DETAILS", message, args);
+        super(HttpStatus.BAD_REQUEST, ErrorCode.INVALID_PAYMENT_DETAILS, message, args);
     }
 }

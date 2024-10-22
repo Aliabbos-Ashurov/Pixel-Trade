@@ -16,10 +16,10 @@ public interface OtpVerificationService {
 
     void send(@NotNull OtpSendRequestDTO request);
 
-
     Response<OtpResponseDTO> verify(@NotNull OtpVerifyRequestDTO request);
 
     default String generateOtpCode() {
+        // default mode
         return String.valueOf(ThreadLocalRandom.current().nextInt(100000, 999999));
     }
 }

@@ -29,15 +29,15 @@ public class PerformanceMonitoringFilter extends OncePerRequestFilter {
     protected void doFilterInternal(@Nonnull HttpServletRequest request,
                                     @Nonnull HttpServletResponse response,
                                     @Nonnull FilterChain filterChain) throws ServletException, IOException {
-        long startTime = System.currentTimeMillis();
-        String requestURI = request.getRequestURI();
+        var startTime = System.currentTimeMillis();
+        var requestURI = request.getRequestURI();
         try {
             filterChain.doFilter(request, response);
         } catch (Exception e) {
             logger.error(ANSI_RED + "Error processing request for URI: {}" + ANSI_RESET, requestURI, e);
             throw e;
         } finally {
-            long duration = System.currentTimeMillis() - startTime;
+            var duration = System.currentTimeMillis() - startTime;
             logPerformanceMetrics(request.getMethod(), requestURI, duration, request.getContentType());
         }
     }

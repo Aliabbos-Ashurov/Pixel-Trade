@@ -7,7 +7,6 @@ import com.pdp.PixelTrade.exceptions.ResourceNotFoundException;
 import com.pdp.PixelTrade.mapper.SellerMapper;
 import com.pdp.PixelTrade.repository.SellerRepository;
 import jakarta.validation.constraints.NotNull;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,27 +16,28 @@ import java.util.List;
  * @since 19/October/2024  13:13
  **/
 @Service
-@RequiredArgsConstructor
-public class SellerService {
-    private final SellerRepository sellerRepository;
-    private final SellerMapper sellerMapper;
+public class SellerService extends AbstractService<SellerRepository, SellerMapper> {
+
+    public SellerService(SellerRepository repository, SellerMapper mapper) {
+        super(repository, mapper);
+    }
 
     public Response<List<SellerResponseDTO>> findAll() {
         return Response.ok(
-                sellerRepository.findAllSellers().stream()
-                        .map(sellerMapper::toSellerResponseDTO)
+                repository.findAllSellers().stream()
+                        .map(mapper::toDTO)
                         .toList()
         );
     }
 
     public Response<SellerResponseDTO> findByName(@NotNull String name) {
         return Response.ok(
-                sellerMapper.toSellerResponseDTO(sellerRepository.findByName(name))
+                mapper.toDTO(repository.findByName(name))
         );
     }
 
     public Seller findBySellerId(@NotNull Long sellerId) {
-        return sellerRepository.findBySellerId(sellerId).orElseThrow(
+        return repository.findBySellerId(sellerId).orElseThrow(
                 () -> new ResourceNotFoundException("Seller not found with sellerId: {0}", sellerId));
     }
 }

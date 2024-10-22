@@ -1,5 +1,6 @@
-package com.pdp.PixelTrade.event;
+package com.pdp.PixelTrade.eop.event;
 
+import com.pdp.PixelTrade.eop.Event;
 import jakarta.validation.constraints.NotNull;
 
 /**

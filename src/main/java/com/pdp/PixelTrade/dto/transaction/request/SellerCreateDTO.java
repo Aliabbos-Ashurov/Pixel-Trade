@@ -9,10 +9,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author Aliabbos Ashurov
- * @since 19/October/2024  13:05
+ * @since 22/October/2024  11:33
  **/
 @JsonPropertyOrder({"name", "bio", "profilePicture"})
-public record CreateSellerRequest(
+public record SellerCreateDTO(
         @NotBlank @NotNull String name,
         @NotBlank @NotNull String bio,
 

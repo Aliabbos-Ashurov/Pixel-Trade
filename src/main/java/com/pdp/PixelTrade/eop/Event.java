@@ -1,4 +1,4 @@
-package com.pdp.PixelTrade.event;
+package com.pdp.PixelTrade.eop;
 
 /**
  * @author Aliabbos Ashurov

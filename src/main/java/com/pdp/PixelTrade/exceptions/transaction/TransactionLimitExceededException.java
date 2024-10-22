@@ -1,6 +1,7 @@
 package com.pdp.PixelTrade.exceptions.transaction;
 
 import com.pdp.PixelTrade.exceptions.BaseException;
+import com.pdp.PixelTrade.utils.ErrorCode;
 import org.springframework.http.HttpStatus;
 
 /**
@@ -10,6 +11,6 @@ import org.springframework.http.HttpStatus;
 public class TransactionLimitExceededException extends BaseException {
 
     public TransactionLimitExceededException(String message, Object... args) {
-        super(HttpStatus.FORBIDDEN, "TRANSACTION_LIMIT_EXCEEDED", message, args);
+        super(HttpStatus.FORBIDDEN, ErrorCode.TRANSACTION_LIMIT_EXCEEDED, message, args);
     }
 }

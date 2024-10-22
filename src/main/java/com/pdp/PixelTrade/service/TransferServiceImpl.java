@@ -1,7 +1,7 @@
 package com.pdp.PixelTrade.service;
 
 import com.pdp.PixelTrade.dto.Response;
-import com.pdp.PixelTrade.dto.transaction.request.TransactionRequestDTO;
+import com.pdp.PixelTrade.dto.transaction.request.TransactionCreateDTO;
 import com.pdp.PixelTrade.dto.transaction.response.TransactionResponseDTO;
 import com.pdp.PixelTrade.entity.wallet.*;
 import com.pdp.PixelTrade.enums.TransactionStatus;
@@ -40,12 +40,13 @@ public class TransferServiceImpl implements TransferService {
     private static final BigDecimal HUNDRED = BigDecimal.valueOf(100);
     private static final BigDecimal ONE = BigDecimal.ONE;
 
+    @Override
     @Transactional(
             propagation = Propagation.REQUIRED,
             isolation = Isolation.READ_COMMITTED,
             timeout = 3
     )
-    public Response<TransactionResponseDTO> transferW2W(@NotNull TransactionRequestDTO request) {
+    public Response<TransactionResponseDTO> transferW2W(@NotNull TransactionCreateDTO request) {
         Wallet fromWallet = fetchAndValidateWallet(request.fromAddress());
         Wallet toWallet = fetchAndValidateWallet(request.toAddress());
 
@@ -90,7 +91,7 @@ public class TransferServiceImpl implements TransferService {
         return amount.multiply(feePercentage).divide(HUNDRED);
     }
 
-    private Fee createTransactionAndFee(TransactionRequestDTO request, Wallet fromWallet, Wallet
+    private Fee createTransactionAndFee(TransactionCreateDTO request, Wallet fromWallet, Wallet
             toWallet, BigDecimal earnedFee, BigDecimal feePercentage) {
         LocalDateTime now = LocalDateTime.now();
 
@@ -139,9 +140,9 @@ public class TransferServiceImpl implements TransferService {
         }
     }
 
-    private Response<TransactionResponseDTO> buildResponse(TransactionRequestDTO request, Fee fee) {
+    private Response<TransactionResponseDTO> buildResponse(TransactionCreateDTO request, Fee fee) {
         Transaction transactionSaved = fee.getTransaction();
-        TransactionResponseDTO response = transactionMapper.transactionResponseDTO(request, fee);
+        TransactionResponseDTO response = transactionMapper.toDTO(request, fee);
         response.setId(transactionSaved.getId());
         response.setTransactionStatus(TransactionStatus.COMPLETED);
         response.setConfirmedAt(transactionSaved.getConfirmedAt());

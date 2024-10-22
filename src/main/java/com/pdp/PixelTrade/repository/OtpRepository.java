@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface OtpRepository extends JpaRepository<Otp, Long> {
@@ -47,42 +46,6 @@ public interface OtpRepository extends JpaRepository<Otp, Long> {
             """)
     Optional<Otp> findById(@Param("id") Long id);
 
-    @Query("""
-            FROM Otp o
-            WHERE o.code = :code
-            AND o.deleted = FALSE
-            """)
-    Optional<Otp> findByCode(String code);
-
-    @Query("""
-            FROM Otp o
-            WHERE o.code = :code
-            AND o.used = FALSE
-            AND o.deleted = FALSE
-            """)
-    Optional<Otp> findByCodeAndNotUsed(String code);
-
-    @Query("""
-            FROM Otp o
-            WHERE o.expiresAt < CURRENT_TIMESTAMP
-            AND o.deleted = FALSE
-            """)
-    List<Otp> findExpiredOtps();
-
-    @Query("""
-            FROM Otp o
-            WHERE o.used = FALSE
-            AND o.deleted = FALSE
-            """)
-    List<Otp> findAllActiveOtps();
-
-    @Query("""
-            SELECT COUNT(o) FROM Otp o
-            WHERE o.type = :type
-            AND o.used = FALSE
-            """)
-    long countUnusedOtpsByType(@Param("type") OtpType type);
-
     @Modifying
     @Query("""
             UPDATE Otp o
@@ -91,15 +54,6 @@ public interface OtpRepository extends JpaRepository<Otp, Long> {
             AND o.code = :code
             """)
     void markOtpAsUsed(@Param("recipient") String recipient, @Param("code") String code);
-
-    @Modifying
-    @Query("""
-            UPDATE Otp o
-            SET o.used = TRUE, o.deleted = TRUE
-            WHERE o.recipient = :recipient
-            AND o.code = :code
-            """)
-    void markOtpAsUsedAndSoftDelete(@Param("recipient") String recipient, @Param("code") String code);
 
     @Modifying
     @Query("""

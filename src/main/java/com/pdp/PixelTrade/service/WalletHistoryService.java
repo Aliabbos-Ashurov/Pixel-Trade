@@ -1,11 +1,11 @@
 package com.pdp.PixelTrade.service;
 
 import com.pdp.PixelTrade.dto.Response;
-import com.pdp.PixelTrade.dto.transaction.response.WalletHistoryDTO;
+import com.pdp.PixelTrade.dto.transaction.response.WalletHistoryResponseDTO;
 import com.pdp.PixelTrade.entity.wallet.WalletHistory;
+import com.pdp.PixelTrade.mapper.WalletHistoryMapper;
 import com.pdp.PixelTrade.repository.WalletHistoryRepository;
 import jakarta.validation.constraints.NotNull;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,25 +15,26 @@ import java.util.List;
  * @since 16/October/2024  19:12
  **/
 @Service
-@RequiredArgsConstructor
-public class WalletHistoryService {
+public class WalletHistoryService extends AbstractService<WalletHistoryRepository, WalletHistoryMapper> {
 
-    private final WalletHistoryRepository walletHistoryRepository;
+    public WalletHistoryService(WalletHistoryRepository repository, WalletHistoryMapper mapper) {
+        super(repository, mapper);
+    }
 
     public WalletHistory save(@NotNull WalletHistory walletHistory) {
-        return walletHistoryRepository.save(walletHistory);
+        return repository.save(walletHistory);
     }
 
-    public Response<List<WalletHistoryDTO>> findAll() {
-        return Response.ok(walletHistoryRepository.findAllDtos());
+    public Response<List<WalletHistoryResponseDTO>> findAll() {
+        return Response.ok(repository.findAllDtos());
     }
 
-    public Response<List<WalletHistoryDTO>> findByWalletId(@NotNull Long walletId) {
-        return Response.ok(walletHistoryRepository.findByWalletId(walletId));
+    public Response<List<WalletHistoryResponseDTO>> findByWalletId(@NotNull Long walletId) {
+        return Response.ok(repository.findByWalletId(walletId));
     }
 
-    public Response<List<WalletHistoryDTO>> findByWalletAddress(@NotNull String address) {
-        return Response.ok(walletHistoryRepository.findByWalletAddress(address));
+    public Response<List<WalletHistoryResponseDTO>> findByWalletAddress(@NotNull String address) {
+        return Response.ok(repository.findByWalletAddress(address));
     }
 }
 

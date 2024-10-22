@@ -1,8 +1,8 @@
 package com.pdp.PixelTrade.config.security.filter;
 
 import com.pdp.PixelTrade.config.security.CustomUserDetailsService;
-import com.pdp.PixelTrade.service.token.JwtTokenService;
 import com.pdp.PixelTrade.utils.Constants;
+import com.pdp.PixelTrade.utils.JwtTokenUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,27 +24,26 @@ import java.io.IOException;
  **/
 @Component
 @RequiredArgsConstructor
-public class JwtTokenFilter extends OncePerRequestFilter {
+public class AuthenticationFilter extends OncePerRequestFilter {
 
     private final CustomUserDetailsService userDetailsService;
-    private final JwtTokenService jwtTokenService;
+    private final JwtTokenUtils jwtTokenUtils;
 
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
                                     @NonNull HttpServletResponse response,
                                     @NonNull FilterChain filterChain) throws ServletException, IOException {
-        String authorization = request.getHeader(Constants.AUTH_HEADER);
+        var authorization = request.getHeader(Constants.AUTH_HEADER);
         if (authorization == null || !authorization.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
-        String token = authorization.substring(Constants.AUTH_TYPE.length());
-        String username = jwtTokenService.extractUsername(token);
+        var token = authorization.substring(Constants.AUTH_TYPE.length());
+        var username = jwtTokenUtils.extractUsername(token);
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-            if (jwtTokenService.validateToken(token, userDetails)) {
-                UsernamePasswordAuthenticationToken authentication =
-                        new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+            if (jwtTokenUtils.validateToken(token, userDetails)) {
+                var authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }

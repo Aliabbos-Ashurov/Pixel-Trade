@@ -2,6 +2,7 @@ package com.pdp.PixelTrade.dto.transaction.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.pdp.PixelTrade.dto.marker.Response;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
@@ -22,5 +23,5 @@ public record SellerResponseDTO(
 
         @JsonProperty("profile_picture_url")
         @NotNull String profilePictureUrl
-) {
+) implements Response {
 }

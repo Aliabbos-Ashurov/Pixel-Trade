@@ -1,6 +1,8 @@
 package com.pdp.PixelTrade.mapper;
 
-import com.pdp.PixelTrade.dto.transaction.response.P2POrderDTO;
+import com.pdp.PixelTrade.dto.transaction.request.P2POrderCreateDTO;
+import com.pdp.PixelTrade.dto.transaction.request.P2POrderUpdateDTO;
+import com.pdp.PixelTrade.dto.transaction.response.P2POrderResponseDTO;
 import com.pdp.PixelTrade.entity.wallet.P2POrder;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
@@ -10,9 +12,6 @@ import org.mapstruct.MappingConstants;
  * @since 19/October/2024  16:30
  **/
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
-public interface P2POrderMapper {
-
-    P2POrderDTO toDTO(P2POrder p2POrder);
-
-    P2POrder toEntity(P2POrderDTO p2POrderDTO);
+public interface P2POrderMapper
+        extends GenericMapper<P2POrder, P2POrderResponseDTO, P2POrderCreateDTO, P2POrderUpdateDTO> {
 }

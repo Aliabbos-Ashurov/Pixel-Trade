@@ -1,5 +1,6 @@
 package com.pdp.PixelTrade.dto.transaction.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.pdp.PixelTrade.dto.marker.Response;
@@ -15,7 +16,7 @@ import java.time.LocalDateTime;
  * @since 18/October/2024  17:47
  **/
 @JsonPropertyOrder({"amount", "cryptoType", "transactionType", "confirmedAt", "description"})
-public record WalletHistoryDTO(
+public record WalletHistoryResponseDTO(
         @NotNull BigDecimal amount,
 
         @JsonProperty("crypto_type")
@@ -25,6 +26,7 @@ public record WalletHistoryDTO(
         @NotNull TransactionType transactionType,
 
         @JsonProperty("confirmed_at")
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
         @NotNull LocalDateTime confirmedAt,
 
         String description

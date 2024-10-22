@@ -2,7 +2,7 @@ package com.pdp.PixelTrade.controller;
 
 import com.pdp.PixelTrade.config.security.SessionUser;
 import com.pdp.PixelTrade.dto.Response;
-import com.pdp.PixelTrade.dto.transaction.response.WalletDTO;
+import com.pdp.PixelTrade.dto.transaction.response.WalletResponseDTO;
 import com.pdp.PixelTrade.service.UserService;
 import com.pdp.PixelTrade.service.WalletService;
 import com.pdp.PixelTrade.utils.Constants;
@@ -29,12 +29,12 @@ public class WalletController {
 
 
     @GetMapping(value = "/get-me", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Response<WalletDTO>> getWalletMe() {
+    public ResponseEntity<Response<WalletResponseDTO>> getWalletMe() {
         return null;
     }
 
     @GetMapping(value = "/get/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Response<WalletDTO>> getWallet(@PathVariable Long id) {
+    public ResponseEntity<Response<WalletResponseDTO>> getWallet(@PathVariable Long id) {
         return ResponseEntity.ok(walletService.findByWalletId(id));
     }
 }

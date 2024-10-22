@@ -1,7 +1,7 @@
 package com.pdp.PixelTrade.controller;
 
 import com.pdp.PixelTrade.dto.Response;
-import com.pdp.PixelTrade.dto.transaction.request.TransactionRequestDTO;
+import com.pdp.PixelTrade.dto.transaction.request.TransactionCreateDTO;
 import com.pdp.PixelTrade.dto.transaction.response.TransactionResponseDTO;
 import com.pdp.PixelTrade.service.TransferService;
 import com.pdp.PixelTrade.utils.Constants;
@@ -28,7 +28,7 @@ public class TransactionController {
     @PostMapping(value = "/wallet-to-wallet",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Response<TransactionResponseDTO>> transfer(@Valid @RequestBody TransactionRequestDTO dto) {
+    public ResponseEntity<Response<TransactionResponseDTO>> transfer(@Valid @RequestBody TransactionCreateDTO dto) {
         return ResponseEntity.ok(transferService.transferW2W(dto));
     }
 }

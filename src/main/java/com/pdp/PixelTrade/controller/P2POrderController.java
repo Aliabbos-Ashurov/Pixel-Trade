@@ -1,7 +1,7 @@
 package com.pdp.PixelTrade.controller;
 
 import com.pdp.PixelTrade.dto.Response;
-import com.pdp.PixelTrade.dto.transaction.response.P2POrderDTO;
+import com.pdp.PixelTrade.dto.transaction.response.P2POrderResponseDTO;
 import com.pdp.PixelTrade.enums.CryptoType;
 import com.pdp.PixelTrade.enums.P2POrderStatus;
 import com.pdp.PixelTrade.service.P2POrderService;
@@ -26,18 +26,18 @@ public class P2POrderController {
     private final P2POrderService p2POrderService;
 
     @GetMapping("/get/by-wallet/{id}")
-    public ResponseEntity<Response<List<P2POrderDTO>>> getByWalletId(@PathVariable Long id) {
+    public ResponseEntity<Response<List<P2POrderResponseDTO>>> getByWalletId(@PathVariable Long id) {
         return ResponseEntity.ok(p2POrderService.findByWalletId(id));
     }
 
 
     @GetMapping("/get/by-status/{status}")
-    public ResponseEntity<Response<List<P2POrderDTO>>> getByStatus(@PathVariable P2POrderStatus status) {
+    public ResponseEntity<Response<List<P2POrderResponseDTO>>> getByStatus(@PathVariable P2POrderStatus status) {
         return ResponseEntity.ok(p2POrderService.findByStatus(status));
     }
 
     @GetMapping("/get/by-crypto/{type}")
-    public ResponseEntity<Response<List<P2POrderDTO>>> getByCryptoType(@PathVariable CryptoType type) {
+    public ResponseEntity<Response<List<P2POrderResponseDTO>>> getByCryptoType(@PathVariable CryptoType type) {
         return ResponseEntity.ok(p2POrderService.findByCryptoType(type));
     }
 }

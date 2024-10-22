@@ -1,5 +1,6 @@
 package com.pdp.PixelTrade.exceptions;
 
+import com.pdp.PixelTrade.utils.ErrorCode;
 import org.springframework.http.HttpStatus;
 
 /**
@@ -9,6 +10,6 @@ import org.springframework.http.HttpStatus;
 public class UserAlreadyExistsException extends BaseException {
 
     public UserAlreadyExistsException(String message, Object... args) {
-        super(HttpStatus.CONFLICT, "USER_ALREADY_EXISTS", message, args);
+        super(HttpStatus.CONFLICT, ErrorCode.USER_ALREADY_EXIST, message, args);
     }
 }

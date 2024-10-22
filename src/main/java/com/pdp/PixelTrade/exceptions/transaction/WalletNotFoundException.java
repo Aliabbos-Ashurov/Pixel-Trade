@@ -1,6 +1,7 @@
 package com.pdp.PixelTrade.exceptions.transaction;
 
 import com.pdp.PixelTrade.exceptions.BaseException;
+import com.pdp.PixelTrade.utils.ErrorCode;
 import org.springframework.http.HttpStatus;
 
 /**
@@ -10,6 +11,6 @@ import org.springframework.http.HttpStatus;
 public class WalletNotFoundException extends BaseException {
 
     public WalletNotFoundException(String message, Object... args) {
-        super(HttpStatus.NOT_FOUND, "WALLET_NOT_FOUND", message, args);
+        super(HttpStatus.NOT_FOUND, ErrorCode.WALLET_NOT_FOUND, message, args);
     }
 }

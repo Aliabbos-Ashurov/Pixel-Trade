@@ -1,6 +1,7 @@
 package com.pdp.PixelTrade.exceptions.transaction;
 
 import com.pdp.PixelTrade.exceptions.BaseException;
+import com.pdp.PixelTrade.utils.ErrorCode;
 import org.springframework.http.HttpStatus;
 
 /**
@@ -10,6 +11,6 @@ import org.springframework.http.HttpStatus;
 public class TransactionAlreadyProcessedException extends BaseException {
 
     public TransactionAlreadyProcessedException(String message, Object... args) {
-        super(HttpStatus.CONFLICT, "TRANSACTION_ALREADY_PROCESSED", message, args);
+        super(HttpStatus.CONFLICT, ErrorCode.TRANSACTION_ALREADY_PROCESSED, message, args);
     }
 }

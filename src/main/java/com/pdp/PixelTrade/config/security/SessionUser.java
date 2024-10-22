@@ -1,5 +1,6 @@
 package com.pdp.PixelTrade.config.security;
 
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -27,5 +28,12 @@ public class SessionUser {
 
     public Long id() {
         return user().map(CustomUserDetails::id).orElse(-1L);
+    }
+
+    private Authentication checkAuthentication(SecurityContext securityContext) {
+        var authentication = securityContext.getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated())
+            throw new AccessDeniedException("Unauthenticated access");
+        return authentication;
     }
 }

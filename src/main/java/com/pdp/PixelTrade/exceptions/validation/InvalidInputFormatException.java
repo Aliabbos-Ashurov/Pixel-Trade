@@ -1,6 +1,7 @@
 package com.pdp.PixelTrade.exceptions.validation;
 
 import com.pdp.PixelTrade.exceptions.BaseException;
+import com.pdp.PixelTrade.utils.ErrorCode;
 import org.springframework.http.HttpStatus;
 
 /**
@@ -10,6 +11,6 @@ import org.springframework.http.HttpStatus;
 public class InvalidInputFormatException extends BaseException {
 
     public InvalidInputFormatException(String message, Object... args) {
-        super(HttpStatus.BAD_REQUEST, "INVALID_INPUT_FORMAT", message, args);
+        super(HttpStatus.BAD_REQUEST, ErrorCode.INVALID_INPUT_FORMAT, message, args);
     }
 }

@@ -1,6 +1,7 @@
 package com.pdp.PixelTrade.exceptions.transaction;
 
 import com.pdp.PixelTrade.exceptions.BaseException;
+import com.pdp.PixelTrade.utils.ErrorCode;
 import org.springframework.http.HttpStatus;
 
 /**
@@ -10,6 +11,6 @@ import org.springframework.http.HttpStatus;
 public class TransactionFailedException extends BaseException {
 
     public TransactionFailedException(String message, Object... args) {
-        super(HttpStatus.INTERNAL_SERVER_ERROR, "TRANSACTION_FAILED", message, args);
+        super(HttpStatus.INTERNAL_SERVER_ERROR, ErrorCode.TRANSACTION_FAILED, message, args);
     }
 }

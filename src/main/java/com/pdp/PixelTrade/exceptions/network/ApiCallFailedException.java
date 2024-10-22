@@ -1,6 +1,7 @@
 package com.pdp.PixelTrade.exceptions.network;
 
 import com.pdp.PixelTrade.exceptions.BaseException;
+import com.pdp.PixelTrade.utils.ErrorCode;
 import org.springframework.http.HttpStatus;
 
 /**
@@ -10,6 +11,6 @@ import org.springframework.http.HttpStatus;
 public class ApiCallFailedException extends BaseException {
 
     public ApiCallFailedException(String message, Object... args) {
-        super(HttpStatus.INTERNAL_SERVER_ERROR, "API_CALL_FAILED", message, args);
+        super(HttpStatus.INTERNAL_SERVER_ERROR, ErrorCode.API_CALLED_FAILED, message, args);
     }
 }

@@ -1,7 +1,7 @@
 package com.pdp.PixelTrade.service;
 
 import com.pdp.PixelTrade.dto.Response;
-import com.pdp.PixelTrade.dto.transaction.response.WalletDTO;
+import com.pdp.PixelTrade.dto.transaction.response.WalletResponseDTO;
 import com.pdp.PixelTrade.entity.wallet.Wallet;
 import com.pdp.PixelTrade.enums.IdentificationLevel;
 import com.pdp.PixelTrade.exceptions.transaction.WalletNotFoundException;
@@ -37,22 +37,22 @@ public class WalletService extends AbstractService<WalletRepository, WalletMappe
         );
     }
 
-    public WalletDTO createWallet(@NotNull Wallet wallet) {
-        return mapper.toWalletDTO(repository.save(wallet));
+    public WalletResponseDTO createWallet(@NotNull Wallet wallet) {
+        return mapper.toDTO(repository.save(wallet));
     }
 
-    public Response<WalletDTO> findByAddressDto(@NotNull String address) {
+    public Response<WalletResponseDTO> findByAddressDto(@NotNull String address) {
         Wallet wallet = repository.findByAddress(address).orElseThrow(
                 () -> new WalletNotFoundException("Wallet not found with address: {0}" + address)
         );
-        return Response.ok(mapper.toWalletDTO(wallet));
+        return Response.ok(mapper.toDTO(wallet));
     }
 
-    public Response<WalletDTO> findByWalletId(@NotNull Long id) {
+    public Response<WalletResponseDTO> findByWalletId(@NotNull Long id) {
         Wallet wallet = repository.findByWalletId(id).orElseThrow(
                 () -> new WalletNotFoundException("Wallet not found with id: {0}" + id)
         );
-        return Response.ok(mapper.toWalletDTO(wallet));
+        return Response.ok(mapper.toDTO(wallet));
     }
 
     public Long countWalletsByIdentificationLevel(@NotNull IdentificationLevel level) {

@@ -1,5 +1,6 @@
 package com.pdp.PixelTrade.exceptions;
 
+import com.pdp.PixelTrade.utils.ErrorCode;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
@@ -11,6 +12,6 @@ import org.springframework.http.HttpStatus;
 public class ResourceNotFoundException extends BaseException {
 
     public ResourceNotFoundException(String message, Object... args) {
-        super(HttpStatus.NOT_FOUND, "RESOURCE_NOT_FOUND", message, args);
+        super(HttpStatus.NOT_FOUND, ErrorCode.RESOURCE_NOT_FOUND, message, args);
     }
 }

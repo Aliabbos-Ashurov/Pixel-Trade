@@ -15,7 +15,7 @@ import java.math.BigDecimal;
  * @since 19/October/2024  16:22
  **/
 @JsonPropertyOrder({"amount", "perPrice", "cryptoType", "cardType", "orderStatus", "seller"})
-public record P2POrderDTO(
+public record P2POrderResponseDTO(
         @NotNull BigDecimal amount,
 
         @JsonProperty("per_price")

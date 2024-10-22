@@ -4,13 +4,10 @@ import com.pdp.PixelTrade.dto.Response;
 import com.pdp.PixelTrade.dto.auth.OtpResponseDTO;
 import com.pdp.PixelTrade.dto.auth.OtpSendRequestDTO;
 import com.pdp.PixelTrade.dto.auth.OtpVerifyRequestDTO;
-import com.pdp.PixelTrade.entity.Otp;
 import com.pdp.PixelTrade.enums.OtpType;
 import com.pdp.PixelTrade.exceptions.otp.OtpExpiredException;
 import com.pdp.PixelTrade.exceptions.otp.TooManyOtpRequestsException;
 import freemarker.template.Configuration;
-import freemarker.template.Template;
-import jakarta.mail.internet.MimeMessage;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -40,16 +37,16 @@ public class MailOtpService implements OtpVerificationService {
         if (otpService.hasActiveOtp(request.recipient()))
             throw new TooManyOtpRequestsException("Too many active otp requests with recipient: {0}", request.recipient());
 
-        MimeMessage mimeMessage = mailSender.createMimeMessage();
-        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
+        var mimeMessage = mailSender.createMimeMessage();
+        var mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
         mimeMessageHelper.setFrom("noreply@pixeltrade.com");
         mimeMessageHelper.setTo(request.recipient());
         mimeMessageHelper.setSubject("Activation!");
 
-        Template template = configuration.getTemplate("otp.ftlh");
-        String code = generateOtpCode();
+        var template = configuration.getTemplate("otp.ftlh");
+        var code = generateOtpCode();
         Map<String, Object> model = Map.of("code", code);
-        String content = FreeMarkerTemplateUtils.processTemplateIntoString(template, model);
+        var content = FreeMarkerTemplateUtils.processTemplateIntoString(template, model);
         mimeMessageHelper.setText(content, true);
 
         otpService.save(request.recipient(), code, OtpType.EMAIL);
@@ -58,8 +55,7 @@ public class MailOtpService implements OtpVerificationService {
 
     @Override
     public Response<OtpResponseDTO> verify(@NotNull OtpVerifyRequestDTO request) {
-
-        Otp activeOtp = otpService.findActiveOtp(request.recipient(), request.code());
+        var activeOtp = otpService.findActiveOtp(request.recipient(), request.code());
         if (activeOtp.getExpiresAt().isBefore(LocalDateTime.now())) {
             throw new OtpExpiredException("OTP expired with request code: {0}, recipient: {1}", request.code(), request.recipient());
         }

@@ -10,7 +10,6 @@ import com.pdp.PixelTrade.exceptions.transaction.WalletNotFoundException;
 import com.pdp.PixelTrade.mapper.CryptoAssetMapper;
 import com.pdp.PixelTrade.repository.wallet.CryptoAssetRepository;
 import jakarta.validation.constraints.NotNull;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,12 +22,14 @@ import java.util.Optional;
  * @since 05/October/2024  12:40
  **/
 @Service
-@RequiredArgsConstructor
-public class CryptoAssetService {
+public class CryptoAssetService extends AbstractService<CryptoAssetRepository, CryptoAssetMapper> {
 
     private final WalletService walletService;
-    private final CryptoAssetRepository cryptoAssetRepository;
-    private final CryptoAssetMapper cryptoAssetMapper;
+
+    public CryptoAssetService(CryptoAssetRepository repository, CryptoAssetMapper mapper, WalletService walletService) {
+        super(repository, mapper);
+        this.walletService = walletService;
+    }
 
     @Transactional
     public CryptoAsset createCryptoAsset(@NotNull String address,
@@ -37,7 +38,7 @@ public class CryptoAssetService {
         Wallet wallet = walletService.findByAddress(address);
         if (wallet == null)
             throw new WalletNotFoundException("Wallet not found by address: {0}", address);
-        return cryptoAssetRepository.save(CryptoAsset.builder()
+        return repository.save(CryptoAsset.builder()
                 .wallet(wallet)
                 .amount(amount)
                 .cryptoType(type)
@@ -45,41 +46,41 @@ public class CryptoAssetService {
     }
 
     public CryptoAsset update(@NotNull CryptoAsset asset) {
-        return cryptoAssetRepository.save(asset);
+        return repository.save(asset);
     }
 
     public Optional<CryptoAsset> find(@NotNull String address, @NotNull CryptoType cryptoType) {
-        return cryptoAssetRepository.find(address, cryptoType);
+        return repository.find(address, cryptoType);
     }
 
     public Response<List<CryptoAssetResponseDTO>> findAllByWalletAddress(@NotNull String address) {
-        return Response.ok(cryptoAssetRepository.findAllByWalletAddress(address).stream()
-                .map(cryptoAssetMapper::toCryptoAssetDTO)
+        return Response.ok(repository.findAllByWalletAddress(address).stream()
+                .map(mapper::toDTO)
                 .toList());
     }
 
     public Response<List<CryptoAssetResponseDTO>> findLockedAssetsByWalletAddress(@NotNull String address) {
-        return Response.ok(cryptoAssetRepository.findLockedAssetsByWalletAddress(address).stream()
-                .map(cryptoAssetMapper::toCryptoAssetDTO)
+        return Response.ok(repository.findLockedAssetsByWalletAddress(address).stream()
+                .map(mapper::toDTO)
                 .toList());
     }
 
     public Response<CryptoAssetResponseDTO> findByWalletAddressAndCryptoType(@NotNull String address, @NotNull CryptoType cryptoType) {
-        CryptoAsset cryptoAsset = cryptoAssetRepository.findByWalletAddressAndCryptoType(address, cryptoType).orElseThrow(
+        CryptoAsset cryptoAsset = repository.findByWalletAddressAndCryptoType(address, cryptoType).orElseThrow(
                 () -> new ResourceNotFoundException("CryptoAsset not found by wallet address {0} and type {1}", address, cryptoType)
         );
-        return Response.ok(cryptoAssetMapper.toCryptoAssetDTO(cryptoAsset));
+        return Response.ok(mapper.toDTO(cryptoAsset));
     }
 
     public void lockCryptoAsset(@NotNull Long assetId, @NotNull String reason) {
-        cryptoAssetRepository.lockCryptoAsset(reason, assetId);
+        repository.lockCryptoAsset(reason, assetId);
     }
 
     public void unlockCryptoAsset(@NotNull Long assetId) {
-        cryptoAssetRepository.unlockCryptoAsset(assetId);
+        repository.unlockCryptoAsset(assetId);
     }
 
     public boolean isCryptoAssetLocked(@NotNull Long assetId) {
-        return cryptoAssetRepository.isCryptoAssetLocked(assetId);
+        return repository.isCryptoAssetLocked(assetId);
     }
 }

@@ -15,7 +15,7 @@ import java.util.List;
  * @since 05/October/2024  11:10
  **/
 @JsonPropertyOrder({"id", "balance", "currencyType", "address", "level", "cryptoAssets"})
-public record WalletDTO(
+public record WalletResponseDTO(
         @NotNull Long id,
         @NotNull BigDecimal balance,
 

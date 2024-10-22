@@ -10,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -40,46 +39,14 @@ public class OtpService {
         return getOtp(otpRepository.findActive(code, recipient));
     }
 
-    public Otp findOtpById(@NotNull Long id) {
-        return getOtp(otpRepository.findById(id));
-    }
-
-    public Otp findOtpByCode(@NotNull String code) {
-        validateCode(code);
-        return getOtp(otpRepository.findByCode(code));
-    }
-
     public boolean hasActiveOtp(@NotNull String recipient) {
         return otpRepository.hasActiveOtp(recipient);
-    }
-
-    public Otp findOtpByCodeAndNotUsed(@NotNull String code) {
-        validateCode(code);
-        return getOtp(otpRepository.findByCodeAndNotUsed(code));
-    }
-
-    public List<Otp> findExpiredOtps() {
-        return otpRepository.findExpiredOtps();
-    }
-
-    public List<Otp> findAllActiveOtps() {
-        return otpRepository.findAllActiveOtps();
-    }
-
-    public long countUnusedOtpsByType(@NotNull OtpType type) {
-        return otpRepository.countUnusedOtpsByType(type);
     }
 
     @Transactional
     public void markOtpAsUsed(@NotNull String recipient, @NotNull String code) {
         validateCode(code);
         otpRepository.markOtpAsUsed(recipient, code);
-    }
-
-    @Transactional
-    public void markOtpAsUsedAndSoftDelete(@NotNull String recipient, @NotNull String code) {
-        validateCode(code);
-        otpRepository.markOtpAsUsedAndSoftDelete(recipient, code);
     }
 
     @Transactional

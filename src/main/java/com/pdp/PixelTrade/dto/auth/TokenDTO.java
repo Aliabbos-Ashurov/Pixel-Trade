@@ -17,11 +17,11 @@ import java.time.LocalDateTime;
 public record TokenDTO(
         @NotBlank @NotNull String token,
         @JsonProperty("issued_at")
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
         @NotNull LocalDateTime issuedAt,
 
         @JsonProperty("expired_at")
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
         @NotNull LocalDateTime expiredAt,
 
         @JsonProperty("expires_in")

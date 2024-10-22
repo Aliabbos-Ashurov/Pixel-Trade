@@ -1,8 +1,10 @@
 package com.pdp.PixelTrade.mapper;
 
-import com.pdp.PixelTrade.dto.transaction.request.TransactionRequestDTO;
+import com.pdp.PixelTrade.dto.transaction.request.TransactionCreateDTO;
+import com.pdp.PixelTrade.dto.transaction.request.TransactionUpdateDTO;
 import com.pdp.PixelTrade.dto.transaction.response.TransactionResponseDTO;
 import com.pdp.PixelTrade.entity.wallet.Fee;
+import com.pdp.PixelTrade.entity.wallet.Transaction;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
@@ -13,7 +15,8 @@ import org.mapstruct.Mappings;
  * @since 16/October/2024  15:43
  **/
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
-public interface TransactionMapper {
+public interface TransactionMapper
+        extends GenericMapper<Transaction, TransactionResponseDTO, TransactionCreateDTO, TransactionUpdateDTO> {
 
     @Mappings({
             @Mapping(target = "fromAddress", source = "dto.fromAddress"),
@@ -27,5 +30,5 @@ public interface TransactionMapper {
             @Mapping(target = "qrCodeUrl", ignore = true),
             @Mapping(target = "errorMessage", ignore = true),
     })
-    TransactionResponseDTO transactionResponseDTO(TransactionRequestDTO dto, Fee fee);
+    TransactionResponseDTO toDTO(TransactionCreateDTO dto, Fee fee);
 }

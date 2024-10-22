@@ -28,13 +28,9 @@ import java.util.Optional;
 public class CryptoService extends AbstractService<CryptoRepository, CryptoMapper> {
 
     private final S3Service s3Service;
-    private final CryptoRepository cryptoRepository;
-    private final CryptoMapper cryptoMapper;
 
     protected CryptoService(CryptoRepository repository, CryptoMapper mapper, S3Service s3Service) {
         super(repository, mapper);
-        this.cryptoRepository = repository;
-        this.cryptoMapper = mapper;
         this.s3Service = s3Service;
     }
 
@@ -43,7 +39,7 @@ public class CryptoService extends AbstractService<CryptoRepository, CryptoMappe
     public void save(@NotNull CryptoCreateDTO dto) {
 
         String imageURL = s3Service.uploadFile(dto.image(), AwsPackage.CRYPTO);
-        Crypto crypto = cryptoMapper.toCrypto(dto);
+        Crypto crypto = mapper.fromCreate(dto);
 
         Upload upload = Upload.builder()
                 .size(dto.image().getSize())
@@ -54,29 +50,29 @@ public class CryptoService extends AbstractService<CryptoRepository, CryptoMappe
                 .build();
 
         crypto.setImage(upload);
-        cryptoRepository.save(crypto);
+        repository.save(crypto);
     }
 
 
     public Optional<BigDecimal> getFeePercentage(@NotNull CryptoType type) {
-        return cryptoRepository.getFeePercentage(type.getCode());
+        return repository.getFeePercentage(type.getCode());
     }
 
     public Optional<Crypto> findByName(@NotNull String name) {
-        return cryptoRepository.findByName(name);
+        return repository.findByName(name);
     }
 
     public Optional<Crypto> findBySymbol(@NotNull String symbol) {
-        return cryptoRepository.findBySymbol(symbol);
+        return repository.findBySymbol(symbol);
     }
 
     public Response<List<CryptoResponseDTO>> findAll() {
-        return Response.ok(cryptoRepository.findAll().stream()
-                .map(cryptoMapper::toCryptoResponseDTO)
+        return Response.ok(repository.findAll().stream()
+                .map(mapper::toDTO)
                 .toList());
     }
 
     public void updateFeePercentage(@NotNull Long id, @NotNull BigDecimal feePercentage) {
-        cryptoRepository.updateFeePercentage(id, feePercentage);
+        repository.updateFeePercentage(id, feePercentage);
     }
 }

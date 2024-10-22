@@ -1,6 +1,7 @@
 package com.pdp.PixelTrade.exceptions.security;
 
 import com.pdp.PixelTrade.exceptions.BaseException;
+import com.pdp.PixelTrade.utils.ErrorCode;
 import org.springframework.http.HttpStatus;
 
 /**
@@ -10,6 +11,6 @@ import org.springframework.http.HttpStatus;
 public class TokenExpiredException extends BaseException {
 
     public TokenExpiredException(String message, Object... args) {
-        super(HttpStatus.UNAUTHORIZED, "TOKEN_EXPIRED", message, args);
+        super(HttpStatus.UNAUTHORIZED, ErrorCode.TOKEN_EXPIRED, message, args);
     }
 }

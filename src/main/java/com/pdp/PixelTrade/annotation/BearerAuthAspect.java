@@ -28,7 +28,7 @@ public class BearerAuthAspect {
     @Around("@annotation(bearerAuth)")
     public Object addBearerAuth(ProceedingJoinPoint joinPoint, BearerAuth bearerAuth) {
         RequestTemplate requestTemplate = (RequestTemplate) joinPoint.getArgs()[0];
-        String token = getToken(bearerAuth.value());
+        var token = getToken(bearerAuth.value());
         requestTemplate.header("Authorization", "Bearer " + token);
         return joinPoint.proceed();
     }

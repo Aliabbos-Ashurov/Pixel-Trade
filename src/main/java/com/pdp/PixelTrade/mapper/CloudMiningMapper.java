@@ -12,5 +12,6 @@ import org.mapstruct.MappingConstants;
  * @since 22/October/2024  11:04
  **/
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
-public interface CloudMiningMapper extends GenericMapper<CloudMining, CloudMiningResponseDTO, CloudMiningCreateDTO, CloudMiningUpdateDTO> {
+public interface CloudMiningMapper
+        extends GenericMapper<CloudMining, CloudMiningResponseDTO, CloudMiningCreateDTO, CloudMiningUpdateDTO> {
 }
