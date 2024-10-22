@@ -2,12 +2,15 @@ package com.pdp.PixelTrade.mapper;
 
 import com.pdp.PixelTrade.dto.transaction.request.WalletCreateDTO;
 import com.pdp.PixelTrade.dto.transaction.request.WalletUpdateDTO;
+import com.pdp.PixelTrade.dto.transaction.response.CryptoAssetResponseDTO;
 import com.pdp.PixelTrade.dto.transaction.response.WalletResponseDTO;
 import com.pdp.PixelTrade.entity.wallet.Wallet;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.Mappings;
+
+import java.util.List;
 
 /**
  * @author Aliabbos Ashurov
@@ -29,4 +32,9 @@ public interface WalletMapper
             @Mapping(target = "minWithdrawalLimit", ignore = true)
     })
     Wallet toEntity(WalletResponseDTO dto);
+
+    @Mappings({
+            @Mapping(target = "cryptoAssets", source = "cryptoAssets")
+    })
+    WalletResponseDTO toDTO(Wallet wallet, List<CryptoAssetResponseDTO> cryptoAssets);
 }

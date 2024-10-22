@@ -26,15 +26,24 @@ public class WalletHistoryService extends AbstractService<WalletHistoryRepositor
     }
 
     public Response<List<WalletHistoryResponseDTO>> findAll() {
-        return Response.ok(repository.findAllDtos());
+        return Response.ok(
+                repository.findAllDtos().stream()
+                        .map(mapper::toDTO)
+                        .toList());
     }
 
     public Response<List<WalletHistoryResponseDTO>> findByWalletId(@NotNull Long walletId) {
-        return Response.ok(repository.findByWalletId(walletId));
+        return Response.ok(
+                repository.findByWalletId(walletId).stream()
+                        .map(mapper::toDTO)
+                        .toList());
     }
 
     public Response<List<WalletHistoryResponseDTO>> findByWalletAddress(@NotNull String address) {
-        return Response.ok(repository.findByWalletAddress(address));
+        return Response.ok(
+                repository.findByWalletAddress(address).stream()
+                        .map(mapper::toDTO)
+                        .toList());
     }
 }
 

@@ -52,11 +52,11 @@ public class MiningEvent extends Auditable {
 
     @PositiveOrZero(message = "Max participants must be zero or positive")
     @Column(name = "max_participants", nullable = false)
-    private int maxParticipants;
+    private Long maxParticipants;
 
     @OneToMany(mappedBy = "miningEvent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<CloudMining> miningActivities;
 
-    @Column(name = "additional_info")
-    private String additionalInfo;
+    @Column(name = "description")
+    private String description;
 }

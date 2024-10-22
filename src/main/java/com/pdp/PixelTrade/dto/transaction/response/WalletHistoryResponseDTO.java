@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
  * @author Aliabbos Ashurov
  * @since 18/October/2024  17:47
  **/
-@JsonPropertyOrder({"amount", "cryptoType", "transactionType", "confirmedAt", "description"})
+@JsonPropertyOrder({"amount", "cryptoType", "transactionType", "confirmedAt", "description", "transaction"})
 public record WalletHistoryResponseDTO(
         @NotNull BigDecimal amount,
 
@@ -29,6 +29,8 @@ public record WalletHistoryResponseDTO(
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
         @NotNull LocalDateTime confirmedAt,
 
-        String description
+        String description,
+
+        TransactionResponseDTO transaction
 ) implements Response {
 }

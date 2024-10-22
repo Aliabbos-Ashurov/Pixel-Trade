@@ -10,6 +10,7 @@ import com.pdp.PixelTrade.exceptions.transaction.WalletNotFoundException;
 import com.pdp.PixelTrade.mapper.CryptoAssetMapper;
 import com.pdp.PixelTrade.repository.wallet.CryptoAssetRepository;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,7 +27,7 @@ public class CryptoAssetService extends AbstractService<CryptoAssetRepository, C
 
     private final WalletService walletService;
 
-    public CryptoAssetService(CryptoAssetRepository repository, CryptoAssetMapper mapper, WalletService walletService) {
+    public CryptoAssetService(CryptoAssetRepository repository, CryptoAssetMapper mapper, @Lazy WalletService walletService) {
         super(repository, mapper);
         this.walletService = walletService;
     }
@@ -53,10 +54,16 @@ public class CryptoAssetService extends AbstractService<CryptoAssetRepository, C
         return repository.find(address, cryptoType);
     }
 
-    public Response<List<CryptoAssetResponseDTO>> findAllByWalletAddress(@NotNull String address) {
+    public Response<List<CryptoAssetResponseDTO>> findAllByWalletAddressResponse(@NotNull String address) {
         return Response.ok(repository.findAllByWalletAddress(address).stream()
                 .map(mapper::toDTO)
                 .toList());
+    }
+
+    public List<CryptoAssetResponseDTO> findAllByWalletAddress(@NotNull String address) {
+        return repository.findAllByWalletAddress(address).stream()
+                .map(mapper::toDTO)
+                .toList();
     }
 
     public Response<List<CryptoAssetResponseDTO>> findLockedAssetsByWalletAddress(@NotNull String address) {
