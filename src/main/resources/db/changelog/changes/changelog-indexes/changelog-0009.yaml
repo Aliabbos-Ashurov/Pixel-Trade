@@ -1,0 +1,42 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0010
+      author: Aliabbos Ashurov
+      comment: 'indexes for table transaction columns'
+      changes:
+        - createIndex:
+            tableName: transaction
+            indexName: idx_amount
+            columns:
+              - column:
+                  name: amount
+        - createIndex:
+            tableName: transaction
+            indexName: idx_ts
+            columns:
+              - column:
+                  name: transaction_status
+        - createIndex:
+            tableName: transaction
+            indexName: idx_tp
+            columns:
+              - column:
+                  name: transaction_type
+        - createIndex:
+            tableName: transaction
+            indexName: idx_from_wallet
+            columns:
+              - column:
+                  name: from_wallet
+        - createIndex:
+            tableName: transaction
+            indexName: idx_to_wallet
+            columns:
+              - column:
+                  name: to_wallet
+        - createIndex:
+            tableName: transaction
+            indexName: idx_ct
+            columns:
+              - column:
+                  name: crypto_type

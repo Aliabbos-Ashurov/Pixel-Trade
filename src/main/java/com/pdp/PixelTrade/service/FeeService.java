@@ -3,7 +3,7 @@ package com.pdp.PixelTrade.service;
 import com.pdp.PixelTrade.dto.Response;
 import com.pdp.PixelTrade.entity.wallet.Fee;
 import com.pdp.PixelTrade.mapper.FeeMapper;
-import com.pdp.PixelTrade.repository.wallet.FeeRepository;
+import com.pdp.PixelTrade.repository.FeeRepository;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.stereotype.Service;
 

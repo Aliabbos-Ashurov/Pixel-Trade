@@ -1,9 +1,7 @@
-package com.pdp.PixelTrade.repository.wallet;
+package com.pdp.PixelTrade.repository;
 
 import com.pdp.PixelTrade.entity.wallet.Wallet;
-import com.pdp.PixelTrade.enums.IdentificationLevel;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -27,14 +25,13 @@ public interface WalletRepository extends JpaRepository<Wallet, Long> {
             """)
     BigDecimal getBalance(@Param("address") String address);
 
+
     @Query("""
             FROM Wallet w
-            WHERE w.address = :address
-            AND w.active = TRUE
+            WHERE w.user.id = :userId
             AND w.deleted = FALSE
             """)
-    boolean isWalletActive(@Param("address") String address);
-
+    Optional<Wallet> findByUserId(@Param("userId") Long userId);
 
     @Query("""
             FROM Wallet w
@@ -49,39 +46,6 @@ public interface WalletRepository extends JpaRepository<Wallet, Long> {
             AND w.deleted = FALSE
             """)
     Optional<Wallet> findByWalletId(@Param("id") Long id);
-
-    @Query("""
-            SELECT COUNT(w)
-            FROM Wallet w
-            WHERE w.level = :level
-            AND w.deleted = FALSE
-            """)
-    Long countWalletsByIdentificationLevel(@Param("level") IdentificationLevel level);
-
-    @Modifying
-    @Query("""
-            UPDATE CryptoAsset ca
-            SET ca.isLocked = TRUE, ca.lockedReason = :reason
-            WHERE ca.wallet.id = :walletId
-            """)
-    void lockAllAssetsInWallet(@Param("reason") String reason, @Param("walletId") Long walletId);
-
-    @Modifying
-    @Query("""
-            UPDATE CryptoAsset ca
-            SET ca.isLocked = FALSE, ca.lockedReason = NULL
-            WHERE ca.wallet.id = :walletId
-            """)
-    void unlockAllAssetsInWallet(@Param("walletId") Long walletId);
-
-    @Query("""
-            SELECT CASE WHEN COUNT(ca) > 0
-            THEN TRUE ELSE FALSE END
-            FROM CryptoAsset ca
-            WHERE ca.wallet.id = :walletId
-            AND ca.isLocked = TRUE
-            """)
-    boolean hasLockedAssets(@Param("walletId") Long walletId);
 
 //    @Modifying
 //    @Query("""

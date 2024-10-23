@@ -3,10 +3,9 @@ package com.pdp.PixelTrade.service;
 import com.pdp.PixelTrade.dto.Response;
 import com.pdp.PixelTrade.dto.transaction.response.WalletResponseDTO;
 import com.pdp.PixelTrade.entity.wallet.Wallet;
-import com.pdp.PixelTrade.enums.IdentificationLevel;
 import com.pdp.PixelTrade.exceptions.transaction.WalletNotFoundException;
 import com.pdp.PixelTrade.mapper.WalletMapper;
-import com.pdp.PixelTrade.repository.wallet.WalletRepository;
+import com.pdp.PixelTrade.repository.WalletRepository;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -33,13 +32,17 @@ public class WalletService extends AbstractService<WalletRepository, WalletMappe
         return repository.getBalance(address);
     }
 
-    public boolean isWalletActive(@NotNull String address) {
-        return repository.isWalletActive(address);
+    @Transactional
+    public Response<WalletResponseDTO> findByUserId(Long userId) {
+        return Response.ok(
+                mapper.toDTO(repository.findByUserId(userId)
+                        .orElse(null))
+        );
     }
 
     public Wallet findByAddress(@NotNull String address) {
         return repository.findByAddress(address).orElseThrow(
-                () -> new WalletNotFoundException("Wallet not found with address: {0}" + address)
+                () -> new WalletNotFoundException("Wallet not found with address: {0}", address)
         );
     }
 
@@ -49,7 +52,7 @@ public class WalletService extends AbstractService<WalletRepository, WalletMappe
 
     public Response<WalletResponseDTO> findByAddressDto(@NotNull String address) {
         Wallet wallet = repository.findByAddress(address).orElseThrow(
-                () -> new WalletNotFoundException("Wallet not found with address: {0}" + address)
+                () -> new WalletNotFoundException("Wallet not found with address: {0}", address)
         );
         return Response.ok(mapper.toDTO(wallet));
     }
@@ -57,24 +60,8 @@ public class WalletService extends AbstractService<WalletRepository, WalletMappe
     @Transactional
     public Response<WalletResponseDTO> findByWalletId(@NotNull Long id) {
         Wallet wallet = repository.findByWalletId(id).orElseThrow(
-                () -> new WalletNotFoundException("Wallet not found with id: {0}" + id)
+                () -> new WalletNotFoundException("Wallet not found with id: {0}", id)
         );
         return Response.ok(mapper.toDTO(wallet));
-    }
-
-    public Long countWalletsByIdentificationLevel(@NotNull IdentificationLevel level) {
-        return repository.countWalletsByIdentificationLevel(level);
-    }
-
-    public void lockAllAssetsInWallet(@NotNull Long walletId, @NotNull String reason) {
-        repository.lockAllAssetsInWallet(reason, walletId);
-    }
-
-    public void unlockAllAssetsInWallet(@NotNull Long walletId) {
-        repository.unlockAllAssetsInWallet(walletId);
-    }
-
-    public boolean hasLockedAssets(@NotNull Long walletId) {
-        return repository.hasLockedAssets(walletId);
     }
 }

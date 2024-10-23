@@ -4,7 +4,7 @@ import com.pdp.PixelTrade.dto.Response;
 import com.pdp.PixelTrade.entity.wallet.MiningEvent;
 import com.pdp.PixelTrade.enums.CryptoType;
 import com.pdp.PixelTrade.mapper.MiningEventMapper;
-import com.pdp.PixelTrade.repository.wallet.MiningEventRepository;
+import com.pdp.PixelTrade.repository.MiningEventRepository;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.stereotype.Service;
 

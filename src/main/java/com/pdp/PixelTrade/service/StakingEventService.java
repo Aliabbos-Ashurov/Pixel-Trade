@@ -5,7 +5,7 @@ import com.pdp.PixelTrade.entity.wallet.StakingEvent;
 import com.pdp.PixelTrade.enums.CryptoType;
 import com.pdp.PixelTrade.enums.StakingEventStatus;
 import com.pdp.PixelTrade.mapper.StakingEventMapper;
-import com.pdp.PixelTrade.repository.wallet.StakingEventRepository;
+import com.pdp.PixelTrade.repository.StakingEventRepository;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;

@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0016
+      author: Aliabbos Ashurov
+      comment: 'indexes on table seller columns'
+      created: '23-10-2024 18:31'
+      changes:
+        - createIndex:
+            tableName: seller
+            indexName: idx_seller_user_id
+            columns:
+              - column:
+                  name: user_id

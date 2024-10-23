@@ -1,0 +1,38 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0016
+      author: Aliabbos Ashurov
+      comment: 'indexes for table p2p market columns'
+      created: '23-10-2024 18:38'
+      changes:
+        - createIndex:
+            tableName: p2p_market
+            indexName: idx_seller_id
+            columns:
+              - column:
+                  name: seller_id
+        - createIndex:
+            tableName: p2p_market
+            indexName: idx_p2p_m_card_type
+            columns:
+              - column:
+                  name: card_type
+        - createIndex:
+            tableName: p2p_market
+            indexName: idx_p2p_m_crypto_type
+            columns:
+              - column:
+                  name: crypto_type
+        - createIndex:
+            tableName: p2p_market
+            indexName: idx_p2p_m_currency_type
+            columns:
+              - column:
+                  name: currency_type
+        - createIndex:
+            tableName: p2p_market
+            indexName: idx_p2p_m_p2p_type
+            columns:
+              - column:
+                  name: p2p_type
+

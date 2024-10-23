@@ -28,9 +28,9 @@ public class WalletController {
     private final SessionUser sessionUser;
 
 
-    @GetMapping(value = "/get-me", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/get/me", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Response<WalletResponseDTO>> getWalletMe() {
-        return null;
+        return ResponseEntity.ok(walletService.findByUserId(sessionUser.id()));
     }
 
     @GetMapping(value = "/get/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

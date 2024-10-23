@@ -6,7 +6,6 @@ import com.pdp.PixelTrade.enums.CryptoType;
 import com.pdp.PixelTrade.enums.TransactionStatus;
 import com.pdp.PixelTrade.enums.TransactionType;
 import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,8 +28,6 @@ public class TransactionResponseDTO implements Response {
     @NotNull
     private Long id;
 
-    @NotBlank
-    @NotNull
     private String fromAddress;
     private String toAddress;
 

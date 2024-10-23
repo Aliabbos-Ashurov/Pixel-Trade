@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0010
+      author: Aliabbos Ashurov
+      comment: 'indexes for table crypto asset'
+      created: '23-10-2024 18:12'
+      changes:
+        - createIndex:
+            tableName: crypto_asset
+            indexName: idx_ca_amount
+            columns:
+              - column:
+                  name: amount
+        - createIndex:
+            tableName: crypto_asset
+            indexName: idx_crypto_type
+            columns:
+              - column:
+                  name: crypto_type
+        - createIndex:
+            tableName: crypto_asset
+            indexName: idx_ca_wallet_id
+            columns:
+              - column:
+                  name: wallet_id

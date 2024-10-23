@@ -22,7 +22,7 @@ import java.util.List;
 @Configuration
 public class OpenApiConfig {
 
-    @Value("${project.localhost}")
+    @Value("${project.host}")
     private String HOST;
     @Value("${server.port}")
     private String PORT;

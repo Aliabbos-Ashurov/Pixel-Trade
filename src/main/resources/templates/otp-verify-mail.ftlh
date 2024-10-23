@@ -15,7 +15,7 @@
             width: 100%;
             max-width: 600px;
             margin: 0 auto;
-            background-color: #ffffff;
+            background-color: #000000;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -38,14 +38,14 @@
         }
 
         .content h1 {
-            color: #333333;
+            color: #f5f5f5;
             font-size: 24px;
             margin-bottom: 20px;
         }
 
         .content p {
             font-size: 16px;
-            color: #555555;
+            color: #f5f5f5;
             margin-bottom: 10px;
             line-height: 1.5;
         }

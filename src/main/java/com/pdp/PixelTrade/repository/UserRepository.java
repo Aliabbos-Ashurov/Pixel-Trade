@@ -15,4 +15,12 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User findByUsername(@Param("username") String username);
 
     User findByIdAndDeletedFalse(Long id);
+
+    @Query("""
+            SELECT COUNT(u) > 0
+            FROM User u
+            WHERE u.email = :email
+            AND u.deleted = FALSE
+            """)
+    boolean existEmail(@Param("email") String email);
 }

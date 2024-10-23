@@ -1,5 +1,6 @@
 package com.pdp.PixelTrade.service;
 
+import com.pdp.PixelTrade.config.security.SessionUser;
 import com.pdp.PixelTrade.dto.Response;
 import com.pdp.PixelTrade.dto.transaction.response.WalletHistoryResponseDTO;
 import com.pdp.PixelTrade.entity.wallet.WalletHistory;
@@ -17,12 +18,22 @@ import java.util.List;
 @Service
 public class WalletHistoryService extends AbstractService<WalletHistoryRepository, WalletHistoryMapper> {
 
-    public WalletHistoryService(WalletHistoryRepository repository, WalletHistoryMapper mapper) {
+    private final SessionUser sessionUser;
+
+    public WalletHistoryService(WalletHistoryRepository repository, WalletHistoryMapper mapper, SessionUser sessionUser) {
         super(repository, mapper);
+        this.sessionUser = sessionUser;
     }
 
     public WalletHistory save(@NotNull WalletHistory walletHistory) {
         return repository.save(walletHistory);
+    }
+
+    public Response<List<WalletHistoryResponseDTO>> getMe() {
+        return Response.ok(
+                repository.findByUserId(sessionUser.id()).stream()
+                        .map(mapper::toDTO)
+                        .toList());
     }
 
     public Response<List<WalletHistoryResponseDTO>> findAll() {

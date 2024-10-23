@@ -6,7 +6,7 @@ import com.pdp.PixelTrade.dto.transaction.request.P2PMarketUpdateDTO;
 import com.pdp.PixelTrade.dto.transaction.response.P2PMarketResponseDTO;
 import com.pdp.PixelTrade.enums.CryptoType;
 import com.pdp.PixelTrade.mapper.P2PMarketMapper;
-import com.pdp.PixelTrade.repository.wallet.P2PMarketRepository;
+import com.pdp.PixelTrade.repository.P2PMarketRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

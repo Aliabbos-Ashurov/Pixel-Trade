@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0017
+      author: Aliabbos Ashurov
+      comment: 'indexes for table p2p_order columns'
+      created: '23-10-2024 18:43'
+      changes:
+        - createIndex:
+            tableName: p2p_order
+            indexName: idx_p2p_o_wallet_id
+            columns:
+              - column:
+                  name: wallet_id
+        - createIndex:
+            tableName: p2p_order
+            indexName: idx_p2p_o_market_id
+            columns:
+              - column:
+                  name: market_id

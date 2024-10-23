@@ -30,6 +30,11 @@ public class WalletHistoryController {
         return ResponseEntity.ok(walletHistoryService.findAll());
     }
 
+    @GetMapping(value = "/get/me", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Response<List<WalletHistoryResponseDTO>>> getMe() {
+        return ResponseEntity.ok(walletHistoryService.getMe());
+    }
+
     @GetMapping(value = "/get/by-wallet/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Response<List<WalletHistoryResponseDTO>>> findWalletId(@PathVariable Long id) {
         return ResponseEntity.ok(walletHistoryService.findByWalletId(id));

@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0012
+      author: Aliabbos Ashurov
+      comment: 'indexes for cloud mining'
+      created: '23-10-2024 18:20'
+      changes:
+        - createIndex:
+            tableName: cloud_mining
+            indexName: idx_status
+            columns:
+              - column:
+                  name: status
+        - createIndex:
+            tableName: cloud_mining
+            indexName: idx_event_id
+            columns:
+              - column:
+                  name: event_id
+        - createIndex:
+            tableName: cloud_mining
+            indexName: idx_user_id
+            columns:
+              - column:
+                  name: user_id

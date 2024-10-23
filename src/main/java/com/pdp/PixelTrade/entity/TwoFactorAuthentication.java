@@ -23,7 +23,6 @@ public class TwoFactorAuthentication extends BaseEntity {
     @JoinColumn(name = "user_id", nullable = false, unique = true)
     private User user;
 
-    @NotBlank
     private String passkey;
 
     @Column(name = "authenticator_app")
@@ -31,8 +30,8 @@ public class TwoFactorAuthentication extends BaseEntity {
 
     @Email
     @NotBlank
-    @Column(name = "backup_email", unique = true)
-    private String backupEmail;
+    @Column(name = "backup_mail", unique = true)
+    private String backupMail;
 
     @Builder.Default
     @Column(name = "is_backup_enabled")

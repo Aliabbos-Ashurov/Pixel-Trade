@@ -30,5 +30,5 @@ public interface TransactionMapper
             @Mapping(target = "qrCodeUrl", ignore = true),
             @Mapping(target = "errorMessage", ignore = true),
     })
-    TransactionResponseDTO toDTO(TransactionCreateDTO dto, Fee fee);
+    TransactionResponseDTO toDTOByFee(TransactionCreateDTO dto, Fee fee);
 }

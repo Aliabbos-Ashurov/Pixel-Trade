@@ -5,7 +5,7 @@ import com.pdp.PixelTrade.entity.wallet.CloudMining;
 import com.pdp.PixelTrade.enums.CryptoType;
 import com.pdp.PixelTrade.enums.MiningStatus;
 import com.pdp.PixelTrade.mapper.CloudMiningMapper;
-import com.pdp.PixelTrade.repository.wallet.CloudMiningRepository;
+import com.pdp.PixelTrade.repository.CloudMiningRepository;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.stereotype.Service;
 

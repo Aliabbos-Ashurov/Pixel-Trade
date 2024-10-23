@@ -4,7 +4,7 @@ import com.pdp.PixelTrade.dto.Response;
 import com.pdp.PixelTrade.entity.wallet.Staking;
 import com.pdp.PixelTrade.enums.CryptoType;
 import com.pdp.PixelTrade.mapper.StakingMapper;
-import com.pdp.PixelTrade.repository.wallet.StakingRepository;
+import com.pdp.PixelTrade.repository.StakingRepository;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.stereotype.Service;
 

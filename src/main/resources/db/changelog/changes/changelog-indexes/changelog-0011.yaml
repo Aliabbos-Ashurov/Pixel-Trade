@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0011
+      author: Aliabbos Ashurov
+      comment: 'indexes for table crypto'
+      created: '23-10-2024 18:16'
+      changes:
+        - createIndex:
+            tableName: crypto
+            indexName: idx_fee_percentage
+            columns:
+              - column:
+                  name: fee_percentage
+        - createIndex:
+            tableName: crypto
+            indexName: idx_name
+            columns:
+              - column:
+                  name: name
+        - createIndex:
+            tableName: crypto
+            indexName: idx_symbol
+            columns:
+              - column:
+                  name: symbol

@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0013
+      author: Aliabbos Ashurov
+      comment: 'indexes for table staking table s columns'
+      created: '23-10-2024 18:24'
+      changes:
+        - createIndex:
+            tableName: staking
+            indexName: idx_staking_event_id
+            columns:
+              - column:
+                  name: staking_event_id
+        - createIndex:
+            tableName: staking
+            indexName: idx_staking_user_id
+            columns:
+              - column:
+                  name: user_id

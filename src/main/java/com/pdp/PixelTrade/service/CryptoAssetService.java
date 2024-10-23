@@ -8,7 +8,7 @@ import com.pdp.PixelTrade.enums.CryptoType;
 import com.pdp.PixelTrade.exceptions.ResourceNotFoundException;
 import com.pdp.PixelTrade.exceptions.transaction.WalletNotFoundException;
 import com.pdp.PixelTrade.mapper.CryptoAssetMapper;
-import com.pdp.PixelTrade.repository.wallet.CryptoAssetRepository;
+import com.pdp.PixelTrade.repository.CryptoAssetRepository;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;

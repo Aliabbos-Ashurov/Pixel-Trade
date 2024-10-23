@@ -17,6 +17,14 @@ public interface WalletHistoryRepository extends JpaRepository<WalletHistory, Lo
             """)
     List<WalletHistory> findAllDtos();
 
+
+    @Query("""
+            FROM WalletHistory wh
+            WHERE wh.wallet.user.id = :userId
+            AND wh.deleted = FALSE
+            """)
+    List<WalletHistory> findByUserId(Long userId);
+
     @Query("""
                 FROM WalletHistory wh
                 LEFT JOIN Transaction t ON wh.transaction.id = t.id

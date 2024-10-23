@@ -6,6 +6,8 @@ import com.pdp.PixelTrade.dto.auth.OtpSendRequestDTO;
 import com.pdp.PixelTrade.dto.auth.OtpVerifyRequestDTO;
 import com.pdp.PixelTrade.eop.event.EmailOtpSentEvent;
 import com.pdp.PixelTrade.eop.event.PhoneOtpSentEvent;
+import com.pdp.PixelTrade.exceptions.otp.EmailConflictException;
+import com.pdp.PixelTrade.service.UserService;
 import com.pdp.PixelTrade.service.otp.OtpVerificationService;
 import com.pdp.PixelTrade.utils.Constants;
 import jakarta.validation.Valid;
@@ -13,7 +15,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author Aliabbos Ashurov
@@ -27,10 +32,13 @@ public class OtpController {
     private final ApplicationEventPublisher publisher;
     private final OtpVerificationService mailOtpService;
     private final OtpVerificationService smsOtpService;
+    private final UserService userService;
 
 
     @PostMapping(value = "/send-email", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> sendEmail(@Valid @RequestBody OtpSendRequestDTO dto) {
+        userService.isNotExistMail(dto.recipient(),
+                () -> new EmailConflictException("Email already exist: {0}", dto.recipient()));
         publisher.publishEvent(new EmailOtpSentEvent(dto.recipient()));
         return ResponseEntity.noContent().build();
     }
@@ -39,11 +47,6 @@ public class OtpController {
     public ResponseEntity<Void> sendPhone(@Valid @RequestBody OtpSendRequestDTO dto) {
         publisher.publishEvent(new PhoneOtpSentEvent(dto.recipient()));
         return ResponseEntity.noContent().build();
-    }
-
-    @PostMapping(value = "/send-backup-mail", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> sendBackupMail(@Valid @RequestBody OtpSendRequestDTO dto) {
-        return null;
     }
 
     @PostMapping(value = "/verify-email",
@@ -58,10 +61,5 @@ public class OtpController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Response<OtpResponseDTO>> verifyPhone(@Valid @RequestBody OtpVerifyRequestDTO dto) {
         return ResponseEntity.ok(smsOtpService.verify(dto));
-    }
-
-    @GetMapping(value = "/verify-backup-mail/{code}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Response<OtpResponseDTO>> verifyBackupMail(@PathVariable String code) {
-        return null;
     }
 }

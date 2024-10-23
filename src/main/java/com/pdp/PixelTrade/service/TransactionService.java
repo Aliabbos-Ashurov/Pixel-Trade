@@ -1,11 +1,12 @@
 package com.pdp.PixelTrade.service;
 
 import com.pdp.PixelTrade.dto.Response;
+import com.pdp.PixelTrade.dto.transaction.response.TransactionResponseDTO;
 import com.pdp.PixelTrade.entity.wallet.Transaction;
 import com.pdp.PixelTrade.enums.TransactionStatus;
 import com.pdp.PixelTrade.enums.TransactionType;
 import com.pdp.PixelTrade.mapper.TransactionMapper;
-import com.pdp.PixelTrade.repository.wallet.TransactionRepository;
+import com.pdp.PixelTrade.repository.TransactionRepository;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.stereotype.Service;
 
@@ -33,10 +34,6 @@ public class TransactionService extends AbstractService<TransactionRepository, T
         repository.save(transaction);
     }
 
-    public long countTransactionsByAddress(@NotNull String address) {
-        return repository.countTransactionsByAddress(address);
-    }
-
     public Response<List<Transaction>> findTransactionsBetweenDates(
             @NotNull LocalDateTime startDate,
             @NotNull LocalDateTime endDate) {
@@ -47,8 +44,10 @@ public class TransactionService extends AbstractService<TransactionRepository, T
         return Response.ok(repository.findByTransactionStatus(status));
     }
 
-    public Response<List<Transaction>> findAllByAddress(@NotNull String address) {
-        return Response.ok(repository.findAllByAddress(address));
+    public Response<List<TransactionResponseDTO>> findAllByAddress(@NotNull String address) {
+        return Response.ok(repository.findAllByAddress(address).stream()
+                .map(mapper::toDTO)
+                .toList());
     }
 
     public Response<List<Transaction>> findByTransactionType(@NotNull TransactionType type) {

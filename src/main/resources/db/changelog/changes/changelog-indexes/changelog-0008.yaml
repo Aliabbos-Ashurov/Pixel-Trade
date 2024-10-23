@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0009
+      author: Aliabbos Ashurov
+      comment: 'Indexes for 2FA table includes: {user_id,backup_mail,passkey}'
+      created: '23-10-2024 18:03'
+      changes:
+        - createIndex:
+            tableName: two_factor_authentication
+            indexName: idx_2fa_user_id
+            columns:
+              - column:
+                  name: user_id
+        - createIndex:
+            tableName: two_factor_authentication
+            indexName: idx_2fa_backup_mail
+            columns:
+              - column:
+                  name: backup_mail
+        - createIndex:
+            tableName: two_factor_authentication
+            indexName: idx_2fa_psk
+            columns:
+              - column:
+                  name: passkey

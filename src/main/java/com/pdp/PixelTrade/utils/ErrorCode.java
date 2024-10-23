@@ -43,4 +43,5 @@ public class ErrorCode {
     public static final String CRYPTO_OPERATION_FAILED = "CRYPTO_OPERATION_FAILED";
     public static final String CLIENT_TOKEN_NOT_FOUND = "CLIENT_TOKEN_NOT_FOUND";
     public static final String CURRENCY_RATE_FETCH_EXCEPTION = "CURRENCY_RATE_FETCH_EXCEPTION";
+    public static final String MAIL_CONFLICT = "MAIL_CONFLICT";
 }

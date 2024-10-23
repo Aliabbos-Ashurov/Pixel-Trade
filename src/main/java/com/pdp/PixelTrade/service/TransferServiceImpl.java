@@ -142,7 +142,7 @@ public class TransferServiceImpl implements TransferService {
 
     private Response<TransactionResponseDTO> buildResponse(TransactionCreateDTO request, Fee fee) {
         Transaction transactionSaved = fee.getTransaction();
-        TransactionResponseDTO response = transactionMapper.toDTO(request, fee);
+        TransactionResponseDTO response = transactionMapper.toDTOByFee(request, fee);
         response.setId(transactionSaved.getId());
         response.setTransactionStatus(TransactionStatus.COMPLETED);
         response.setConfirmedAt(transactionSaved.getConfirmedAt());

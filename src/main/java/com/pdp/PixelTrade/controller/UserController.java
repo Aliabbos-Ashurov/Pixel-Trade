@@ -1,16 +1,15 @@
 package com.pdp.PixelTrade.controller;
 
-import com.pdp.PixelTrade.config.security.SessionUser;
 import com.pdp.PixelTrade.dto.Response;
 import com.pdp.PixelTrade.dto.auth.UserResponseDTO;
+import com.pdp.PixelTrade.dto.auth.UserUpdateDTO;
 import com.pdp.PixelTrade.service.UserService;
 import com.pdp.PixelTrade.utils.Constants;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author Aliabbos Ashurov
@@ -22,10 +21,20 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     private final UserService userService;
-    private final SessionUser sessionUser;
 
     @GetMapping(value = "/profile/me", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Response<UserResponseDTO>> profile() {
-        return ResponseEntity.ok(userService.find(sessionUser.id()));
+        return ResponseEntity.ok(userService.findMe());
+    }
+
+    @PutMapping(value = "/update/password")
+    public ResponseEntity<Void> updatePassword(@Valid @RequestBody UserUpdateDTO dto) {
+        userService.update(dto);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/exist-mail/{mail}")
+    public ResponseEntity<Response<Boolean>> existMail(@PathVariable String mail) {
+        return ResponseEntity.ok(userService.existEmail(mail));
     }
 }

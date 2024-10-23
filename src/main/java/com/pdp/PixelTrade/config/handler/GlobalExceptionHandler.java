@@ -6,6 +6,7 @@ import com.pdp.PixelTrade.exceptions.BaseException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -29,6 +30,16 @@ public class GlobalExceptionHandler {
                 ex.getHttpStatus().value(),
                 errorResponse
         ), ex.getHttpStatus());
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Response<ErrorResponse>> handleExceptions(Exception ex, HttpServletRequest request) {
+        logException(ex, request);
+        var errorResponse = ErrorResponse.of("INTERNAL SERVER ERROR", ex.getMessage(), request.getRequestURI());
+        return new ResponseEntity<>(Response.error(
+                500,
+                errorResponse
+        ), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     private void logException(Exception ex, HttpServletRequest request) {

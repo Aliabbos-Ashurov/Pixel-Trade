@@ -3,7 +3,7 @@ package com.pdp.PixelTrade.service;
 import com.pdp.PixelTrade.dto.Response;
 import com.pdp.PixelTrade.entity.wallet.WalletSuspicionRecord;
 import com.pdp.PixelTrade.mapper.WalletSuspicionRecordMapper;
-import com.pdp.PixelTrade.repository.wallet.WalletSuspicionRecordRepository;
+import com.pdp.PixelTrade.repository.WalletSuspicionRecordRepository;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.stereotype.Service;
 

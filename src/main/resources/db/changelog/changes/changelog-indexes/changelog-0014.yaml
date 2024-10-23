@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0014
+      author: Aliabbos Ashurov
+      comment: 'indexes for table staking event'
+      created: '23-10-2024 18:29'
+      changes:
+        - createIndex:
+            tableName: staking_event
+            indexName: idx_upload_id
+            columns:
+              - column:
+                  name: upload_id
