@@ -1,6 +1,6 @@
 package com.pdp.PixelTrade.service.token;
 
-import com.pdp.PixelTrade.controller.AuthController;
+import com.pdp.PixelTrade.controller.rest.AuthRestController;
 import com.pdp.PixelTrade.dto.Response;
 import com.pdp.PixelTrade.dto.auth.RefreshTokenRequestDTO;
 import com.pdp.PixelTrade.dto.auth.TokenRequestDTO;
@@ -56,9 +56,9 @@ public class TokenService {
     private EntityModel<TokenResponseDTO> addLinks(EntityModel<TokenResponseDTO> entityModel,
                                                    String username, String password,
                                                    String refreshToken) {
-        entityModel.add(linkTo(methodOn(AuthController.class)
+        entityModel.add(linkTo(methodOn(AuthRestController.class)
                 .login(new TokenRequestDTO(username, password))).withSelfRel());
-        entityModel.add(linkTo(methodOn(AuthController.class)
+        entityModel.add(linkTo(methodOn(AuthRestController.class)
                 .refreshToken(new RefreshTokenRequestDTO(refreshToken))).withSelfRel());
         return entityModel;
     }

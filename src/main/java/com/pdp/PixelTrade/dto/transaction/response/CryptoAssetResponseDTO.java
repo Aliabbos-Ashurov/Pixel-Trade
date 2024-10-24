@@ -20,6 +20,13 @@ public record CryptoAssetResponseDTO(
         @JsonProperty("crypto_type")
         @NotNull CryptoType cryptoType,
 
+        @JsonProperty("balance")
+        @NotNull BigDecimal balance,
+
+        @JsonProperty("per_price")
+        @NotNull BigDecimal perPrice,
+
+
         @JsonProperty("is_locked")
         Boolean isLocked,
 
@@ -27,7 +34,7 @@ public record CryptoAssetResponseDTO(
         String lockedReason
 ) implements Response {
 
-    public CryptoAssetResponseDTO of(Long id, CryptoType cryptoType, BigDecimal amount) {
-        return new CryptoAssetResponseDTO(id, amount, cryptoType, false, null);
+    public CryptoAssetResponseDTO of(Long id, CryptoType cryptoType, BigDecimal price, BigDecimal perPrice, BigDecimal amount) {
+        return new CryptoAssetResponseDTO(id, amount, cryptoType, price, perPrice, false, null);
     }
 }

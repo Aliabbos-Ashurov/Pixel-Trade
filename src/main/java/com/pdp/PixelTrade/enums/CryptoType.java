@@ -16,7 +16,7 @@ public enum CryptoType {
     BTC("BTC"),
     TON("TON"),
     DOGS("DOGS"),
-    SOLANA("SOL"),
+    SOL("SOL"),
     ADA("ADA"),
     BNB("BNB"),
     DOGE("DOGE");

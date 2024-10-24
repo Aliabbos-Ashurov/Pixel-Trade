@@ -1,4 +1,4 @@
-package com.pdp.PixelTrade.controller;
+package com.pdp.PixelTrade.controller.rest;
 
 import com.pdp.PixelTrade.utils.Constants;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(Constants.BASE_PATH_V1 + "/notification")
 @RequiredArgsConstructor
-public class NotificationController {
+public class NotificationRestController {
 
     @SneakyThrows
     @PostMapping(value = "/send", consumes = MediaType.APPLICATION_JSON_VALUE)

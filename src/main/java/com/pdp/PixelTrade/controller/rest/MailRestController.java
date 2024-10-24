@@ -1,4 +1,4 @@
-package com.pdp.PixelTrade.controller;
+package com.pdp.PixelTrade.controller.rest;
 
 import com.pdp.PixelTrade.dto.mail.SendBackupMailDTO;
 import com.pdp.PixelTrade.eop.event.SendBackupMailEvent;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(Constants.BASE_PATH_V1 + "/mail")
 @RequiredArgsConstructor
-public class MailController {
+public class MailRestController {
 
     private final ApplicationEventPublisher publisher;
 

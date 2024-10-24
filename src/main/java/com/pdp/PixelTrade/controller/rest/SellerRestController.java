@@ -1,4 +1,4 @@
-package com.pdp.PixelTrade.controller;
+package com.pdp.PixelTrade.controller.rest;
 
 import com.pdp.PixelTrade.dto.Response;
 import com.pdp.PixelTrade.dto.transaction.response.SellerResponseDTO;
@@ -22,7 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping(Constants.BASE_PATH_V1 + "/seller")
 @RequiredArgsConstructor
-public class SellerController {
+public class SellerRestController {
     private final SellerService sellerService;
 
     @GetMapping(value = "/get", produces = MediaType.APPLICATION_JSON_VALUE)

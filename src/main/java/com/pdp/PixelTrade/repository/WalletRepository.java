@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.math.BigDecimal;
 import java.util.Optional;
 
 /**
@@ -13,17 +12,6 @@ import java.util.Optional;
  * @since 05/October/2024  11:09
  **/
 public interface WalletRepository extends JpaRepository<Wallet, Long> {
-
-    @Query("""
-            SELECT (w.balance + COALESCE(SUM(ca.amount), 0)) AS totalBalance
-            FROM Wallet w
-            LEFT JOIN w.cryptoAssets ca
-            WHERE w.address = :address
-            AND w.deleted = FALSE
-            AND (ca.deleted = FALSE OR ca IS NULL)
-            GROUP BY w.address
-            """)
-    BigDecimal getBalance(@Param("address") String address);
 
 
     @Query("""

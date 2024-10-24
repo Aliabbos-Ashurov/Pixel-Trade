@@ -16,7 +16,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author Aliabbos Ashurov
@@ -26,10 +29,14 @@ import java.util.Optional;
 public class CryptoAssetService extends AbstractService<CryptoAssetRepository, CryptoAssetMapper> {
 
     private final WalletService walletService;
+    private final CryptoService cryptoService;
 
-    public CryptoAssetService(CryptoAssetRepository repository, CryptoAssetMapper mapper, @Lazy WalletService walletService) {
+    public CryptoAssetService(CryptoAssetRepository repository, CryptoAssetMapper mapper,
+                              @Lazy WalletService walletService,
+                              CryptoService cryptoService) {
         super(repository, mapper);
         this.walletService = walletService;
+        this.cryptoService = cryptoService;
     }
 
     @Transactional
@@ -61,9 +68,7 @@ public class CryptoAssetService extends AbstractService<CryptoAssetRepository, C
     }
 
     public List<CryptoAssetResponseDTO> findAllByWalletAddress(@NotNull String address) {
-        return repository.findAllByWalletAddress(address).stream()
-                .map(mapper::toDTO)
-                .toList();
+        return sendWithPrice(repository.findAllByWalletAddress(address));
     }
 
     public Response<List<CryptoAssetResponseDTO>> findLockedAssetsByWalletAddress(@NotNull String address) {
@@ -77,6 +82,21 @@ public class CryptoAssetService extends AbstractService<CryptoAssetRepository, C
                 () -> new ResourceNotFoundException("CryptoAsset not found by wallet address {0} and type {1}", address, cryptoType)
         );
         return Response.ok(mapper.toDTO(cryptoAsset));
+    }
+
+    private List<CryptoAssetResponseDTO> sendWithPrice(List<CryptoAsset> cryptoAssets) {
+        Set<String> symbols = cryptoAssets.stream()
+                .map(asset -> asset.getCryptoType().getCode())
+                .collect(Collectors.toSet());
+
+        Map<String, BigDecimal> prices = cryptoService.getPrices(symbols);
+
+        return cryptoAssets.stream()
+                .map(asset -> {
+                    var perPrice = prices.getOrDefault(asset.getCryptoType().getCode(), BigDecimal.ZERO);
+                    var balance = perPrice.multiply(asset.getAmount());
+                    return mapper.toDTO(asset, balance, perPrice);
+                }).toList();
     }
 
     public void lockCryptoAsset(@NotNull Long assetId, @NotNull String reason) {

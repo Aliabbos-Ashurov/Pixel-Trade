@@ -1,4 +1,4 @@
-package com.pdp.PixelTrade.controller;
+package com.pdp.PixelTrade.controller.rest;
 
 import com.pdp.PixelTrade.dto.Response;
 import com.pdp.PixelTrade.dto.auth.UserResponseDTO;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(Constants.BASE_PATH_V1 + "/user")
 @RequiredArgsConstructor
-public class UserController {
+public class UserRestController {
 
     private final UserService userService;
 

@@ -42,13 +42,7 @@ public class UserServiceImpl extends AbstractService<UserRepository, UserMapper>
     private final SessionUser sessionUser;
     private final ApplicationEventPublisher eventPublisher;
 
-    public UserServiceImpl(UserRepository repository, UserMapper mapper,
-                           PasswordEncoder passwordEncoder,
-                           WalletService walletService,
-                           CryptoAssetService cryptoAssetService,
-                           OtpService otpService,
-                           SessionUser sessionUser,
-                           ApplicationEventPublisher eventPublisher) {
+    public UserServiceImpl(UserRepository repository, UserMapper mapper, PasswordEncoder passwordEncoder, WalletService walletService, CryptoAssetService cryptoAssetService, OtpService otpService, SessionUser sessionUser, ApplicationEventPublisher eventPublisher) {
         super(repository, mapper);
         this.passwordEncoder = passwordEncoder;
         this.walletService = walletService;
@@ -60,12 +54,20 @@ public class UserServiceImpl extends AbstractService<UserRepository, UserMapper>
 
     @Override
     public void isNotExistMail(String email, Supplier<RuntimeException> supplier) {
-        if (repository.existEmail(email))
-            throw supplier.get();
+        if (repository.existEmail(email)) throw supplier.get();
     }
 
     public Response<Boolean> existEmail(String email) {
         return Response.ok(repository.existEmail(email));
+    }
+
+    @Override
+    public <T> T find(Long id, Class<T> clazz) {
+        User user = repository.findById(id).orElse(null);
+        assert user != null;
+        if (clazz == User.class) return clazz.cast(user);
+        else if (clazz == UserResponseDTO.class) return clazz.cast(mapper.toDTO(user));
+        else throw new IllegalArgumentException("Unsupported return type: " + clazz.getName());
     }
 
     @Override
@@ -80,8 +82,7 @@ public class UserServiceImpl extends AbstractService<UserRepository, UserMapper>
 
     public User findByUsername(@NotNull String username) {
         User user = repository.findByUsername(username);
-        if (user == null)
-            throw new UsernameNotFoundException("Username not found with: " + username);
+        if (user == null) throw new UsernameNotFoundException("Username not found with: " + username);
         return user;
     }
 
@@ -93,9 +94,7 @@ public class UserServiceImpl extends AbstractService<UserRepository, UserMapper>
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         User save = repository.save(user);
 
-        WalletResponseDTO wallet = walletService.createWallet(Wallet.builder()
-                .user(user)
-                .build());
+        WalletResponseDTO wallet = walletService.createWallet(Wallet.builder().user(user).build());
         cryptoAssetService.createCryptoAsset(wallet.address(), new BigDecimal(10), CryptoType.BTC);
 
         return Response.ok(mapper.toDTO(save));
@@ -125,14 +124,11 @@ public class UserServiceImpl extends AbstractService<UserRepository, UserMapper>
 
     @Override
     public Response<UserResponseDTO> find(Long id) {
-        return Response.ok(
-                mapper.toDTO(repository.findById(id)
-                        .orElseThrow(() -> new UserNotFoundException("User not found with: {0}", id))));
+        return Response.ok(mapper.toDTO(repository.findById(id).orElseThrow(() -> new UserNotFoundException("User not found with: {0}", id))));
     }
 
     @Override
     public Response<List<UserResponseDTO>> findAll() {
-        return Response.ok(repository.findAll().stream()
-                .map(mapper::toDTO).toList());
+        return Response.ok(repository.findAll().stream().map(mapper::toDTO).toList());
     }
 }

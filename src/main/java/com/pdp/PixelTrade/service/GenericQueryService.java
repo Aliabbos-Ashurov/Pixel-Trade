@@ -6,23 +6,23 @@ import com.pdp.PixelTrade.entity.BaseDomain;
 import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author Aliabbos Ashurov
- * @since 22/October/2024  10:03
+ * @since 24/October/2024  14:53
  **/
-public interface GenericCrudService<
+public interface GenericQueryService<
         ID extends Serializable,
         E extends BaseDomain,
-        R extends DTO,
-        CD extends DTO,
-        UD extends DTO
-        > extends GenericService, GenericQueryService<ID, E, R> {
+        R extends DTO
+        > {
 
-    Response<R> create(@NotNull CD dto);
+    Response<R> find(@NotNull ID id);
 
-    Response<Boolean> update(@NotNull UD dto);
+    Response<List<R>> findAll();
 
-    Response<Boolean> delete(@NotNull ID id);
-
+    default <T> T find(@NotNull ID id, @NotNull Class<T> clazz) {
+        return null;
+    }
 }

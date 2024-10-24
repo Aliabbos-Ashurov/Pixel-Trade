@@ -1,4 +1,4 @@
-package com.pdp.PixelTrade.controller;
+package com.pdp.PixelTrade.controller.rest;
 
 import com.pdp.PixelTrade.config.security.SessionUser;
 import com.pdp.PixelTrade.dto.Response;
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(Constants.BASE_PATH_V1 + "/wallet")
 @RequiredArgsConstructor
-public class WalletController {
+public class WalletRestController {
 
     private final UserService userService;
     private final WalletService walletService;

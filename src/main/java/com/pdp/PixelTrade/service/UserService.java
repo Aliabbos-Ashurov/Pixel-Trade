@@ -13,7 +13,8 @@ import java.util.function.Supplier;
  * @author Aliabbos Ashurov
  * @since 21/October/2024  19:11
  **/
-public interface UserService extends GenericCrudService<Long, UserResponseDTO, UserCreateDTO, UserUpdateDTO> {
+public interface UserService
+        extends GenericCrudService<Long, User, UserResponseDTO, UserCreateDTO, UserUpdateDTO> {
 
     User findByUsername(@NotNull String username);
 

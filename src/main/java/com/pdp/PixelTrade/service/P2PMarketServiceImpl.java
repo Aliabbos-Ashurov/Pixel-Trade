@@ -16,7 +16,8 @@ import java.util.List;
  * @since 14/October/2024  11:21
  **/
 @Service
-public class P2PMarketServiceImpl extends AbstractService<P2PMarketRepository, P2PMarketMapper> implements P2PMarketService {
+public class P2PMarketServiceImpl
+        extends AbstractService<P2PMarketRepository, P2PMarketMapper> implements P2PMarketService {
 
     public P2PMarketServiceImpl(P2PMarketRepository repository, P2PMarketMapper mapper) {
         super(repository, mapper);

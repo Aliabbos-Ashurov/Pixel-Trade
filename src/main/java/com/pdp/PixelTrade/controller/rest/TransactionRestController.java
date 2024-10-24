@@ -1,4 +1,4 @@
-package com.pdp.PixelTrade.controller;
+package com.pdp.PixelTrade.controller.rest;
 
 import com.pdp.PixelTrade.dto.Response;
 import com.pdp.PixelTrade.dto.transaction.request.TransactionCreateDTO;
@@ -21,7 +21,7 @@ import java.util.List;
 @RestController
 @RequestMapping(Constants.BASE_PATH_V1 + "/transaction")
 @RequiredArgsConstructor
-public class TransactionController {
+public class TransactionRestController {
 
     private final TransferService transferService;
     private final TransactionService transactionService;

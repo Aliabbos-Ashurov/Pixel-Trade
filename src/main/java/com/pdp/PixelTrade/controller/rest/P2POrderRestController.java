@@ -1,4 +1,4 @@
-package com.pdp.PixelTrade.controller;
+package com.pdp.PixelTrade.controller.rest;
 
 import com.pdp.PixelTrade.dto.Response;
 import com.pdp.PixelTrade.dto.transaction.response.P2POrderResponseDTO;
@@ -22,7 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping(Constants.BASE_PATH_V1 + "/p2p-order")
 @RequiredArgsConstructor
-public class P2POrderController {
+public class P2POrderRestController {
     private final P2POrderService p2POrderService;
 
     @GetMapping("/get/by-wallet/{id}")

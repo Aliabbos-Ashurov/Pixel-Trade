@@ -1,4 +1,4 @@
-package com.pdp.PixelTrade.controller;
+package com.pdp.PixelTrade.controller.rest;
 
 import com.pdp.PixelTrade.dto.Response;
 import com.pdp.PixelTrade.dto.transaction.response.WalletHistoryResponseDTO;
@@ -21,7 +21,7 @@ import java.util.List;
 @RestController
 @RequestMapping(Constants.BASE_PATH_V1 + "/history")
 @RequiredArgsConstructor
-public class WalletHistoryController {
+public class WalletHistoryRestController {
 
     private final WalletHistoryService walletHistoryService;
 

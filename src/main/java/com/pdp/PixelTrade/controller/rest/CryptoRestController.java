@@ -1,4 +1,4 @@
-package com.pdp.PixelTrade.controller;
+package com.pdp.PixelTrade.controller.rest;
 
 import com.pdp.PixelTrade.dto.Response;
 import com.pdp.PixelTrade.dto.transaction.request.CryptoCreateDTO;
@@ -20,7 +20,7 @@ import java.util.List;
 @RestController
 @RequestMapping(Constants.BASE_PATH_V1 + "/crypto")
 @RequiredArgsConstructor
-public class CryptoController {
+public class CryptoRestController {
     private final CryptoService cryptoService;
 
     @PostMapping(value = "/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -31,6 +31,6 @@ public class CryptoController {
 
     @GetMapping(value = "/get", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Response<List<CryptoResponseDTO>>> cryptoList() {
-        return ResponseEntity.ok(cryptoService.findAll());
+        return ResponseEntity.ok(cryptoService.findAllDto());
     }
 }

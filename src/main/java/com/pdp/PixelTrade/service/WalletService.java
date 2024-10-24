@@ -11,8 +11,6 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
-
 /**
  * @author Aliabbos Ashurov
  * @since 05/October/2024  11:09
@@ -28,15 +26,13 @@ public class WalletService extends AbstractService<WalletRepository, WalletMappe
         this.cryptoAssetService = cryptoAssetService;
     }
 
-    public BigDecimal getBalance(@NotNull String address) {
-        return repository.getBalance(address);
-    }
-
     @Transactional
     public Response<WalletResponseDTO> findByUserId(Long userId) {
+        var wallet = repository.findByUserId(userId)
+                .orElse(null);
+        assert wallet != null;
         return Response.ok(
-                mapper.toDTO(repository.findByUserId(userId)
-                        .orElse(null))
+                mapper.toDTO(wallet, cryptoAssetService.findAllByWalletAddress(wallet.getAddress()))
         );
     }
 

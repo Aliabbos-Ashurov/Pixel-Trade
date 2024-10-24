@@ -1,0 +1,24 @@
+type UserResponseDTO {
+    id: ID!
+    fullname: String!
+    username: String!
+    email: String!
+    phone: String!
+    isPremium: Boolean!
+    twoFactorEnabled: Boolean!
+    notificationsEnabled: Boolean!
+}
+
+type Query {
+    profile: UserResponseDTO
+    existMail(mail: String!): Boolean!
+}
+
+type Mutation {
+    updatePassword(dto: UserUpdateDTO!) : ID
+}
+
+input UserUpdateDTO {
+    oldPassword: String!
+    newPassword: String!
+}

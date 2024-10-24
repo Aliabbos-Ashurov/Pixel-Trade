@@ -18,7 +18,10 @@ import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author Aliabbos Ashurov
@@ -53,6 +56,19 @@ public class CryptoService extends AbstractService<CryptoRepository, CryptoMappe
         repository.save(crypto);
     }
 
+    @Transactional
+    public void updateAll(List<Crypto> cryptos) {
+        repository.saveAll(cryptos);
+    }
+
+
+    public Map<String, BigDecimal> getPrices(Set<String> symbols) {
+        return repository.findPricesByCryptoTypes(symbols).stream()
+                .collect(Collectors.toMap(
+                        result -> (String) result[0],
+                        result -> (BigDecimal) result[1]
+                ));
+    }
 
     public Optional<BigDecimal> getFeePercentage(@NotNull CryptoType type) {
         return repository.getFeePercentage(type.getCode());
@@ -66,10 +82,14 @@ public class CryptoService extends AbstractService<CryptoRepository, CryptoMappe
         return repository.findBySymbol(symbol);
     }
 
-    public Response<List<CryptoResponseDTO>> findAll() {
-        return Response.ok(repository.findAll().stream()
+    public Response<List<CryptoResponseDTO>> findAllDto() {
+        return Response.ok(repository.findAllCustom().stream()
                 .map(mapper::toDTO)
                 .toList());
+    }
+
+    public List<Crypto> findAll() {
+        return repository.findAllCustom();
     }
 
     public void updateFeePercentage(@NotNull Long id, @NotNull BigDecimal feePercentage) {

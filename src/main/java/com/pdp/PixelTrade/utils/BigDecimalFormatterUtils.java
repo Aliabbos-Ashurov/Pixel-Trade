@@ -3,7 +3,7 @@ package com.pdp.PixelTrade.utils;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
+import java.math.RoundingMode;
 
 /**
  * @author Aliabbos Ashurov
@@ -12,13 +12,10 @@ import java.text.DecimalFormat;
 @Component
 public class BigDecimalFormatterUtils {
 
-    private static final DecimalFormat formatWithDecimals = new DecimalFormat("#.########");
-    private static final DecimalFormat formatWithoutDecimals = new DecimalFormat("#");
-
-    public String format(BigDecimal balance) {
-        if (balance.scale() > 0 && balance.stripTrailingZeros().scale() <= 8)
-            return formatWithDecimals.format(balance);
-        else
-            return formatWithoutDecimals.format(balance);
+    public BigDecimal format(BigDecimal balance) {
+        if (balance.compareTo(BigDecimal.ONE) >= 0) {
+            return balance.setScale(2, RoundingMode.HALF_UP);
+        }
+        return balance.stripTrailingZeros();
     }
 }
