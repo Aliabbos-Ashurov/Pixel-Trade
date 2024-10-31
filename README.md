@@ -1,4 +1,4 @@
-# Pixel Trade  ![Pixel Trade Logo](images/px1.png)
+# Pixel Trade
 
 Pixel Trade is a cryptocurrency trading platform designed to simplify and secure trading processes through comprehensive
 features like P2P trading, staking, wallet management, and transaction handling. The platform is developed with a focus
@@ -20,7 +20,6 @@ experience.
 - **Java**: Core language for backend logic.
 - **Spring Boot**: Framework for application configuration and dependency management.
 - **Spring Security**: Authentication and authorization support.
-- **REST & GraphQL**
 - **AWS SDK**: Integration with AWS for storage and compute.
 - **PostgreSQL**: Database for structured data storage.
 - **Liquibase**: Database migration and version control.
