@@ -30,7 +30,7 @@ public class WalletRestController {
 
     @GetMapping(value = "/get/me", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Response<WalletResponseDTO>> getWalletMe() {
-        return ResponseEntity.ok(walletService.findByUserId(sessionUser.id()));
+        return ResponseEntity.ok(walletService.getMe());
     }
 
     @GetMapping(value = "/get/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

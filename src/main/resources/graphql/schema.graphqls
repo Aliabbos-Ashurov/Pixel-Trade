@@ -1,0 +1,49 @@
+##############################################################
+
+type Query {
+    profile: User
+    existMail(mail: String!): Boolean!
+
+    getWalletMe: Wallet!
+}
+type User {
+    id: ID!
+    fullname: String
+    username: String!
+    email: String
+    phone: String
+    isPremium: Boolean
+    twoFactorEnabled: Boolean
+    notificationsEnabled: Boolean
+}
+
+type Mutation {
+    updatePassword(dto: UpdatePassword!): Boolean!
+}
+
+input UpdatePassword {
+    oldPassword: String!
+    newPassword: String!
+}
+##############################################################
+
+type Wallet {
+    id: ID!
+    balance: String
+    currencyType: String
+    address: String
+    level:String
+    cryptoAssets: [CryptoAsset]
+
+}
+
+type CryptoAsset {
+    id: ID!
+    amount: String
+    cryptoType: String
+    balance: String
+    perPrice: String
+    isLocked: Boolean
+    lockedReason: String
+}
+##############################################################

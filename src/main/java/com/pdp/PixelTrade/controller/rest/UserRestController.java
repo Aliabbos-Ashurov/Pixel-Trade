@@ -28,9 +28,8 @@ public class UserRestController {
     }
 
     @PutMapping(value = "/update/password")
-    public ResponseEntity<Void> updatePassword(@Valid @RequestBody UserUpdateDTO dto) {
-        userService.update(dto);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<Response<Boolean>> updatePassword(@Valid @RequestBody UserUpdateDTO dto) {
+        return ResponseEntity.ok(userService.update(dto));
     }
 
     @GetMapping("/exist-mail/{mail}")

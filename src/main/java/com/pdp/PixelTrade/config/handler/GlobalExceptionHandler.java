@@ -3,6 +3,7 @@ package com.pdp.PixelTrade.config.handler;
 import com.pdp.PixelTrade.dto.ErrorResponse;
 import com.pdp.PixelTrade.dto.Response;
 import com.pdp.PixelTrade.exceptions.BaseException;
+import graphql.GraphQLException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,6 +31,16 @@ public class GlobalExceptionHandler {
                 ex.getHttpStatus().value(),
                 errorResponse
         ), ex.getHttpStatus());
+    }
+
+    @ExceptionHandler(GraphQLException.class)
+    public Response<ErrorResponse> handleGraphQlException(GraphQLException ex, HttpServletRequest request) {
+        logException(ex, request);
+        var errorResponse = ErrorResponse.of("GRAPHQL_ERROR", ex.getMessage(), request.getRequestURI());
+        return Response.error(
+                400,
+                errorResponse
+        );
     }
 
     @ExceptionHandler(Exception.class)

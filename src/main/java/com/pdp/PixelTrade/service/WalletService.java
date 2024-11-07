@@ -1,5 +1,6 @@
 package com.pdp.PixelTrade.service;
 
+import com.pdp.PixelTrade.config.security.SessionUser;
 import com.pdp.PixelTrade.dto.Response;
 import com.pdp.PixelTrade.dto.transaction.response.WalletResponseDTO;
 import com.pdp.PixelTrade.entity.wallet.Wallet;
@@ -21,12 +22,20 @@ public class WalletService extends AbstractService<WalletRepository, WalletMappe
     @Lazy
     private final CryptoAssetService cryptoAssetService;
 
-    protected WalletService(WalletRepository repository, WalletMapper mapper, CryptoAssetService cryptoAssetService) {
+    private final SessionUser sessionUser;
+
+    protected WalletService(WalletRepository repository, WalletMapper mapper, CryptoAssetService cryptoAssetService, SessionUser sessionUser) {
         super(repository, mapper);
         this.cryptoAssetService = cryptoAssetService;
+        this.sessionUser = sessionUser;
     }
 
-    @Transactional
+
+    public Response<WalletResponseDTO> getMe() {
+        return findByUserId(sessionUser.id());
+    }
+
+
     public Response<WalletResponseDTO> findByUserId(Long userId) {
         var wallet = repository.findByUserId(userId)
                 .orElse(null);
