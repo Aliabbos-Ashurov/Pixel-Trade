@@ -67,6 +67,10 @@ public class CryptoAssetService extends AbstractService<CryptoAssetRepository, C
                 .toList());
     }
 
+    public List<CryptoAsset> findAllByWalletAddressEty(@NotNull String address) {
+        return repository.findAllByWalletAddress(address);
+    }
+
     public List<CryptoAssetResponseDTO> findAllByWalletAddress(@NotNull String address) {
         return sendWithPrice(repository.findAllByWalletAddress(address));
     }
