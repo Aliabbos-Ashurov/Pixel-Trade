@@ -5,6 +5,9 @@ type Query {
     existMail(mail: String!): Boolean!
 
     getWalletMe: Wallet!
+    getCryptoAsset(address: String!): [CryptoAsset]
+
+    token(dto: TokenRequest) : TokenResponse
 }
 type User {
     id: ID!
@@ -46,4 +49,22 @@ type CryptoAsset {
     isLocked: Boolean
     lockedReason: String
 }
+
+input TokenRequest {
+    username: String!
+    password: String!
+}
+
+type TokenResponse {
+    tokenType:String!
+    userId: Int!
+    access: Token!
+    refresh: Token!
+}
+
+type Token {
+    token: String!
+    expiresIn: Int!
+}
+
 ##############################################################
