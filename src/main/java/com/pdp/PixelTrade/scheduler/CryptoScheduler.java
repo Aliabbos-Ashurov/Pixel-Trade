@@ -23,7 +23,7 @@ public class CryptoScheduler {
     private final CryptoService cryptoService;
     private final BinanceService binanceService;
 
-    @Scheduled(cron = "10 1 * * * *")
+    @Scheduled(cron = "0 0/10 * * * *")
     public void updatePrices() {
         List<Crypto> cryptos = cryptoService.findAll();
         cryptos.forEach(crypto -> {
