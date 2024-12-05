@@ -33,7 +33,7 @@ public class Crypto extends Auditable {
     private Upload image;
 
     @DecimalMin("0.0")
-    @Column(nullable = false, precision = 18, scale = 2, columnDefinition = "NUMERIC DEFAULT 0.0")
+    @Column(nullable = false, precision = 18, scale = 8, columnDefinition = "NUMERIC(18,8) DEFAULT 0.0")
     private BigDecimal price;
 
     @DecimalMin("0.0")
