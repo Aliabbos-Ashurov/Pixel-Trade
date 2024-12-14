@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static com.pdp.PixelTrade.utils.HttpMethod._POST;
+
 /**
  * @author Aliabbos Ashurov
  * @since 02/October/2024  13:20
@@ -28,8 +30,8 @@ public class AuthRestController {
     private final TokenService tokenService;
     private final UserService userService;
 
-    @Operation(method = "POST",
-            description = "to get token through username & password",
+    @Operation(method = _POST,
+            summary = "to get token through username & password",
             responses = @ApiResponse(
                     responseCode = "200/201",
                     description = "success",
@@ -40,8 +42,8 @@ public class AuthRestController {
     }
 
     @Operation(
-            method = "POST",
-            description = "user can refresh token through refresh tokens",
+            method = _POST,
+            summary = "user can refresh token through refresh tokens",
             responses = @ApiResponse(
                     responseCode = "401",
                     description = "if jwt expired",
@@ -52,8 +54,8 @@ public class AuthRestController {
     }
 
     @Operation(
-            method = "POST",
-            description = "the way of getting first token",
+            method = _POST,
+            summary = "the way of getting first token",
             responses = @ApiResponse(
                     responseCode = "404",
                     description = "if user has not registered from otp yet"
