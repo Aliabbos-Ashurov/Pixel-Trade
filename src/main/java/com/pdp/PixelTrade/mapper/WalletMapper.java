@@ -5,10 +5,8 @@ import com.pdp.PixelTrade.dto.transaction.request.WalletUpdateDTO;
 import com.pdp.PixelTrade.dto.transaction.response.CryptoAssetResponseDTO;
 import com.pdp.PixelTrade.dto.transaction.response.WalletResponseDTO;
 import com.pdp.PixelTrade.entity.wallet.Wallet;
+import org.mapstruct.*;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingConstants;
-import org.mapstruct.Mappings;
 
 import java.util.List;
 
@@ -16,7 +14,7 @@ import java.util.List;
  * @author Aliabbos Ashurov
  * @since 05/October/2024  11:29
  **/
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE,componentModel = MappingConstants.ComponentModel.SPRING)
 public interface WalletMapper
         extends GenericMapper<Wallet, WalletResponseDTO, WalletCreateDTO, WalletUpdateDTO> {
 

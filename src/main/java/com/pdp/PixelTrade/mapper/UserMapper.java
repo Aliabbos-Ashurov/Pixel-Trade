@@ -7,12 +7,13 @@ import com.pdp.PixelTrade.dto.auth.UserUpdateDTO;
 import com.pdp.PixelTrade.entity.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
+import org.mapstruct.ReportingPolicy;
 
 /**
  * @author Aliabbos Ashurov
  * @since 02/October/2024  09:21
  **/
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE,componentModel = MappingConstants.ComponentModel.SPRING)
 public interface UserMapper
         extends GenericMapper<User, UserResponseDTO, UserCreateDTO, UserUpdateDTO> {
 

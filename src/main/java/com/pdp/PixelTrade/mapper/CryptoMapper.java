@@ -7,12 +7,13 @@ import com.pdp.PixelTrade.entity.Crypto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
+import org.mapstruct.ReportingPolicy;
 
 /**
  * @author Aliabbos Ashurov
  * @since 14/October/2024  12:33
  **/
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE,componentModel = MappingConstants.ComponentModel.SPRING)
 public interface CryptoMapper
         extends GenericMapper<Crypto, CryptoResponseDTO, CryptoCreateDTO, CryptoUpdateDTO> {
 

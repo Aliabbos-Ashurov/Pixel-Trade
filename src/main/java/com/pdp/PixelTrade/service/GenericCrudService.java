@@ -24,5 +24,4 @@ public interface GenericCrudService<
     Response<Boolean> update(@NotNull UD dto);
 
     Response<Boolean> delete(@NotNull ID id);
-
 }

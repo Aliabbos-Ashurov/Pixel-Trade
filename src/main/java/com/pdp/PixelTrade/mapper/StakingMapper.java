@@ -6,12 +6,13 @@ import com.pdp.PixelTrade.dto.transaction.response.StakingResponseDTO;
 import com.pdp.PixelTrade.entity.wallet.Staking;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
+import org.mapstruct.ReportingPolicy;
 
 /**
  * @author Aliabbos Ashurov
  * @since 22/October/2024  11:50
  **/
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE,componentModel = MappingConstants.ComponentModel.SPRING)
 public interface StakingMapper
         extends GenericMapper<Staking, StakingResponseDTO, StakingCreateDTO, StakingUpdateDTO> {
 }

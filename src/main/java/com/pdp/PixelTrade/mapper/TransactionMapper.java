@@ -5,16 +5,14 @@ import com.pdp.PixelTrade.dto.transaction.request.TransactionUpdateDTO;
 import com.pdp.PixelTrade.dto.transaction.response.TransactionResponseDTO;
 import com.pdp.PixelTrade.entity.wallet.Fee;
 import com.pdp.PixelTrade.entity.wallet.Transaction;
+import org.mapstruct.*;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingConstants;
-import org.mapstruct.Mappings;
 
 /**
  * @author Aliabbos Ashurov
  * @since 16/October/2024  15:43
  **/
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE,componentModel = MappingConstants.ComponentModel.SPRING)
 public interface TransactionMapper
         extends GenericMapper<Transaction, TransactionResponseDTO, TransactionCreateDTO, TransactionUpdateDTO> {
 

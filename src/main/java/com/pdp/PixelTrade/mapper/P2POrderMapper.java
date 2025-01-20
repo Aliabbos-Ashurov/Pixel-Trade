@@ -6,12 +6,13 @@ import com.pdp.PixelTrade.dto.transaction.response.P2POrderResponseDTO;
 import com.pdp.PixelTrade.entity.wallet.P2POrder;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
+import org.mapstruct.ReportingPolicy;
 
 /**
  * @author Aliabbos Ashurov
  * @since 19/October/2024  16:30
  **/
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE,componentModel = MappingConstants.ComponentModel.SPRING)
 public interface P2POrderMapper
         extends GenericMapper<P2POrder, P2POrderResponseDTO, P2POrderCreateDTO, P2POrderUpdateDTO> {
 }
