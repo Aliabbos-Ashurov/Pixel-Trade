@@ -14,7 +14,9 @@ spring:
     open-in-view: false
 
 project:
-  localhost: localhost
+  host: localhost
   log-mode: true
 server:
   port: 8080
+
+
