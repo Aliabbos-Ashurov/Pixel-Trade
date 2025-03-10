@@ -1,0 +1,28 @@
+openapi: 3.0.3
+info:
+  title: Sample API
+  version: 1.0.0
+paths:
+  /example:
+    post:
+      summary: Submit a MultiValueMap
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MultiValueMapExample'
+      responses:
+        '200':
+          description: Success
+components:
+  schemas:
+    MultiValueMapExample:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          type: string
+      example:
+        key1: ["value1", "value2"]
+        key2: ["value3"]
